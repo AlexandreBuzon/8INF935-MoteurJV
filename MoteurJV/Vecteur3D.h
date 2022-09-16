@@ -22,7 +22,7 @@ class Vecteur3D
 	//Méthode de calcul
 		Vecteur3D somme(Vecteur3D B);
 		Vecteur3D scalaire(double b);
-		Vecteur3D produitScalaire(Vecteur3D B);
+		double produitScalaire(Vecteur3D B);
 		Vecteur3D produirVectoriel(Vecteur3D B);
 };
 

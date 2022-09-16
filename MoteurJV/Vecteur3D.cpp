@@ -39,7 +39,7 @@ void Vecteur3D::afficher() {
 Vecteur3D Vecteur3D::somme(Vecteur3D B) {
 	Vecteur3D C;
 	double x, y, z;
-	x=this->getX() + B.getX();
+	x = this->getX() + B.getX();
 	y = this->getY() + B.getY();
 	z = this->getZ() + B.getZ();
 	C.setX(x);
@@ -48,3 +48,32 @@ Vecteur3D Vecteur3D::somme(Vecteur3D B) {
 	return C;
 }
 
+Vecteur3D Vecteur3D::scalaire(double b) {
+	Vecteur3D C;
+	double x, y, z;
+	x = this->getX() * b;
+	y = this->getY() * b;
+	z = this->getZ() * b;
+	C.setX(x);
+	C.setY(y);
+	C.setZ(z);
+	return C;
+}
+
+double Vecteur3D::produitScalaire(Vecteur3D B) {
+	double result;
+	result = this->getX() * B.getX() + this->getY() * B.getY() + this->getZ() * B.getZ();
+	return result;
+}
+
+Vecteur3D Vecteur3D::produirVectoriel(Vecteur3D B) {
+	Vecteur3D C;
+	double x, y, z;
+	x = this->getY() * B.getZ() - this->getZ() * B.getY();
+	y = this->getZ() * B.getX() - this->getX() * B.getZ();
+	z = this->getX() * B.getY() - this->getY() * B.getX();
+	C.setX(x);
+	C.setY(y);
+	C.setZ(z);
+	return C;
+}
