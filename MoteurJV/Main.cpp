@@ -8,10 +8,10 @@
 
 int main() {
 
-	Vecteur3D A;
-	A.setX(5);
-	A.setY(8);
-	A.setZ(9);
+	Vecteur3D A(1, 2, 3);
+	Vecteur3D B(4, 5, 6);
+	Vecteur3D C=A.somme(A);
+
 	A.afficher();
 
 	return 0;

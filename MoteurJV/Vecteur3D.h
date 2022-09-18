@@ -19,10 +19,16 @@ class Vecteur3D
 		double getZ();
 		void afficher();
 
+		
+		
+
 	//Méthode de calcul
+		Vecteur3D(double x, double y, double z);
 		Vecteur3D somme(Vecteur3D B);
 		Vecteur3D scalaire(double b);
 		double produitScalaire(Vecteur3D B);
-		Vecteur3D produirVectoriel(Vecteur3D B);
+		Vecteur3D produitVectoriel(Vecteur3D B);
+		double calculNorme();
+		Vecteur3D normalisation();
 };
 

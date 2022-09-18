@@ -7,7 +7,6 @@
 #include<iostream>
 
 using namespace std;
-
 void Vecteur3D::setX(double x) {
 	this->x = x;
 }
@@ -32,8 +31,13 @@ double Vecteur3D::getZ() {
 	return this->z;
 }
 
+Vecteur3D::Vecteur3D(double x=0, double y=0, double z=0) {
+	this->setX(x);
+	this->setY(y);
+	this->setZ(z);
+}
 void Vecteur3D::afficher() {
-	cout << "X : " << this->x << "Y : " << this->y << "Z : " << this->z << endl;
+	cout << "X : " << this->getX() << "Y : " << this->getY() << "Z : " << this->getZ() << endl;
 }
 
 Vecteur3D Vecteur3D::somme(Vecteur3D B) {
@@ -66,7 +70,7 @@ double Vecteur3D::produitScalaire(Vecteur3D B) {
 	return result;
 }
 
-Vecteur3D Vecteur3D::produirVectoriel(Vecteur3D B) {
+Vecteur3D Vecteur3D::produitVectoriel(Vecteur3D B) {
 	Vecteur3D C;
 	double x, y, z;
 	x = this->getY() * B.getZ() - this->getZ() * B.getY();
@@ -76,4 +80,20 @@ Vecteur3D Vecteur3D::produirVectoriel(Vecteur3D B) {
 	C.setY(y);
 	C.setZ(z);
 	return C;
+}
+
+double Vecteur3D::calculNorme() {
+	double result,x,y,z;
+	x = this->getX();
+	y = this->getY();
+	z = this->getZ();
+	result = sqrt(x * x + y * y + z * z);
+	return result;
+}
+
+Vecteur3D Vecteur3D::normalisation() {
+	double norme = this->calculNorme();
+	setX(this->getX() / norme);
+	setY(this->getY() / norme);
+	setZ(this->getZ() / norme);
 }
