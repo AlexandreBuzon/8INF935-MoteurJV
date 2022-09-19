@@ -18,17 +18,31 @@ Thibault Telitsine
 la compilation.
 */
 #pragma once
+#include "Vecteur3D.h"
+/*
+Pour les tableaux de nature autre que nos vecteurs3D :
+Liste de chaînes, triplets RGB, ect.
+
+Les types définis par la std sont plus flexibles et fiables
+que les structures C classiques.
+*/
+#include <string>
+#include <vector>
 
 class Particle
 {
 public:
 
-	//Pour déterminer la trajectoire.
-	Vecteur3D position;
-	Vecteur3D speed;
-	Vecteur3D acceleration;
+	/*
+	Pour déterminer la trajectoire.
+	On utilise les pointeurs pour accomoder la commande
+	delete dans le destructeur.
+	*/
+	Vecteur3D* position;
+	Vecteur3D* speed;
+	Vecteur3D* acceleration;
 
-//Fixé par sous-classe.
+//Devra être fixé par sous-classe.
 protected:
 
 	/*
@@ -58,7 +72,7 @@ protected:
 	-programmer dictionnaire des forces dans physicsEngine
 	-Exception si ça colle pas
 	*/
-	std::vector<string> appliedForces;
+	std::vector<std::string> appliedForces;
 
 	/*A FAIRE :
 	voir quel objet ImGui

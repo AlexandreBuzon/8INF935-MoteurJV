@@ -9,6 +9,10 @@ Thibault Telitsine
 //Mémo : pour optimiser la compilation.
 #pragma once
 
+#include "Particle.h"
+
+#include<vector>
+
 
 class PhysicsEngine
 {
@@ -43,7 +47,7 @@ public:
 	/*
 	Calcul des trajectoires à l'instant d'après.
 	*/
-	void calculate(vector<Particle>* p_particlePopulation,
+	void calculate(std::vector<Particle>* p_particlePopulation,
 		float tick, double time);
 
 private:
