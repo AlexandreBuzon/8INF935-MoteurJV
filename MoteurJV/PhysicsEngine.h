@@ -48,7 +48,7 @@ public:
 	Calcul des trajectoires à l'instant d'après.
 	*/
 	void calculate(std::vector<Particle>* p_particlePopulation,
-		float tick, double time);
+		float tick, double time, Vecteur3D bounds);
 
 private:
 
@@ -63,7 +63,7 @@ private:
 	L'axe définit la dimension où il y a dépassement.
 	Mémo : char => '' au lieu de "".
 	*/
-	void boundBounce(Particle* p_P, char axis);
+	void boundBounceCheck(Particle* p_P, Vecteur3D bounds);
 
 
 };

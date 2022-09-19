@@ -18,7 +18,9 @@ Thibault Telitsine
 la compilation.
 */
 #pragma once
+
 #include "Vecteur3D.h"
+
 /*
 Pour les tableaux de nature autre que nos vecteurs3D :
 Liste de chaînes, triplets RGB, ect.
@@ -39,8 +41,15 @@ public:
 	delete dans le destructeur.
 	*/
 	Vecteur3D* position;
-	Vecteur3D* speed;
+	Vecteur3D* velocity;
 	Vecteur3D* acceleration;
+
+	//METHODES
+
+	//Constructeur dans les sous-classes ?
+
+	//Destructeur
+	~Particle();
 
 //Devra être fixé par sous-classe.
 protected:
@@ -54,7 +63,7 @@ protected:
 	va avoir une vitesse initiale fixée par sa nature, 
 	plutôt que directement par sa déclaration.
 	*/
-	double spawnVelocity;
+	double spawnSpeed;
 
 	/*
 	Utile pour la gestion des forces auxquelles seront
@@ -78,12 +87,5 @@ protected:
 	voir quel objet ImGui
 	lié pour présentation graphique
 	*/
-
-	//METHODES
-	
-	//Constructeur dans les sous-classes ?
-
-	//Destructeur
-	~Particle();
 };
 
