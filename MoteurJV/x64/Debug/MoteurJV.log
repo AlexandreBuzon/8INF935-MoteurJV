@@ -1,48 +1,35 @@
 ﻿  Environment.cpp
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.h(15,11): error C3646: 'bounds' : spécificateur de substitution inconnu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.h(15,17): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.h(24,16): error C3646: 'engine' : spécificateur de substitution inconnu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.h(24,22): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.h(29,25): error C2061: erreur de syntaxe : identificateur 'physicsEngine'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(3,37): error C2061: erreur de syntaxe : identificateur 'physicsEngine'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(6,2): error C2065: 'engine' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(6,11): error C2065: 'e' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(7,2): error C2065: 'bounds' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(7,11): error C2065: 'b' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(14,9): error C2065: 'bounds' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(14,15): error C2541: 'delete' : impossible de détruire des objets qui ne sont pas des pointeurs
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(15,9): error C2065: 'engine' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Environment.cpp(15,15): error C2541: 'delete' : impossible de détruire des objets qui ne sont pas des pointeurs
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(3,37): error C2061: syntax error: identifier 'physicsEngine'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(4,1): error C2511: 'Environment::Environment(float)': overloaded member function not found in 'Environment'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(11): message : see declaration of 'Environment'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(5,2): error C2597: illegal reference to non-static member 'Environment::tick'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(24): message : see declaration of 'Environment::tick'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(6,11): error C2065: 'e': undeclared identifier
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(6,2): error C2597: illegal reference to non-static member 'Environment::engine'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(27): message : see declaration of 'Environment::engine'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(7,11): error C2065: 'b': undeclared identifier
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(7,2): error C2597: illegal reference to non-static member 'Environment::bounds'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(18): message : see declaration of 'Environment::bounds'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(8,2): error C2597: illegal reference to non-static member 'Environment::time'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(21): message : see declaration of 'Environment::time'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(14,15): error C2440: 'delete': cannot convert from 'Vecteur3D' to 'void*'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(14,9): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(15,15): error C2440: 'delete': cannot convert from 'PhysicsEngine' to 'void*'
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(15,9): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Main.cpp
   Particle.cpp
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(27,12): error C3646: 'position' : spécificateur de substitution inconnu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(27,20): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(28,12): error C3646: 'speed' : spécificateur de substitution inconnu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(28,17): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(29,12): error C3646: 'acceleration' : spécificateur de substitution inconnu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(29,24): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(61,7): error C2039: 'vector' n'est pas membre de 'std'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\predefined C++ types (compiler internal)(341): message : voir la déclaration de 'std'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(61,13): error C2143: erreur de syntaxe : absence de ';' avant '<'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(61,13): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.h(61,35): error C2238: jetons inattendus avant ';'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Particle.cpp(5,10): fatal error C1083: Impossible d'ouvrir le fichier include : 'Vector3D.h' : No such file or directory
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Particle.cpp(8,9): error C2065: 'speed': undeclared identifier
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Particle.cpp(8,14): error C2541: 'delete': cannot delete objects that are not pointers
   PhysicsEngine.cpp
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.h(46,17): error C2061: erreur de syntaxe : identificateur 'vector'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.h(55,24): error C2061: erreur de syntaxe : identificateur 'Particle'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.h(62,19): error C2061: erreur de syntaxe : identificateur 'Particle'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(19,41): error C2761: 'void PhysicsEngine::boundBounce(void)' : la redéclaration du membre n'est pas autorisée
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(19,33): error C2065: 'Particle' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(19,43): error C2065: 'p_P' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(19,48): error C2062: type 'char' inattendu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(20,1): error C2143: erreur de syntaxe : absence de ';' avant '{'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(20,1): error C2447: '{' : en-tête de fonction manquant (liste formelle à l'ancien format ?)
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(43,37): error C2761: 'void PhysicsEngine::calculate(void)' : la redéclaration du membre n'est pas autorisée
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(43,31): error C2065: 'vector' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(43,38): error C2065: 'Particle' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(43,49): error C2065: 'p_particlePopulation' : identificateur non déclaré
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(43,71): error C2062: type 'float' inattendu
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(44,1): error C2143: erreur de syntaxe : absence de ';' avant '{'
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(44,1): error C2447: '{' : en-tête de fonction manquant (liste formelle à l'ancien format ?)
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(30): error C2102: '&' requires l-value
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(33): error C2102: '&' requires l-value
   Vecteur3D.cpp
-  Génération de code en cours...
-C:\Users\caudr\Desktop\EL PROYECTO (Le PROJET)\8INF935-MoteurJV\MoteurJV\Vecteur3D.cpp(99): error C4716: 'Vecteur3D::normalisation' : doit retourner une valeur
+  Generating Code...
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Vecteur3D.cpp(99): error C4716: 'Vecteur3D::normalisation': must return a value
