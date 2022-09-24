@@ -1,6 +1,6 @@
 #include "Environment.h"
 
-Environment::Environment(float tck, physicsEngine e, Vector3D b)
+Environment::Environment(float tck, PhysicsEngine e, Vecteur3D b)
 {
 	tick = tck;
 	engine = e;
@@ -11,8 +11,8 @@ Environment::Environment(float tck, physicsEngine e, Vector3D b)
 Environment::~Environment()
 {
 	//Nettoyage de la mémoire allouée.
-	delete bounds;
-	delete engine;
+	delete &bounds;
+	delete &engine;
 }
 
 void Environment::play()
