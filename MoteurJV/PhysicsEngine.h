@@ -26,19 +26,12 @@ public:
 	//Constante d'accélération de la pesanteur.
 	float g;
 
-	//Constante d'Archimède (pour flottaison)
-	/*
-	Pas sûr qu'on s'en serve vraiment puisqu'il faudrait
-	définir l'eau en tant que région de l'espace. C'est
-	juste à titre conceptuel.
-	*/
-	float cArchimede;
-
 	//A faire : dictionnaire de forces.
 
 	//METHODES
 
-	//Constructeur
+	//Constructeurs
+	PhysicsEngine();
 	PhysicsEngine(float G);
 
 	//Destructeur
@@ -48,15 +41,14 @@ public:
 	Calcul des trajectoires à l'instant d'après.
 	*/
 	void calculate(std::vector<Particle>* p_particlePopulation,
-		float tick, double time, Vecteur3D bounds);
+		double tick, double time, Vecteur3D bounds);
 
 private:
 
 	/*
-	Calcul des nouveaux vecteurs d'une particule
-	à partir des forces.
+	Calcul des nouveaux vecteurs d'une particule par intégration.
 	*/
-	void newParticleState(Particle* p_P, float tick);
+	void newParticleState(Particle* p_P, double tick);
 
 	/*
 	Ricochet de particule par réflexion par rapport à la limite atteinte.

@@ -38,18 +38,18 @@ public:
 	/*
 	Pour déterminer la trajectoire.
 	On utilise les pointeurs pour accomoder la commande
-	delete dans le destructeur.
+	delete du destructeur.
 	*/
 	Vecteur3D* position;
 	Vecteur3D* velocity;
 	Vecteur3D* acceleration;
 
-	//METHODES
-
-	//Constructeur dans les sous-classes ?
+	//METHODE
 
 	//Destructeur
 	~Particle();
+
+	//Ajout/retrait de forces en partie 2.
 
 //Devra être fixé par sous-classe.
 protected:
@@ -72,20 +72,17 @@ protected:
 	double inverseMass;
 
 	/*
-	Les forces que subit la particule.
+	Les noms des forces que subit la particule.
 
 	Ainsi, la particule peut ignorer des forces, voire
 	en être complètement isolé.
+	On laisse alors la liberté au développeur d'associer
+	forces à particules comme bon lui semble.
 
 	A FAIRE :
 	-programmer dictionnaire des forces dans physicsEngine
-	-Exception si ça colle pas
+	-Exception si ça colle pas.
 	*/
 	std::vector<std::string> appliedForces;
-
-	/*A FAIRE :
-	voir quel objet ImGui
-	lié pour présentation graphique
-	*/
 };
 

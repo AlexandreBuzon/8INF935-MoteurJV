@@ -1,12 +1,14 @@
 /*
 * Auteur : Caudron Benoît
-* Date de modification : 16/09/2022
+* Date de création : 16/09/2022
 */
 
 #include "Vecteur3D.h"
 #include<iostream>
 
 using namespace std;
+
+
 void Vecteur3D::setX(double x) {
 	this->x = x;
 }
@@ -31,58 +33,72 @@ double Vecteur3D::getZ() {
 	return this->z;
 }
 
-Vecteur3D::Vecteur3D(double x=0, double y=0, double z=0) {
+//Constructeurs
+Vecteur3D::Vecteur3D() {
+
+	x = 0;
+	y = 0;
+	z = 0;
+
+}
+
+Vecteur3D::Vecteur3D(double x, double y, double z) {
+
 	this->setX(x);
 	this->setY(y);
 	this->setZ(z);
-}
-void Vecteur3D::afficher() {
-	cout << "X : " << this->getX() << "Y : " << this->getY() << "Z : " << this->getZ() << endl;
+
 }
 
-Vecteur3D Vecteur3D::somme(Vecteur3D B) {
+//Simple affichage en console.
+void Vecteur3D::display() {
+	cout << "X : " << this->getX() << " Y : " << this->getY() << " Z : " << this->getZ() << endl;
+}
+
+//Somme.
+Vecteur3D Vecteur3D::operator +(const Vecteur3D &B) {
 	Vecteur3D C;
-	double x, y, z;
-	x = this->getX() + B.getX();
-	y = this->getY() + B.getY();
-	z = this->getZ() + B.getZ();
-	C.setX(x);
-	C.setY(y);
-	C.setZ(z);
+	
+	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	C.x = x + B.x;
+	C.y = y + B.y;
+	C.z = z + B.z;
+
 	return C;
 }
 
-Vecteur3D Vecteur3D::scalaire(double b) {
+//Multiplication par scalaire.
+//Attention, écrire "vecteur point scalaire" pour que ça marche.
+Vecteur3D Vecteur3D::operator *(const double& b) const {
 	Vecteur3D C;
-	double x, y, z;
-	x = this->getX() * b;
-	y = this->getY() * b;
-	z = this->getZ() * b;
-	C.setX(x);
-	C.setY(y);
-	C.setZ(z);
+	
+	C.x = b * x;
+	C.y = b * y;
+	C.z = b * z;
+
 	return C;
 }
 
-double Vecteur3D::produitScalaire(Vecteur3D B) {
-	double result;
-	result = this->getX() * B.getX() + this->getY() * B.getY() + this->getZ() * B.getZ();
+//Produit scalaire pas saturation de l'opérateur *.
+double Vecteur3D::operator *(Vecteur3D &B) {
+
+	double result = x * B.x + y * B.y + z * B.z;
+
 	return result;
 }
 
-Vecteur3D Vecteur3D::produitVectoriel(Vecteur3D B) {
+//Produit vectoriel. Défini en sens direct.
+Vecteur3D Vecteur3D::operator ^(Vecteur3D &B) {
+
 	Vecteur3D C;
-	double x, y, z;
-	x = this->getY() * B.getZ() - this->getZ() * B.getY();
-	y = this->getZ() * B.getX() - this->getX() * B.getZ();
-	z = this->getX() * B.getY() - this->getY() * B.getX();
-	C.setX(x);
-	C.setY(y);
-	C.setZ(z);
+	C.x = y * B.z - z * B.y;
+	C.y = z * B.x - x * B.z;
+	C.z = x * B.y - y * B.x;
 	return C;
 }
 
-double Vecteur3D::calculNorme() {
+//Norme euclidienne.
+double Vecteur3D::norm() {
 	double result,x,y,z;
 	x = this->getX();
 	y = this->getY();
@@ -91,9 +107,14 @@ double Vecteur3D::calculNorme() {
 	return result;
 }
 
-Vecteur3D Vecteur3D::normalisation() {
-	double norme = this->calculNorme();
-	setX(this->getX() / norme);
-	setY(this->getY() / norme);
-	setZ(this->getZ() / norme);
+//Vecteur unitaire de direction égale à celle de l'objet.
+Vecteur3D Vecteur3D::normalize() {
+
+	Vecteur3D C;
+
+	double normeInverse= 1/this->norm();
+
+	C = *this * normeInverse;
+
+	return C;
 }

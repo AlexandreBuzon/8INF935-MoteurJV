@@ -1,12 +1,16 @@
 #include "PhysicsEngine.h"
 
 
-//Constructeur
+//Constructeurs
+PhysicsEngine::PhysicsEngine() {
+
+	g = 10;
+
+}
+
 PhysicsEngine::PhysicsEngine(float G)
 {
 	g = G;
-	//On se passera de construire la constante d'archimède. Sujet au changement.
-	cArchimede = 0;
 }
 
 //Destructeur
@@ -20,24 +24,27 @@ Calcul des nouveaux vecteurs d'une particule
 En ce moment cinématique, et pas plus. L'ajout des forces
 est pour le rendu 2.
 */
-void PhysicsEngine::newParticleState(Particle* p_P, float tick)
+void PhysicsEngine::newParticleState(Particle* p_P, double tick)
 {
 	//EXCEPTION à construire : masse infinie.
 
-	//Calc accel : dico forces.
+	//Calc accel : dictionnaire forces. Partie 2.
 
 	// 1. Calcul de la position à partir de la vélocité :
-	p_P->position = &p_P->position->somme(p_P->velocity->scalaire(tick));
+	*p_P->position = *p_P->position+*p_P->velocity*tick;
 
 	// 2. Calcul de la vélocité à partir de l'accélération :
-	p_P->velocity = &p_P->velocity->somme(p_P->acceleration->scalaire(tick));
+	*p_P->velocity = *p_P->velocity + *p_P->acceleration * tick;
 
 }
 
 
 /*
+* Méthode placeholder pour garder la particule dans un cadre fermé.
+* 
 Ricochet de particule par réflexion par rapport à la limite atteinte.
 L'axe définit la dimension où il y a dépassement.
+
 Mémo : char => '' au lieu de "".
 */
 void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
@@ -69,7 +76,7 @@ Calcul des trajectoires à l'instant d'après.
 
 Utilisation d'un pointeur pour la population afin de modifier chaque particule.
 */
-void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, float tick, double time, Vecteur3D bounds)
+void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, double tick, double time, Vecteur3D bounds)
 {
 	//Parcours de ce qui est pointé.
 	for (auto P : *p_particlePopulation) {
@@ -77,9 +84,9 @@ void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, float
 		
 		/*
 		D'abord le déplacement, puis la collision.
-		Les particules construites doivent être de toutes façon dans les limites au tout départ.
+		Les particules construites doivent être de toutes façons dans les limites au tout départ.
 
-		Alterner entre objet et adresse semble un peu maladroit, ceci dit.
+		Alterner entre objet et adresse fait un peu maladroit, ceci dit.
 		*/
 		newParticleState(&P, tick);
 		boundBounceCheck(&P, bounds);
