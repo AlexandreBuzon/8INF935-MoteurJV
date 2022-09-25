@@ -17,8 +17,6 @@ Thibault Telitsine
 class PhysicsEngine
 {
 
-	//A FAIRE : friend dans Vector3D.
-
 public:
 
 	//ATTRIBUTS
@@ -26,7 +24,7 @@ public:
 	//Constante d'accélération de la pesanteur.
 	float g;
 
-	//A faire : dictionnaire de forces.
+	//A faire : dictionnaire de forces pour partie 2 ?
 
 	//METHODES
 
@@ -41,7 +39,7 @@ public:
 	Calcul des trajectoires à l'instant d'après.
 	*/
 	void calculate(std::vector<Particle>* p_particlePopulation,
-		double tick, double time, Vecteur3D bounds);
+		double tick, Vecteur3D bounds);
 
 private:
 
@@ -51,9 +49,11 @@ private:
 	void newParticleState(Particle* p_P, double tick);
 
 	/*
-	Ricochet de particule par réflexion par rapport à la limite atteinte.
-	L'axe définit la dimension où il y a dépassement.
+	Ricochet de particule par réflexion par rapport aux limites atteintes.
 	Mémo : char => '' au lieu de "".
+
+	Méthode placeholder pour garder la particule en place. Sera probablement
+	remplacée ou généralisée lors du travail sur les collisions.
 	*/
 	void boundBounceCheck(Particle* p_P, Vecteur3D bounds);
 

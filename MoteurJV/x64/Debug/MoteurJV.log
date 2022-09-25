@@ -1,2 +1,6 @@
-﻿  Main.cpp
+﻿  Environment.cpp
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.h(15,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Main.cpp
+  PhysicsEngine.cpp
+  Generating Code...
   MoteurJV.vcxproj -> h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\MoteurJV.exe

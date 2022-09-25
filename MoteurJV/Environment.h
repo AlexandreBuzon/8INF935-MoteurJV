@@ -11,6 +11,10 @@ Définit les particules existantes et les coordonnées limites.
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 
+//Mesure de temps pour la boucle de raffraichissement.
+#include <chrono>;
+using namespace std::chrono;
+
 #pragma once
 class Environment
 {
@@ -21,10 +25,9 @@ public:
 	//Les limites en un vecteur.
 	Vecteur3D bounds;
 
-	//Mesure du temps.
-	double time;
+	
 
-	//Le pas de mesure en deux instants.
+	//Le pas de mesure entre deux instants.
 	double tick;
 
 	//Population de particules.
@@ -36,7 +39,8 @@ public:
 	//METHODES
 
 	//Constructeur
-	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b, std::vector<Particle> particlePopulation);
+	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
+		std::vector<Particle> particlePopulation);
 
 	//Destructeur
 	~Environment();

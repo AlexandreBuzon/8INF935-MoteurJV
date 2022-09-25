@@ -76,7 +76,7 @@ Calcul des trajectoires à l'instant d'après.
 
 Utilisation d'un pointeur pour la population afin de modifier chaque particule.
 */
-void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, double tick, double time, Vecteur3D bounds)
+void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, double tick, Vecteur3D bounds)
 {
 	//Parcours de ce qui est pointé.
 	for (auto P : *p_particlePopulation) {
@@ -94,3 +94,12 @@ void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, doubl
 
 	}
 }
+
+/*
+Interpolation des positions.
+
+La boucle de raffraichissement s'execute de telle sorte
+qu'il y a souvent un décalage léger entre réalité et physique.
+
+l'interpolation
+*/
