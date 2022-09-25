@@ -8,7 +8,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include"shaderClass.h"
+#include"VAO.h"
+#include"VBO.h"
+#include"EBO.h"
+/*
 //Code source de shaders élémentaires pour représenter des points.
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
@@ -24,7 +28,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "{\n"
 "   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
 "}\n\0";
-
+*/
 int main()
 {
 	// Initialize GLFW
@@ -56,6 +60,46 @@ int main()
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, 800, 800);
 
+	// Generates Shader object using shaders default.vert and default.frag
+	Shader shaderProgram("default.vert", "default.frag");
+
+	// Vertices coordinates
+	GLfloat vertices[] =
+	{
+		-0.5f, -0.5f, 0.0f, // Lower left corner
+		-0.5f, 0.5f, 0.0f, // Lower right corner
+		0.5f, -0.5f, 0.0f, // Upper corner
+		0.5f, 0.5f, 0.0f
+	};
+
+	GLuint indexes[] = {
+
+		0,1,2,
+		3,1,2
+
+	};
+
+
+	// Generates Vertex Array Object and binds it
+	VAO VAO1;
+	VAO1.Bind();
+
+	// Generates Vertex Buffer Object and links it to vertices
+	VBO VBO1(vertices, sizeof(vertices));
+	// Generates Element Buffer Object and links it to indices
+	EBO EBO1(indexes, sizeof(indexes));
+
+	// Links VBO attributes such as coordinates and colors to VAO
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	// Unbind all to prevent accidentally modifying them
+	VAO1.Unbind();
+	VBO1.Unbind();
+	EBO1.Unbind();
+
+	// Gets ID of uniform called "scale"
+	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 
 	// Create Vertex Shader Object and get its reference
@@ -83,24 +127,6 @@ int main()
 	// Delete the now useless Vertex and Fragment Shader objects
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-
-
-
-	// Vertices coordinates
-	GLfloat vertices[] =
-	{
-		-0.5f, -0.5f, 0.0f, // Lower left corner
-		-0.5f, 0.5f, 0.0f, // Lower right corner
-		0.5f, -0.5f, 0.0f, // Upper corner
-		0.5f, 0.5f, 0.0f
-	};
-
-	GLuint indexes[] = {
-	
-		0,1,2,
-		3,1,2
-	
-	};
 
 	// Create reference containers for the Vartex Array Object and the Vertex Buffer Object
 	GLuint VAO, VBO, EBO;
@@ -140,7 +166,7 @@ int main()
 		// Clean the back buffer and assign the new color to it
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Tell OpenGL which Shader Program we want to use
-		glUseProgram(shaderProgram);
+		shaderProgram.Activate();
 		// Bind the VAO so OpenGL knows to use it
 		glBindVertexArray(VAO);
 		// Draw the triangle using the GL_TRIANGLES primitive
