@@ -14,7 +14,7 @@ private:
     //Inutile ici, car soumis à aucune force.
     const double inverseMass = -1;
 
-    const double spawnSpeed = 45;
+    const double spawnSpeed = 1.0;
 
     std::vector<std::string> appliedForce = {};
 

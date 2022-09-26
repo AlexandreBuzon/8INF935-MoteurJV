@@ -50,25 +50,47 @@ Mémo : char => '' au lieu de "".
 void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 {
 	//Vérification de collision avec les limites.
+    //Limites selon Ox.
+    if (p_P->position->getX() < 0) {
 
-	//Limites selon Ox.
-	if ((p_P->position->getX() <= 0) || (p_P->position->getX() >= bounds.getX())) {
+        p_P->position->setX(0);
+        p_P->velocity->setX(-p_P->velocity->getX());
+        p_P->acceleration->setX(-p_P->acceleration->getX());
+    }
+    if (p_P->position->getX() > bounds.getX()) {
 
-		p_P->position->setX(-p_P->position->getX());
+        p_P->position->setX(bounds.getX());
+        p_P->velocity->setX(-p_P->velocity->getX());
+        p_P->acceleration->setX(-p_P->acceleration->getX());
+    }
+    //Selon Oy.
+    if (p_P->position->getY() < 0) {
 
-	}
-	//Selon Oy.
-	if ((p_P->position->getY() <= 0) || (p_P->position->getY() >= bounds.getY())) {
+        p_P->position->setY(0);
+        p_P->velocity->setY(-p_P->velocity->getY());
+        p_P->acceleration->setY(-p_P->acceleration->getY());
+    }
+    if (p_P->position->getY() > bounds.getY()) {
 
-		p_P->position->setY(-p_P->position->getY());
+        p_P->position->setY(bounds.getY());
+        p_P->velocity->setY(-p_P->velocity->getY());
+        p_P->acceleration->setY(-p_P->acceleration->getY());
 
-	}
-	//Selon Oz.
-	if ((p_P->position->getZ() <= 0) || (p_P->position->getZ() >= bounds.getZ())) {
+    }
+    //Selon Oz.
+    if (p_P->position->getZ() < 0) {
 
-		p_P->position->setZ(-p_P->position->getZ());
+        p_P->position->setZ(0);
+        p_P->velocity->setZ(-p_P->velocity->getZ());
+        p_P->acceleration->setZ(-p_P->acceleration->getZ());
+    }
+    if (p_P->position->getY() > bounds.getZ()) {
 
-	}
+        p_P->position->setZ(bounds.getZ());
+        p_P->velocity->setZ(-p_P->velocity->getZ());
+        p_P->acceleration->setZ(-p_P->acceleration->getZ());
+
+    }
 }
 
 /*

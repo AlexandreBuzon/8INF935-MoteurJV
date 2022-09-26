@@ -42,7 +42,7 @@ void Environment::play()
 	//Fireball ici.
 	Fireball fireB = Fireball(50,50,50,25,2,10);
 	particlePopulation.push_back(fireB);
-	// Vertices coordinates
+	// Coordonnées des Vertices
 	GLfloat vertices[] =
 	{ // sur une ligne : x, y, z, R, V, B
 		-0.1f, -0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -51,7 +51,7 @@ void Environment::play()
 		0.1f, 0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
 	};
 
-	// Indices for vertices order
+	// Indices pour l'ordre des vertices
 	GLuint indices[] =
 	{
 		0,1,2,
@@ -59,59 +59,59 @@ void Environment::play()
 	};
 
 
-	// Initialize GLFW
+	// Initialisation GLFW
 	glfwInit();
 
-	// Tell GLFW what version of OpenGL we are using 
-	// In this case we are using OpenGL 3.3
+	// Dit à GLFW quelle version de OpenGL nous utilisons
+	// Dans notre cas on utilise OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	// Tell GLFW we are using the CORE profile
-	// So that means we only have the modern functions
+	// Dit à GLFW que nous utilisons le CORE profile
+	// Donc nous n'avons besoin que des fonctions modernes
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
-	GLFWwindow* window = glfwCreateWindow(800, 800, "YoutubeOpenGL", NULL, NULL);
-	// Error check if the window fails to create
+	// Crée un objet GLFWwindow de 1000 par 1000 pixels
+	GLFWwindow* window = glfwCreateWindow(1000, 1000, "MoteurJV OpenGL", NULL, NULL);
+	// Erreur si la fenêtre n'arrive pas à se créer
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 	}
-	// Introduce the window into the current context
+	// met la fenêtre dans le context courrant
 	glfwMakeContextCurrent(window);
 
-	//Load GLAD so it configures OpenGL
+	//Charge GLAD pour configurer OpenGL
 	gladLoadGL();
-	// Specify the viewport of OpenGL in the Window
-	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
+	// Specifie le viewport de OpenGL dans la fenêtre que nous avons créer
+	// Dans notre cas le viewport vas de x = 0, y = 0, jusqu'à x = 800, y = 800
 	glViewport(0, 0, 800, 800);
 
 
 
-	// Generates Shader object using shaders defualt.vert and default.frag
+	// Génère les objets Shader en utilisant le code dans defualt.vert et default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 
 
 
-	// Generates Vertex Array Object and binds it
+	// Génère un tableau d'objets Vertex et les assembles
 	VAO VAO1;
 	VAO1.Bind();
 
-	// Generates Vertex Buffer Object and links it to vertices
+	// Génère un buffer d'objets Vertex et les lie aux vertices
 	VBO VBO1(vertices, sizeof(vertices));
-	// Generates Element Buffer Object and links it to indices
+	// Génère un buffer d'objet Element et les lie aux indices
 	EBO EBO1(indices, sizeof(indices));
 
-	// Links VBO attributes such as coordinates and colors to VAO
+	// lie les attributs VBO comme des coordoner et des couleurs à VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	// Unbind all to prevent accidentally modifying them
+	// délie tous pour éviter un accident en les modifiants
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// Gets ID of uniform called "scale"
+	// récuppère l'ID uniforme appelé "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 	//Initialisation du temps.
@@ -148,6 +148,7 @@ void Environment::play()
 		}
 
 		newTime = currentTime;
+		particlePopulation.front().position->display();
 
 		/*
 		Itérateur limite pour éviter un cercle vicieux de
@@ -217,7 +218,6 @@ void Environment::play()
 		}
 
 		while (
-
 			duration_cast<duration<double>>(high_resolution_clock::now() - currentTime).count()
 			< tick) {
 
@@ -226,45 +226,45 @@ void Environment::play()
 
 
 		//Mise à jour graphique.
-				// Specify the color of the background
+				// Specifie la couleur du background
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		// Clean the back buffer and assign the new color to it
+		// efface le buffer noir et asigne la nouvelle couleur
 		glClear(GL_COLOR_BUFFER_BIT);
-		// Tell OpenGL which Shader Program we want to use
+		// Donne à OpenGL quelle Shader Program nous voulons utiliser
 		shaderProgram.Activate();
 
 		glm::mat4 model = glm::mat4(1.0f);
 
 		//Changement de coordonnées par vecteurs.
-		model = glm::translate(model, glm::vec3(1.0f*(particlePopulation.front().position->getX()-50)/100,
-			1.0f* (particlePopulation.front().position->getY()-50)/100,
-			1.0f* (particlePopulation.front().position->getZ()-50)/100));
+		model = glm::translate(model, glm::vec3(1.0f*(particlePopulation.front().position->getX()-50)/1000,
+			1.0f* (particlePopulation.front().position->getY()-50)/1000,
+			1.0f* (particlePopulation.front().position->getZ()-50)/1000));
 
 		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-		// Assigns a value to the uniform; NOTE: Must always be done after activating the Shader Program
+		// Assigne une valeur à l'uniform; NOTE: Doit toujours être fait après avoir activer le Shader Program
 		glUniform1f(uniID, 0.5f);
-		// Bind the VAO so OpenGL knows to use it
+		// Assemble le VAO pour que OpenGL puisse l'utiliser
 		VAO1.Bind();
-		// Draw primitives, number of indices, datatype of indices, index of indices
+		// Dessine des primitives, nombre d'indices, datatype des indices, index des indices
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		// Swap the back buffer with the front buffer
+		// échange les 2 buffer (avant et arrière) afin qu'il s'alterne
 		glfwSwapBuffers(window);
-		// Take care of all GLFW events
+		// Vérifie tous les événement GLFW
 		glfwPollEvents();
 
 	}
 
 	//Détruit Fireball.
 	//delete& fireB;
-	// Delete all the objects we've created
+	//Détruit tous les objets que nous avons créés
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
 	shaderProgram.Delete();
-	// Delete window before ending the program
+	// Détruit la fenêtre avant de fermer le programe
 	glfwDestroyWindow(window);
-	// Terminate GLFW before ending the program
+	// Termine les actions de GLFW avant la fin du programe
 	glfwTerminate();
 }
