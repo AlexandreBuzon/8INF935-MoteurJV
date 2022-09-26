@@ -13,12 +13,12 @@
 #include "Particle.h"
 
 Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
-	std::vector<Particle> pPopulation)
+	std::vector<Particle*> *pPopulation)
 {
 	tick = tck;
 	engine = e;
 	bounds = Vecteur3D(x_b,y_b,z_b);
-	particlePopulation = pPopulation;
+	particlePopulation = *pPopulation;
 }
 
 Environment::~Environment()
@@ -28,7 +28,7 @@ Environment::~Environment()
 	delete &engine;
 
 	//"Echange" avec un vecteur vide pour libérer la mémoire.
-	std::vector<Particle>().swap(particlePopulation);
+	std::vector<Particle*>().swap(particlePopulation);
 }
 
 void Environment::play()
@@ -40,8 +40,8 @@ void Environment::play()
 	*/
 
 	//Fireball ici.
-	Fireball fireB = Fireball(50,50,50,25,2,10);
-	particlePopulation.push_back(fireB);
+	//Fireball fireB = Fireball(50,50,50,25,2,10);
+	//particlePopulation.push_back(fireB);
 	// Coordonnées des Vertices
 	GLfloat vertices[] =
 	{ // sur une ligne : x, y, z, R, V, B
@@ -148,7 +148,7 @@ void Environment::play()
 		}
 
 		newTime = currentTime;
-		particlePopulation.front().position->display();
+		particlePopulation.front()->position->display();
 
 		/*
 		Itérateur limite pour éviter un cercle vicieux de
@@ -194,7 +194,7 @@ void Environment::play()
 			*/
 			if (deltaTime > tick) {
 
-				engine.calculate(&particlePopulation.front(), tick, bounds);
+				engine.calculate(particlePopulation.front(), tick, bounds);
 
 				deltaTime -= tick;
 				i++;
@@ -210,7 +210,7 @@ void Environment::play()
 			*/
 			else {
 
-				engine.calculate(&particlePopulation.front(), deltaTime, bounds);
+				engine.calculate(particlePopulation.front(), deltaTime, bounds);
 				deltaTime = 0;
 
 			}
@@ -236,9 +236,9 @@ void Environment::play()
 		glm::mat4 model = glm::mat4(1.0f);
 
 		//Changement de coordonnées par vecteurs.
-		model = glm::translate(model, glm::vec3(1.0f*(particlePopulation.front().position->getX()-50)/1000,
-			1.0f* (particlePopulation.front().position->getY()-50)/1000,
-			1.0f* (particlePopulation.front().position->getZ()-50)/1000));
+		model = glm::translate(model, glm::vec3(1.0f*(particlePopulation.front()->position->getX()-50)/1000,
+			1.0f* (particlePopulation.front()->position->getY()-50)/1000,
+			1.0f* (particlePopulation.front()->position->getZ()-50)/1000));
 
 		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

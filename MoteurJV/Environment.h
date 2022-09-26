@@ -31,7 +31,7 @@ public:
 	double tick;
 
 	//Population de particules.
-	std::vector<Particle> particlePopulation;
+	std::vector<Particle*> particlePopulation;
 
 	//Moteur physique utilisé.
 	PhysicsEngine engine;
@@ -40,7 +40,7 @@ public:
 
 	//Constructeur
 	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
-		std::vector<Particle> particlePopulation);
+		std::vector<Particle*> *particlePopulation);
 
 	//Destructeur
 	~Environment();
