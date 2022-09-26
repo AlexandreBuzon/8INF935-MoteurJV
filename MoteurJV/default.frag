@@ -1,10 +1,10 @@
 #version 330 core
 
-// Outputs colors in RGBA
+// Sortie des couleurs en RGBA
 out vec4 FragColor;
 
 
-// Inputs the color from the Vertex Shader
+// Entrée des couleur depuis les Vertex Shader
 in vec3 color;
 
 

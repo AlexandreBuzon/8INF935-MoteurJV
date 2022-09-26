@@ -1,14 +1,14 @@
 #version 330 core
 
-//Positions/Coordinates
+//Positions/Coordonnées
 layout (location = 0) in vec3 aPos;
-// Colors
+// Couleurs
 layout (location = 1) in vec3 aColor;
 
 
-// Outputs the color for the Fragment Shader
+// Sortie des couleurs pour le Fragment Shader
 out vec3 color;
-// Controls the scale of the vertices
+// Controle le scale des vertices
 uniform float scale;
 
 
@@ -16,8 +16,8 @@ uniform mat4 model;
 
 void main()
 {
-	// Outputs the positions/coordinates of all vertices
+	// Sortie des positions/coordonnées de tous les vertices
 	gl_Position = model * vec4(aPos, 1.0);
-	// Assigns the colors from the Vertex Data to "color"
+	// Assigne les couleurs depuis le Vertex Data au "color"
 	color = aColor;
 }

@@ -6,16 +6,16 @@
 class VBO
 {
 public:
-	// Reference ID of the Vertex Buffer Object
+	// ID pointeur (généralement l'intérêt des GLuint).
 	GLuint ID;
-	// Constructor that generates a Vertex Buffer Object and links it to vertices
+	// Constructeur de VBO. Fonctionne par reliure à un tableau de point.
 	VBO(GLfloat* vertices, GLsizeiptr size);
 
-	// Binds the VBO
+	// Connexion au contexte.
 	void Bind();
-	// Unbinds the VBO
+	// Déconnexion du contexte
 	void Unbind();
-	// Deletes the VBO
+	// Destructeur
 	void Delete();
 };
 

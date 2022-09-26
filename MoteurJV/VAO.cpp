@@ -1,12 +1,12 @@
 #include"VAO.h"
 
-// Constructor that generates a VAO ID
+// Constructeur
 VAO::VAO()
 {
 	glGenVertexArrays(1, &ID);
 }
 
-// Links a VBO Attribute such as a position or color to the VAO
+// Reliure des propriétés de la VAO à une Vertice Buffer Object pour représentation.
 void VAO::LinkAttrib(VBO& VBO, GLuint layout, GLuint numComponents, GLenum type, GLsizeiptr stride, void* offset)
 {
 	VBO.Bind();
@@ -15,19 +15,19 @@ void VAO::LinkAttrib(VBO& VBO, GLuint layout, GLuint numComponents, GLenum type,
 	VBO.Unbind();
 }
 
-// Binds the VAO
+// Connexion au contexte.
 void VAO::Bind()
 {
 	glBindVertexArray(ID);
 }
 
-// Unbinds the VAO
+// Déconnexion.
 void VAO::Unbind()
 {
 	glBindVertexArray(0);
 }
 
-// Deletes the VAO
+// Destructeur.
 void VAO::Delete()
 {
 	glDeleteVertexArrays(1, &ID);

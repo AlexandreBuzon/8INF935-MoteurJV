@@ -1,6 +1,6 @@
 #include"EBO.h"
 
-// Constructor that generates a Elements Buffer Object and links it to indices
+// Constructeur
 EBO::EBO(GLuint* indices, GLsizeiptr size)
 {
 	glGenBuffers(1, &ID);
@@ -8,19 +8,19 @@ EBO::EBO(GLuint* indices, GLsizeiptr size)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
-// Binds the EBO
+// Connexion au contexte pour son utilisation.
 void EBO::Bind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);
 }
 
-// Unbinds the EBO
+// Déconnexion au contexte
 void EBO::Unbind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-// Deletes the EBO
+// Destructeur
 void EBO::Delete()
 {
 	glDeleteBuffers(1, &ID);
