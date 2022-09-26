@@ -76,10 +76,10 @@ Calcul des trajectoires à l'instant d'après.
 
 Utilisation d'un pointeur pour la population afin de modifier chaque particule.
 */
-void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, double tick, Vecteur3D bounds)
+void PhysicsEngine::calculate(Particle* P, double tick, Vecteur3D bounds)
 {
 	//Parcours de ce qui est pointé.
-	for (auto P : *p_particlePopulation) {
+	//for (auto P : *p_particlePopulation) {
 
 		
 		/*
@@ -88,11 +88,11 @@ void PhysicsEngine::calculate(std::vector<Particle>* p_particlePopulation, doubl
 
 		Alterner entre objet et adresse fait un peu maladroit, ceci dit.
 		*/
-		newParticleState(&P, tick);
-		boundBounceCheck(&P, bounds);
+		newParticleState(P, tick);
+		boundBounceCheck(P, bounds);
 
 
-	}
+	//}
 }
 
 /*

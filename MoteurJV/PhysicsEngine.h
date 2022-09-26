@@ -38,7 +38,7 @@ public:
 	/*
 	Calcul des trajectoires à l'instant d'après.
 	*/
-	void calculate(std::vector<Particle>* p_particlePopulation,
+	void calculate(Particle* P,
 		double tick, Vecteur3D bounds);
 
 private:

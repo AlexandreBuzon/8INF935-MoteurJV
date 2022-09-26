@@ -46,6 +46,10 @@ public:
 
 	//METHODE
 
+	//Constructeur
+	Particle();
+	Particle(Vecteur3D position, Vecteur3D velocity, Vecteur3D acceleration);
+
 	//Destructeur
 	~Particle();
 
