@@ -1,48 +1,24 @@
 #include "Environment.h"
-#include<iostream>
-#include<glad/glad.h>
-#include<GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "EBO.h"
-#include "VBO.h"
-#include "VAO.h"
-#include "shaderClass.h"
-#include "Fireball.h"
-#include "Particle.h"
 
 Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
-	std::vector<Particle*> *pPopulation)
+	std::vector<Particle*>* p_pPopulation)
 {
 	tick = tck;
 	engine = e;
 	bounds = Vecteur3D(x_b,y_b,z_b);
-	particlePopulation = *pPopulation;
+	p_particlePopulation = p_pPopulation;
 }
 
-Environment::~Environment()
-{
-	//Nettoyage de la mémoire allouée.
-	delete &bounds;
-	delete &engine;
-
-	//"Echange" avec un vecteur vide pour libérer la mémoire.
-	std::vector<Particle*>().swap(particlePopulation);
-}
+Environment::~Environment(){}
 
 void Environment::play()
 {
 	/*
-	* Initialisation graphique.
-	*
-	Reprise du programme de Victor Gordan, avec modifications adaptées.
+	  Initialisation graphique.
+	
+	  Reprise du programme de Victor Gordan, avec modifications adaptées.
 	*/
 
-	//Fireball ici.
-	//Fireball fireB = Fireball(50,50,50,25,2,10);
-	//particlePopulation.push_back(fireB);
-	// Coordonnées des Vertices
 	GLfloat vertices[] =
 	{ // sur une ligne : x, y, z, R, V, B
 		-0.1f, -0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -66,23 +42,26 @@ void Environment::play()
 	// Dans notre cas on utilise OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
 	// Dit à GLFW que nous utilisons le CORE profile
 	// Donc nous n'avons besoin que des fonctions modernes
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Crée un objet GLFWwindow de 1000 par 1000 pixels
 	GLFWwindow* window = glfwCreateWindow(1000, 1000, "MoteurJV OpenGL", NULL, NULL);
-	// Erreur si la fenêtre n'arrive pas à se créer
+
+
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 	}
-	// met la fenêtre dans le context courrant
+	// Met la fenêtre dans le context courant
 	glfwMakeContextCurrent(window);
 
 	//Charge GLAD pour configurer OpenGL
 	gladLoadGL();
+
 	// Specifie le viewport de OpenGL dans la fenêtre que nous avons créer
 	// Dans notre cas le viewport vas de x = 0, y = 0, jusqu'à x = 800, y = 800
 	glViewport(0, 0, 800, 800);
@@ -91,8 +70,6 @@ void Environment::play()
 
 	// Génère les objets Shader en utilisant le code dans defualt.vert et default.frag
 	Shader shaderProgram("default.vert", "default.frag");
-
-
 
 	// Génère un tableau d'objets Vertex et les assembles
 	VAO VAO1;
@@ -148,7 +125,7 @@ void Environment::play()
 		}
 
 		newTime = currentTime;
-		particlePopulation.front()->position->display();
+		p_particlePopulation->front()->position->display();
 
 		/*
 		Itérateur limite pour éviter un cercle vicieux de
@@ -194,7 +171,7 @@ void Environment::play()
 			*/
 			if (deltaTime > tick) {
 
-				engine.calculate(particlePopulation.front(), tick, bounds);
+				engine.nextPosition(p_particlePopulation->front(), tick, bounds);
 
 				deltaTime -= tick;
 				i++;
@@ -210,7 +187,7 @@ void Environment::play()
 			*/
 			else {
 
-				engine.calculate(particlePopulation.front(), deltaTime, bounds);
+				engine.nextPosition(p_particlePopulation->front(), deltaTime, bounds);
 				deltaTime = 0;
 
 			}
@@ -236,9 +213,9 @@ void Environment::play()
 		glm::mat4 model = glm::mat4(1.0f);
 
 		//Changement de coordonnées par vecteurs.
-		model = glm::translate(model, glm::vec3(1.0f*(particlePopulation.front()->position->getX()-50)/1000,
-			1.0f* (particlePopulation.front()->position->getY()-50)/1000,
-			1.0f* (particlePopulation.front()->position->getZ()-50)/1000));
+		model = glm::translate(model, glm::vec3(1.0f*(p_particlePopulation->front()->position->getX()-50)/1000,
+			1.0f* (p_particlePopulation->front()->position->getY()-50)/1000,
+			1.0f* (p_particlePopulation->front()->position->getZ()-50)/1000));
 
 		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

@@ -38,7 +38,7 @@ public:
 	/*
 	Calcul des trajectoires à l'instant d'après.
 	*/
-	void calculate(Particle* P,
+	void nextPosition(Particle* P,
 		double tick, Vecteur3D bounds);
 
 private:
@@ -46,7 +46,7 @@ private:
 	/*
 	Calcul des nouveaux vecteurs d'une particule par intégration.
 	*/
-	void newParticleState(Particle* p_P, double tick);
+	void integrate(Particle* p_P, double tick);
 
 	/*
 	Ricochet de particule par réflexion par rapport aux limites atteintes.

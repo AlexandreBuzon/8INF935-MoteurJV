@@ -24,7 +24,7 @@ Calcul des nouveaux vecteurs d'une particule
 En ce moment cinématique, et pas plus. L'ajout des forces
 est pour le rendu 2.
 */
-void PhysicsEngine::newParticleState(Particle* p_P, double tick)
+void PhysicsEngine::integrate(Particle* p_P, double tick)
 {
 	//EXCEPTION à construire : masse infinie.
 
@@ -98,7 +98,7 @@ Calcul des trajectoires à l'instant d'après.
 
 Utilisation d'un pointeur pour la population afin de modifier chaque particule.
 */
-void PhysicsEngine::calculate(Particle* P, double tick, Vecteur3D bounds)
+void PhysicsEngine::nextPosition(Particle* P, double tick, Vecteur3D bounds)
 {
 	//Parcours de ce qui est pointé.
 	//for (auto P : *p_particlePopulation) {
@@ -110,7 +110,7 @@ void PhysicsEngine::calculate(Particle* P, double tick, Vecteur3D bounds)
 
 		Alterner entre objet et adresse fait un peu maladroit, ceci dit.
 		*/
-		newParticleState(P, tick);
+		integrate(P, tick);
 		boundBounceCheck(P, bounds);
 
 

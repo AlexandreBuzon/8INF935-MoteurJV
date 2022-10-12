@@ -14,14 +14,11 @@
 
 int main()
 {	
-	PhysicsEngine physicsE = PhysicsEngine(10.0);
-	Fireball* fireB = new Fireball(50, 50, 50, 25, 2, 10);
-	std::vector<Particle*> *ListePart = new std::vector<Particle*>{fireB};
-	Environment *envi = new Environment(1.0/60.0, physicsE, 1000,1000,1000,ListePart);
+
+	Fireball fireB = Fireball(50, 50, 50, 25, 2, 10);
+	std::vector<Particle*> ListePart = std::vector<Particle*>{&fireB};
+	Environment *envi = new Environment(1.0/60.0, PhysicsEngine(10.0), 1000,1000,1000,&ListePart);
 	envi->play();
 
-
-	delete& envi;
-	delete& fireB;
 	return 0;
 }
