@@ -14,20 +14,10 @@ Thibault Telitsine
 17 septembre 2022
 */
 
-/*Mémo : directive préprocesseur pour optimiser
-la compilation.
-*/
 #pragma once
 
 #include "Vecteur3D.h"
 
-/*
-Pour les tableaux de nature autre que nos vecteurs3D :
-Liste de chaînes, triplets RGB, ect.
-
-Les types définis par la std sont plus flexibles et fiables
-que les structures C classiques.
-*/
 #include <string>
 #include <vector>
 
@@ -35,14 +25,10 @@ class Particle
 {
 public:
 
-	/*
-	Pour déterminer la trajectoire.
-	On utilise les pointeurs pour accomoder la commande
-	delete du destructeur.
-	*/
-	Vecteur3D* position;
-	Vecteur3D* velocity;
-	Vecteur3D* acceleration;
+
+	Vecteur3D position;
+	Vecteur3D velocity;
+	Vecteur3D acceleration;
 
 	//METHODE
 
@@ -82,10 +68,6 @@ protected:
 	en être complètement isolé.
 	On laisse alors la liberté au développeur d'associer
 	forces à particules comme bon lui semble.
-
-	A FAIRE :
-	-programmer dictionnaire des forces dans physicsEngine
-	-Exception si ça colle pas.
 	*/
 	std::vector<std::string> appliedForces;
 };

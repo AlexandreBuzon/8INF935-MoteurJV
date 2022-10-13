@@ -5,12 +5,13 @@
 PhysicsEngine::PhysicsEngine() {
 
 	g = 10;
-
+    p_particlePopulation = NULL;
 }
 
-PhysicsEngine::PhysicsEngine(float G)
+PhysicsEngine::PhysicsEngine(float G, std::vector<Particle*>* p_pP)
 {
 	g = G;
+    p_particlePopulation = p_pP;
 }
 
 //Destructeur
@@ -31,10 +32,10 @@ void PhysicsEngine::integrate(Particle* p_P, double tick)
 	//Calc accel : dictionnaire forces. Partie 2.
 
 	// 1. Calcul de la position à partir de la vélocité :
-	*p_P->position = *p_P->position+*p_P->velocity*tick;
+	p_P->position = p_P->position+p_P->velocity*tick;
 
 	// 2. Calcul de la vélocité à partir de l'accélération :
-	*p_P->velocity = *p_P->velocity + *p_P->acceleration * tick;
+	p_P->velocity = p_P->velocity + p_P->acceleration * tick;
 
 }
 
@@ -51,44 +52,45 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 {
 	//Vérification de collision avec les limites.
     //Limites selon Ox.
-    if (p_P->position->getX() < 0) {
+    if (p_P->position.getX() < 0) {
 
-        p_P->position->setX(0);
-        p_P->velocity->setX(-p_P->velocity->getX());
-        p_P->acceleration->setX(-p_P->acceleration->getX());
+        p_P->position.setX(0);
+        p_P->velocity.setX(-p_P->velocity.getX());
+        p_P->acceleration.setX(-p_P->acceleration.getX());
     }
-    if (p_P->position->getX() > bounds.getX()) {
+    if (p_P->position.getX() > bounds.getX()) {
 
-        p_P->position->setX(bounds.getX());
-        p_P->velocity->setX(-p_P->velocity->getX());
-        p_P->acceleration->setX(-p_P->acceleration->getX());
+        p_P->position.setX(bounds.getX());
+        p_P->velocity.setX(-p_P->velocity.getX());
+        p_P->acceleration.setX(-p_P->acceleration.getX());
     }
     //Selon Oy.
-    if (p_P->position->getY() < 0) {
+    if (p_P->position.getY() < 0) {
 
-        p_P->position->setY(0);
-        p_P->velocity->setY(-p_P->velocity->getY());
-        p_P->acceleration->setY(-p_P->acceleration->getY());
+        p_P->position.setY(0);
+        p_P->velocity.setY(-p_P->velocity.getY());
+        p_P->acceleration.setY(-p_P->acceleration.getY());
     }
-    if (p_P->position->getY() > bounds.getY()) {
+    if (p_P->position.getY() > bounds.getY()) {
 
-        p_P->position->setY(bounds.getY());
-        p_P->velocity->setY(-p_P->velocity->getY());
-        p_P->acceleration->setY(-p_P->acceleration->getY());
+        p_P->position.setY(bounds.getY());
+        p_P->velocity.setY(-p_P->velocity.getY());
+        p_P->acceleration.setY(-p_P->acceleration.getY());
 
     }
+
     //Selon Oz.
-    if (p_P->position->getZ() < 0) {
+    if (p_P->position.getZ() < 0) {
 
-        p_P->position->setZ(0);
-        p_P->velocity->setZ(-p_P->velocity->getZ());
-        p_P->acceleration->setZ(-p_P->acceleration->getZ());
+        p_P->position.setZ(0);
+        p_P->velocity.setZ(-p_P->velocity.getZ());
+        p_P->acceleration.setZ(-p_P->acceleration.getZ());
     }
-    if (p_P->position->getY() > bounds.getZ()) {
+    if (p_P->position.getZ() > bounds.getZ()) {
 
-        p_P->position->setZ(bounds.getZ());
-        p_P->velocity->setZ(-p_P->velocity->getZ());
-        p_P->acceleration->setZ(-p_P->acceleration->getZ());
+        p_P->position.setZ(bounds.getZ());
+        p_P->velocity.setZ(-p_P->velocity.getZ());
+        p_P->acceleration.setZ(-p_P->acceleration.getZ());
 
     }
 }

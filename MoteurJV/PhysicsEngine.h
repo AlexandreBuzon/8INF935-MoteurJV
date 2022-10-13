@@ -24,13 +24,13 @@ public:
 	//Constante d'accélération de la pesanteur.
 	float g;
 
-	//A faire : dictionnaire de forces pour partie 2 ?
+	std::vector<Particle*>* p_particlePopulation;
 
 	//METHODES
 
 	//Constructeurs
 	PhysicsEngine();
-	PhysicsEngine(float G);
+	PhysicsEngine(float G, std::vector<Particle*>* p_pP);
 
 	//Destructeur
 	~PhysicsEngine();

@@ -33,12 +33,10 @@ public:
 	Vecteur3D bounds;//Limites d'environnement.
 	double tick;//Le pas de mesure entre deux instants.
 
-	std::vector<Particle*>* p_particlePopulation;
 	PhysicsEngine engine;
 
 	//Constructeur
-	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
-		std::vector<Particle*> *p_particlePopulation);
+	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b);
 	//Destructeur
 	~Environment();
 

@@ -2,6 +2,7 @@
 * Auteur : Caudron Benoît
 * Date de création : 16/09/2022
 */
+
 #pragma once
 class Vecteur3D
 {

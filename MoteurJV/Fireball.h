@@ -20,7 +20,6 @@ private:
 
 public:
 
-    //Constructeurs.
     Fireball();
 
     /*

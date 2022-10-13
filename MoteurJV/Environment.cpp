@@ -1,12 +1,10 @@
 #include "Environment.h"
 
-Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b,
-	std::vector<Particle*>* p_pPopulation)
+Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b)
 {
 	tick = tck;
 	engine = e;
 	bounds = Vecteur3D(x_b,y_b,z_b);
-	p_particlePopulation = p_pPopulation;
 }
 
 Environment::~Environment(){}
@@ -125,7 +123,7 @@ void Environment::play()
 		}
 
 		newTime = currentTime;
-		p_particlePopulation->front()->position->display();
+		engine.p_particlePopulation->front()->position.display();
 
 		/*
 		Itérateur limite pour éviter un cercle vicieux de
@@ -171,7 +169,7 @@ void Environment::play()
 			*/
 			if (deltaTime > tick) {
 
-				engine.nextPosition(p_particlePopulation->front(), tick, bounds);
+				engine.nextPosition(engine.p_particlePopulation->front(), tick, bounds);
 
 				deltaTime -= tick;
 				i++;
@@ -187,7 +185,7 @@ void Environment::play()
 			*/
 			else {
 
-				engine.nextPosition(p_particlePopulation->front(), deltaTime, bounds);
+				engine.nextPosition(engine.p_particlePopulation->front(), deltaTime, bounds);
 				deltaTime = 0;
 
 			}
@@ -213,9 +211,9 @@ void Environment::play()
 		glm::mat4 model = glm::mat4(1.0f);
 
 		//Changement de coordonnées par vecteurs.
-		model = glm::translate(model, glm::vec3(1.0f*(p_particlePopulation->front()->position->getX()-50)/1000,
-			1.0f* (p_particlePopulation->front()->position->getY()-50)/1000,
-			1.0f* (p_particlePopulation->front()->position->getZ()-50)/1000));
+		model = glm::translate(model, glm::vec3(1.0f*(engine.p_particlePopulation->front()->position.getX()-50)/1000,
+			1.0f* (engine.p_particlePopulation->front()->position.getY()-50)/1000,
+			1.0f* (engine.p_particlePopulation->front()->position.getZ()-50)/1000));
 
 		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

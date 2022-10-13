@@ -17,7 +17,7 @@ int main()
 
 	Fireball fireB = Fireball(50, 50, 50, 25, 2, 10);
 	std::vector<Particle*> ListePart = std::vector<Particle*>{&fireB};
-	Environment *envi = new Environment(1.0/60.0, PhysicsEngine(10.0), 1000,1000,1000,&ListePart);
+	Environment *envi = new Environment(1.0/60.0, PhysicsEngine(10.0,&ListePart), 1000,1000,1000);
 	envi->play();
 
 	return 0;
