@@ -123,7 +123,9 @@ void Environment::play()
 		}
 
 		newTime = currentTime;
-		engine.p_particlePopulation->front()->position.display();
+
+		
+		
 
 		/*
 		Itérateur limite pour éviter un cercle vicieux de
@@ -169,7 +171,9 @@ void Environment::play()
 			*/
 			if (deltaTime > tick) {
 
-				engine.nextPosition(engine.p_particlePopulation->front(), tick, bounds);
+				for (size_t j = 0; j < engine.p_particlePopulation->size(); j++) {
+					engine.nextPosition(engine.p_particlePopulation->at(j), tick, bounds);
+				}
 
 				deltaTime -= tick;
 				i++;
@@ -185,7 +189,10 @@ void Environment::play()
 			*/
 			else {
 
-				engine.nextPosition(engine.p_particlePopulation->front(), deltaTime, bounds);
+				for (size_t j = 0; j < engine.p_particlePopulation->size(); j++) {
+					engine.nextPosition(engine.p_particlePopulation->at(j), deltaTime, bounds);
+				}
+
 				deltaTime = 0;
 
 			}
@@ -207,28 +214,41 @@ void Environment::play()
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Donne à OpenGL quelle Shader Program nous voulons utiliser
 		shaderProgram.Activate();
-
-		glm::mat4 model = glm::mat4(1.0f);
-
-		//Changement de coordonnées par vecteurs.
-		model = glm::translate(model, glm::vec3(1.0f*(engine.p_particlePopulation->front()->position.getX()-50)/1000,
-			1.0f* (engine.p_particlePopulation->front()->position.getY()-50)/1000,
-			1.0f* (engine.p_particlePopulation->front()->position.getZ()-50)/1000));
-
-		int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
 		// Assigne une valeur à l'uniform; NOTE: Doit toujours être fait après avoir activer le Shader Program
 		glUniform1f(uniID, 0.5f);
 		// Assemble le VAO pour que OpenGL puisse l'utiliser
 		VAO1.Bind();
-		// Dessine des primitives, nombre d'indices, datatype des indices, index des indices
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		// échange les 2 buffer (avant et arrière) afin qu'il s'alterne
-		glfwSwapBuffers(window);
-		// Vérifie tous les événement GLFW
-		glfwPollEvents();
+		
+		glm::mat4 model = glm::mat4(1.0f);
 
+		//Changement de coordonnées par vecteurs.
+		for (size_t j = 0; j < engine.p_particlePopulation->size(); j++)
+		{//1
+			
+
+			float x = engine.p_particlePopulation->at(j)->position.getX();
+			float y = engine.p_particlePopulation->at(j)->position.getY();
+			float z = engine.p_particlePopulation->at(j)->position.getZ();
+
+			glm::vec3 translateVector = glm::vec3((x-50)/1000, (y-50)/1000, (z-50)/1000);
+
+			model = glm::translate(model, translateVector);
+
+
+			int modelLoc = glGetUniformLocation(shaderProgram.ID, "model");
+
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+			// Dessine des primitives, nombre d'indices, datatype des indices, index des indices
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			
+			
+			
+		}
+		// échange les 2 buffer (avant et arrière) afin qu'il s'alterne
+			glfwSwapBuffers(window);
+			// Vérifie tous les événement GLFW
+			glfwPollEvents();
 	}
 
 	//Détruit Fireball.
