@@ -29,7 +29,7 @@ public:
 	Vecteur3D position;
 	Vecteur3D velocity;
 	Vecteur3D acceleration;
-
+	double rayonCollision;
 	//METHODE
 
 	//Constructeur
