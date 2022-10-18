@@ -20,5 +20,4 @@ private :
 	void resolveVelocity();
 	void resolveInterpenetration();
 
-
 };
