@@ -17,6 +17,7 @@ Thibault Telitsine
 #pragma once
 
 #include "Vecteur3D.h"
+#include "ParticleForceGenerator.h"
 
 #include <string>
 #include <vector>
@@ -30,7 +31,7 @@ public:
 	Vecteur3D velocity;
 	Vecteur3D acceleration;
 	double rayonCollision;
-	//METHODE
+
 
 	//Constructeur
 	Particle();
@@ -39,7 +40,18 @@ public:
 	//Destructeur
 	~Particle();
 
-	//Ajout/retrait de forces en partie 2.
+	/*
+	Les noms des forces que subit la particule.
+
+	Ainsi, la particule peut ignorer des forces, voire
+	en être complètement isolé.
+	On laisse alors la liberté au développeur d'associer
+	forces à particules comme bon lui semble.
+	*/
+	std::vector<std::string> permanentForces;
+
+	//Forces issues de champs délimités spacialement.
+	std::vector<ParticleForceGenerator*> forceFields;
 
 //Devra être fixé par sous-classe.
 protected:

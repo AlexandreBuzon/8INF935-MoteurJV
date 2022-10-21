@@ -20,6 +20,29 @@ PhysicsEngine::~PhysicsEngine()
 
 }
 
+
+void accelIntegrate(Particle* p_P, double tick) {
+
+    //Initialisation.
+    p_P->acceleration = Vecteur3D(0, 0, 0);
+
+    if (!p_P->permanentForces.empty()) {
+
+
+
+        /*
+        for(std::string force : p_P->permanentForces) {
+
+            //(dico forces perm -> updateforce)
+
+        }*/
+
+    }
+
+}
+
+
+
 /*
 Calcul des nouveaux vecteurs d'une particule
 En ce moment cinématique, et pas plus. L'ajout des forces

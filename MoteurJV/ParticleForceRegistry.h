@@ -18,7 +18,7 @@ private:
 public:
 
 
-	void updateForce(double tick);
+	//void updateForce(double tick);
 
 };
 
