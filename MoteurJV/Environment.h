@@ -20,8 +20,7 @@ Définit les particules existantes et les coordonnées limites.
 
 #include "Fireball.h"
 
-//Mesure de temps pour la boucle de raffraichissement.
-#include <chrono>
+
 
 using namespace std::chrono;
 

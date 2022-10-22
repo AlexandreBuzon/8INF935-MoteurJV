@@ -11,22 +11,27 @@ Thibault Telitsine
 
 #include "Particle.h"
 
-#include<vector>
+//Mesure de temps pour la boucle de raffraichissement.
+#include <chrono>
 
+#include<vector>
+#include <map>
+
+using namespace std::chrono;
 
 class PhysicsEngine
 {
 
 public:
 
-	//ATTRIBUTS
-
 	//Constante d'accélération de la pesanteur.
 	float g;
 
+	//Les particules à gérer.
 	std::vector<Particle*>* p_particlePopulation;
 
-	//METHODES
+	//Les forces délocalisées.
+
 
 	//Constructeurs
 	PhysicsEngine();
@@ -41,6 +46,15 @@ public:
 	void nextPosition(Particle* P,
 		double tick, Vecteur3D bounds);
 
+	/*
+	Synchronisation de la physique et de la réalité.
+
+	Reprise de l'algorithme de pas semi-variable
+	présenté par Glenn Fiedler.
+	*/
+	void physicsLoop(high_resolution_clock::time_point* p_currentTime,
+		double* p_deltaTime, double tick, Vecteur3D bounds);
+
 private:
 
 	/*
@@ -50,13 +64,11 @@ private:
 
 	/*
 	Ricochet de particule par réflexion par rapport aux limites atteintes.
-	Mémo : char => '' au lieu de "".
 
 	Méthode placeholder pour garder la particule en place. Sera probablement
 	remplacée ou généralisée lors du travail sur les collisions.
 	*/
 	void boundBounceCheck(Particle* p_P, Vecteur3D bounds);
-
 
 };
 

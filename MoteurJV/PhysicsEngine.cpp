@@ -143,10 +143,101 @@ void PhysicsEngine::nextPosition(Particle* P, double tick, Vecteur3D bounds)
 }
 
 /*
-Interpolation des positions.
+Synchronisation de la physique et de la réalité.
 
-La boucle de raffraichissement s'execute de telle sorte
-qu'il y a souvent un décalage léger entre réalité et physique.
-
-l'interpolation
+Reprise de l'algorithme de pas semi-variable
+présenté par Glenn Fiedler.
 */
+void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime,
+	double* p_deltaTime, double tick, Vecteur3D bounds) {
+
+	high_resolution_clock::time_point newTime = high_resolution_clock::now();
+
+	/*
+	somme du nouveau décalage avec le décalage existant.
+	*/
+	*p_deltaTime = duration_cast<duration<double>>(newTime - *p_currentTime).count() + *p_deltaTime;
+
+
+	// Si trop en retard (100 secondes ici), pas la peine d'essayer. On réinitialise.
+	if (*p_deltaTime > 100) {
+
+		*p_deltaTime = 0;
+
+	}
+
+	*p_currentTime = newTime;
+
+	/*
+	Itérateur limite pour éviter un cercle vicieux de
+	décalage.
+
+	Avantage : la simulation s'arrêtera eventuellement
+	de ralentir si elle prend de plus en
+	plus de retard sur la réalité.
+
+	Limite : Soit on ne rattrape pas le retard,
+	soit on doit faire face à une accélération de
+	la physique.
+	*/
+	int i = 0;
+
+	/*
+	"Consommation" du delta.
+
+	S'ARRETE si :
+	-plus de delta à consommer
+	OU
+	-l'itérateur limite a atteint le maximum fixé
+	(ici 25, fixé arbitrairement) ET un tick est passé
+	en réalité.
+
+	Intérêt du couplage i et chronometre :
+	si trop lent pour suivre, i joue son rôle de
+	plafond de ralentissement expliqué précédemment.
+
+	Si, par hasard, la simulation va bien plus vite,
+	alors on lui laisse l'opportunité d'effectuer quelques
+	calculs en plus pour rattraper davantage.
+	*/
+	while ((*p_deltaTime > 0) && ((i < 25) ||
+		(duration_cast<duration<double>>(
+			high_resolution_clock::now() - *p_currentTime).count()
+			< tick))) {
+
+		/*
+		Calculs successifs par tick pour garder une continuité
+		dans la progression physique.
+		*/
+		if (*p_deltaTime > tick) {
+
+			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
+				nextPosition(p_particlePopulation->at(j), tick, bounds);
+			}
+
+			*p_deltaTime -= tick;
+			i++;
+
+		}
+
+		//Consommation du reste si le compteur i le permet.
+		else {
+
+			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
+				nextPosition(p_particlePopulation->at(j), *p_deltaTime, bounds);
+			}
+
+			*p_deltaTime = 0;
+
+		}
+
+	}
+
+	while (
+		duration_cast<duration<double>>(high_resolution_clock::now() - *p_currentTime).count()
+		< tick) {
+
+		//Simple sleep improvisé pour ne pas aller trop vite par rapport à la réalité.
+	}
+
+}

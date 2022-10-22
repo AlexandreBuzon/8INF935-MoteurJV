@@ -15,8 +15,8 @@
 int main()
 {	
 
-	Fireball fireB = Fireball(50, 50, 50, 25, 2, 10);
-	Fireball fireC = Fireball(350, 350, 350, 25, 2, 10);
+	Fireball fireB = Fireball(50, 50, 50, 250, 200, 0);
+	Fireball fireC = Fireball(350, 350, 350, 250, 200, 0);
 	
 	std::vector<Particle*> ListePart = std::vector<Particle*>{&fireB};
 
