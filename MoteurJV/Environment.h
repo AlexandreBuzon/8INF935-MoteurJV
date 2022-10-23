@@ -4,59 +4,46 @@ Environnement de jeu
 Définit les particules existantes et les coordonnées limites.
 */
 
-//Inclut aussi particule et vecteur par transitivité.
+
 #include "PhysicsEngine.h"
 
-//Pour la représentation graphique.
+#include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include "EBO.h"
+#include "VBO.h"
+#include "VAO.h"
+#include "shaderClass.h"
+
+#include "Fireball.h"
+
+
+
+using namespace std::chrono;
+
+
+
 
 #pragma once
 class Environment
 {
 public:
 
-	//ATTRIBUTS
+	Vecteur3D bounds;//Limites d'environnement.
+	double tick;//Le pas de mesure entre deux instants.
 
-	//Les limites en un vecteur.
-	Vecteur3D bounds;
-
-	//Mesure du temps.
-	double time;
-
-	//Le pas de mesure en deux instants.
-	double tick;
-
-	//Population de particules.
-	std::vector<Particle> particlePopulation;
-
-	//Moteur physique utilisé.
 	PhysicsEngine engine;
 
-	//METHODES
-
 	//Constructeur
-	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b, std::vector<Particle> particlePopulation);
-
+	Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b);
 	//Destructeur
 	~Environment();
 
-	/*
-	L'environnement est ici amalgamé au moteur graphique, par simplicité.
-	Idéalement, on aurait pris la peine de découpler aussi.
-
-	Il y a correspondance d'indice entre populationParticle et
-	populationTriangle. d'où le paramétrage.
-
-	represent crée les triangles à associer aux particules.
-	*/
-
-	//represent(int index);
-
+	//Méthode principale
 	void play();
-
-
-
 
 };
 

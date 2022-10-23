@@ -9,25 +9,12 @@ ainsi que les forces physiques à lui appliquer.
 Effectivement, il s'agit d'explorer plusieurs
 comportement différents dans un jeu
 plutôt que de proposer un modèle réaliste.
-
-Thibault Telitsine
-17 septembre 2022
 */
 
-/*Mémo : directive préprocesseur pour optimiser
-la compilation.
-*/
 #pragma once
 
 #include "Vecteur3D.h"
 
-/*
-Pour les tableaux de nature autre que nos vecteurs3D :
-Liste de chaînes, triplets RGB, ect.
-
-Les types définis par la std sont plus flexibles et fiables
-que les structures C classiques.
-*/
 #include <string>
 #include <vector>
 
@@ -35,21 +22,39 @@ class Particle
 {
 public:
 
-	/*
-	Pour déterminer la trajectoire.
-	On utilise les pointeurs pour accomoder la commande
-	delete du destructeur.
-	*/
-	Vecteur3D* position;
-	Vecteur3D* velocity;
-	Vecteur3D* acceleration;
 
-	//METHODE
+	Vecteur3D position;
+	Vecteur3D velocity;
+	Vecteur3D acceleration;
+	double mass;
+	double rayonCollision;
+	double initialX;
+	double initialY;
+	double initialZ;
+
+
+	//Constructeur
+	Particle();
+	Particle(Vecteur3D position, Vecteur3D velocity, Vecteur3D acceleration);
 
 	//Destructeur
 	~Particle();
 
-	//Ajout/retrait de forces en partie 2.
+	/*
+	Les noms des forces que subit en général la particule.
+
+	Ainsi, la particule peut ignorer des forces.
+	On laisse alors la liberté au développeur d'associer
+	forces à particules comme bon lui semble.
+
+	On utilise des strings pour rattacher à un dictionnaire
+	de forces permanentes défini par l'utilisateur.
+	*/
+	std::vector<std::string> permanentForces;
+
+	double getInverseMass();
+	void setVelocity(Vecteur3D newVelo);
+	void setPosition(Vecteur3D newPos);
 
 //Devra être fixé par sous-classe.
 protected:
@@ -70,19 +75,5 @@ protected:
 	soumises la particule.
 	*/
 	double inverseMass;
-
-	/*
-	Les noms des forces que subit la particule.
-
-	Ainsi, la particule peut ignorer des forces, voire
-	en être complètement isolé.
-	On laisse alors la liberté au développeur d'associer
-	forces à particules comme bon lui semble.
-
-	A FAIRE :
-	-programmer dictionnaire des forces dans physicsEngine
-	-Exception si ça colle pas.
-	*/
-	std::vector<std::string> appliedForces;
 };
 

@@ -1,11 +1,17 @@
-#include "Fireball.h"
 
-Fireball::Fireball() {
+#include "Ball.h"
+
+
+Ball::Ball() {
+
+    spawnSpeed = 150;
+    inverseMass = 0.04;
+    std::vector<std::string> permanentForces = { "gravity" };
 
     position.setX(0);
     position.setY(0);
     position.setZ(0);
-    
+
     velocity.setX(spawnSpeed);
     velocity.setY(0);
     velocity.setZ(0);
@@ -13,16 +19,17 @@ Fireball::Fireball() {
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
+
 }
 
-/*
-Avec position et vélocité de départ.
-
-En réalité, seule la direction de la vélocité compte.
-Le vecteur est re-normalisé à spawnVelocity.
-*/
-Fireball::Fireball(double x, double y, double z,
+Ball::Ball(double x, double y, double z,
     double vx, double vy, double vz) {
+
+
+
+    spawnSpeed = 150;
+    inverseMass = 0.04;
+    permanentForces = { "gravity" };
 
     position.setX(x);
     position.setY(y);
@@ -32,11 +39,12 @@ Fireball::Fireball(double x, double y, double z,
     velocity.setY(vy);
     velocity.setZ(vz);
 
-    if (velocity.norm() != 0)
-        velocity = velocity * (spawnSpeed / velocity.norm());
-
+    if (velocity.norm() != 0) velocity = velocity * (spawnSpeed / velocity.norm());
+    
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
 
 }
+
+Ball::~Ball(){}
