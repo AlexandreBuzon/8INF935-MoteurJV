@@ -19,3 +19,18 @@ Particle::Particle(Vecteur3D position, Vecteur3D velocity, Vecteur3D acceleratio
 
 Particle::~Particle()
 {}
+
+double Particle::getInverseMass() 
+{
+	return -mass;
+}
+
+void Particle::setVelocity(Vecteur3D newVelocity) 
+{
+	velocity = newVelocity;
+}
+
+void Particle::setPosition(Vecteur3D newPos)
+{
+	position = newPos;
+}

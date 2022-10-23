@@ -6,7 +6,7 @@ void ParticuleContact::resolve(float duration)
 	resolveInterpenetration(duration);
 };
 
-float ParticuleContact::calculateSeparatingVelocity() const 
+const float ParticuleContact::calculateSeparatingVelocity()
 {
 	Vecteur3D relativeVelocity = particule[0]->velocity;
 	if (particule[1]) relativeVelocity -= particule[1]->velocity;
@@ -60,7 +60,7 @@ void ParticuleContact::resolveInterpenetration(float duration)
 	}
 	else 
 	{
-		particuleMovement[1].clear();
+		//particuleMovement[1].clear;
 	}
 
 	particule[0]->setPosition(particule[0]->position + particuleMovement[0]);

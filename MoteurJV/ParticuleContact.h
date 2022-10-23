@@ -14,10 +14,10 @@ public :
 	Vecteur3D contactNormal;
 
 	void resolve(float duration);
-	float calculateSeparatingVelocity();
+	const float calculateSeparatingVelocity();
 
 private :
-	void resolveVelocity();
-	void resolveInterpenetration();
+	void resolveVelocity(float duration);
+	void resolveInterpenetration(float duration);
 
 };

@@ -24,7 +24,7 @@ class Vecteur3D
 		void setZ(double z);
 		double getZ();
 		void display();
-
+		float magnitude();
 		
 		
 
@@ -32,6 +32,12 @@ class Vecteur3D
 	
 		//Somme.
 		Vecteur3D operator +(const Vecteur3D& B);
+
+		//Soustraction.
+		Vecteur3D operator -(const Vecteur3D& B);
+
+		//Soustraction.
+		Vecteur3D operator -=(const Vecteur3D& B);
 
 		//Multiplication par scalaire.
 		Vecteur3D operator *(const double &b) const;

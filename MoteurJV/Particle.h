@@ -30,6 +30,7 @@ public:
 	Vecteur3D position;
 	Vecteur3D velocity;
 	Vecteur3D acceleration;
+	double mass;
 	double rayonCollision;
 
 
@@ -49,7 +50,9 @@ public:
 	forces à particules comme bon lui semble.
 	*/
 	std::vector<std::string> permanentForces;
-
+	double getInverseMass();
+	void setVelocity(Vecteur3D newVelo);
+	void setPosition(Vecteur3D newPos);
 	//Forces issues de champs délimités spacialement.
 	std::vector<ParticleForceGenerator*> forceFields;
 

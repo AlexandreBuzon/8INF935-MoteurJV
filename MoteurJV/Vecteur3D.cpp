@@ -67,6 +67,27 @@ Vecteur3D Vecteur3D::operator +(const Vecteur3D &B) {
 	return C;
 }
 
+//Soustraction.
+Vecteur3D Vecteur3D::operator -(const Vecteur3D& B) {
+	Vecteur3D C;
+
+	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	C.x = x - B.x;
+	C.y = y - B.y;
+	C.z = z - B.z;
+
+	return C;
+}
+
+//Soustraction.
+Vecteur3D Vecteur3D::operator -=(const Vecteur3D& B) {
+
+	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	x = x - B.x;
+	y = y - B.y;
+	z = z - B.z;
+}
+
 //Multiplication par scalaire.
 //Attention, écrire "vecteur point scalaire" pour que ça marche.
 Vecteur3D Vecteur3D::operator *(const double& b) const {
@@ -117,4 +138,10 @@ Vecteur3D Vecteur3D::normalize() {
 	C = *this * normeInverse;
 
 	return C;
+}
+
+float Vecteur3D::magnitude() 
+{
+	float res = sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+	return res;
 }
