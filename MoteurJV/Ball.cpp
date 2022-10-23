@@ -1,10 +1,12 @@
 
-#include "Bullet.h"
-
-#include "Bullet.h"
+#include "Ball.h"
 
 
-Bullet::Bullet() {
+Ball::Ball() {
+
+    spawnSpeed = 150;
+    inverseMass = 0.04;
+    std::vector<std::string> permanentForces = { "gravity" };
 
     position.setX(0);
     position.setY(0);
@@ -20,8 +22,14 @@ Bullet::Bullet() {
 
 }
 
-Bullet::Bullet(double x, double y, double z,
+Ball::Ball(double x, double y, double z,
     double vx, double vy, double vz) {
+
+
+
+    spawnSpeed = 150;
+    inverseMass = 0.04;
+    permanentForces = { "gravity" };
 
     position.setX(x);
     position.setY(y);
@@ -31,10 +39,12 @@ Bullet::Bullet(double x, double y, double z,
     velocity.setY(vy);
     velocity.setZ(vz);
 
-    velocity = velocity * (spawnSpeed / velocity.norm());
-
+    if (velocity.norm() != 0) velocity = velocity * (spawnSpeed / velocity.norm());
+    
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
 
 }
+
+Ball::~Ball(){}

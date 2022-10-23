@@ -9,15 +9,12 @@ ainsi que les forces physiques à lui appliquer.
 Effectivement, il s'agit d'explorer plusieurs
 comportement différents dans un jeu
 plutôt que de proposer un modèle réaliste.
-
-Thibault Telitsine
-17 septembre 2022
 */
 
 #pragma once
 
 #include "Vecteur3D.h"
-#include "ParticleForceGenerator.h"
+#include "LinearFieldGenerator.h"
 
 #include <string>
 #include <vector>
@@ -42,19 +39,23 @@ public:
 	~Particle();
 
 	/*
-	Les noms des forces que subit la particule.
+	Les noms des forces que subit en général la particule.
 
 	Ainsi, la particule peut ignorer des forces, voire
 	en être complètement isolé.
 	On laisse alors la liberté au développeur d'associer
 	forces à particules comme bon lui semble.
+
+	On utilise des strings pour rattacher à un dictionnaire
+	de forces permanentes défini par l'utilisateur.
 	*/
 	std::vector<std::string> permanentForces;
+
 	double getInverseMass();
 	void setVelocity(Vecteur3D newVelo);
 	void setPosition(Vecteur3D newPos);
 	//Forces issues de champs délimités spacialement.
-	std::vector<ParticleForceGenerator*> forceFields;
+	//std::vector<ParticleForceGenerator*> forceFields;
 
 //Devra être fixé par sous-classe.
 protected:
@@ -75,15 +76,5 @@ protected:
 	soumises la particule.
 	*/
 	double inverseMass;
-
-	/*
-	Les noms des forces que subit la particule.
-
-	Ainsi, la particule peut ignorer des forces, voire
-	en être complètement isolé.
-	On laisse alors la liberté au développeur d'associer
-	forces à particules comme bon lui semble.
-	*/
-	std::vector<std::string> appliedForces;
 };
 

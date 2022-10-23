@@ -81,6 +81,7 @@ void Environment::play()
 	// lie les attributs VBO comme des coordoner et des couleurs à VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+
 	// délie tous pour éviter un accident en les modifiants
 	VAO1.Unbind();
 	VBO1.Unbind();

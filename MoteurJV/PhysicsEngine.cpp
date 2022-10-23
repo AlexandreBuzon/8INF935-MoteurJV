@@ -6,60 +6,51 @@ PhysicsEngine::PhysicsEngine() {
 
 	g = 10;
     p_particlePopulation = NULL;
+	p_universalForceRegistry = NULL;
 }
 
-PhysicsEngine::PhysicsEngine(float G, std::vector<Particle*>* p_pP)
+PhysicsEngine::PhysicsEngine(float G, std::vector<Particle*>* p_pP,
+	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR)
 {
 	g = G;
     p_particlePopulation = p_pP;
+	p_universalForceRegistry = p_uFR;
 }
 
 //Destructeur
-PhysicsEngine::~PhysicsEngine()
-{
-
-}
+PhysicsEngine::~PhysicsEngine(){}
 
 
-void accelIntegrate(Particle* p_P, double tick) {
+void PhysicsEngine::accelIntegrate(Particle* p_P, double tick) {
 
     //Initialisation.
     p_P->acceleration = Vecteur3D(0, 0, 0);
 
     if (!p_P->permanentForces.empty()) {
 
+		for (std::string force : p_P->permanentForces) {
 
+			p_universalForceRegistry->at(force)->updateForce(p_P, tick);
 
-        /*
-        for(std::string force : p_P->permanentForces) {
-
-            //(dico forces perm -> updateforce)
-
-        }*/
-
+		}
     }
 
 }
 
 
 
-/*
-Calcul des nouveaux vecteurs d'une particule
-En ce moment cinématique, et pas plus. L'ajout des forces
-est pour le rendu 2.
-*/
+
+//Calcul des nouveaux vecteurs d'une particule
 void PhysicsEngine::integrate(Particle* p_P, double tick)
 {
-	//EXCEPTION à construire : masse infinie.
-
-	//Calc accel : dictionnaire forces. Partie 2.
-
-	// 1. Calcul de la position à partir de la vélocité :
-	p_P->position = p_P->position+p_P->velocity*tick;
+	// 1. L'accélération.
+	accelIntegrate(p_P,tick);
 
 	// 2. Calcul de la vélocité à partir de l'accélération :
 	p_P->velocity = p_P->velocity + p_P->acceleration * tick;
 
+	// 3. Calcul de la position à partir de la vélocité :
+	p_P->position = p_P->position+p_P->velocity*tick;
 }
 
 
@@ -68,8 +59,6 @@ void PhysicsEngine::integrate(Particle* p_P, double tick)
 * 
 Ricochet de particule par réflexion par rapport à la limite atteinte.
 L'axe définit la dimension où il y a dépassement.
-
-Mémo : char => '' au lieu de "".
 */
 void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 {

@@ -1,21 +1,20 @@
 
 /*
 Classe gérante de la physique d'un environnement.
-
-Thibault Telitsine
-17 septembre 2022
 */
 
-//Mémo : pour optimiser la compilation.
 #pragma once
 
 #include "Particle.h"
+#include "Fireball.h"
+#include "Ball.h"
 
 //Mesure de temps pour la boucle de raffraichissement.
 #include <chrono>
 
 #include<vector>
 #include <map>
+#include <memory>
 
 using namespace std::chrono;
 
@@ -30,12 +29,13 @@ public:
 	//Les particules à gérer.
 	std::vector<Particle*>* p_particlePopulation;
 
-	//Les forces délocalisées.
-
+	//Dictionnaire de forces permanentes.
+	std::map<std::string,std::unique_ptr<ParticleForceGenerator>>* p_universalForceRegistry;
 
 	//Constructeurs
 	PhysicsEngine();
-	PhysicsEngine(float G, std::vector<Particle*>* p_pP);
+	PhysicsEngine(float G, std::vector<Particle*>* p_pP,
+		std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR);
 
 	//Destructeur
 	~PhysicsEngine();
@@ -56,6 +56,8 @@ public:
 		double* p_deltaTime, double tick, Vecteur3D bounds);
 
 private:
+
+	void accelIntegrate(Particle* p_P, double tick);
 
 	/*
 	Calcul des nouveaux vecteurs d'une particule par intégration.

@@ -15,15 +15,18 @@
 int main()
 {	
 
-	Fireball fireB = Fireball(50, 50, 50, 250, 200, 0);
-	Fireball fireC = Fireball(350, 350, 350, 250, 200, 0);
+	Ball fireB = Ball(50, 50, 50, 0, 0, 0);
+	Ball fireC = Ball(350, 350, 350, 0, 0, 0);
 	
 	std::vector<Particle*> ListePart = std::vector<Particle*>{&fireB};
 
+	std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
+
+	listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0,-10,0))));
 	
 	ListePart.push_back(&fireC);
 
-	Environment *envi = new Environment(1.0/60.0, PhysicsEngine(10.0,&ListePart), 1000,1000,1000);
+	Environment *envi = new Environment(1.0/60.0, PhysicsEngine(10.0,&ListePart,&listeLF), 1000,1000,1000);
 	envi->play();
 
 	return 0;

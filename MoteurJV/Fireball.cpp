@@ -32,7 +32,8 @@ Fireball::Fireball(double x, double y, double z,
     velocity.setY(vy);
     velocity.setZ(vz);
 
-    velocity = velocity * (spawnSpeed/velocity.norm());
+    if (velocity.norm() != 0)
+        velocity = velocity * (spawnSpeed / velocity.norm());
 
     acceleration.setX(0);
     acceleration.setY(0);
