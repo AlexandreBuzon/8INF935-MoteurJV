@@ -48,9 +48,12 @@ public:
 	forces à particules comme bon lui semble.
 
 	On utilise des strings pour rattacher à un dictionnaire
-	de forces permanentes défini par l'utilisateur.
+	de forces permanentes définies par l'utilisateur.
 	*/
 	std::vector<std::string> permanentForces;
+
+	//Contraintes imposées à la particule : tiges, cables, murs.
+	std::vector<std::string> constraints;
 
 	double getInverseMass();
 	void setVelocity(Vecteur3D newVelo);
