@@ -30,13 +30,13 @@ void ParticuleContact::resolveVelocity(float duration)
 
 	float impulse = deltaVelocity / totalInverseMass;
 
-	Vecteur3D implulsePerMass = contactNormal * impulse;
+	Vecteur3D impulsePerMass = contactNormal * impulse;
 
-	particule[0]->setVelocity(particule[0]->velocity + implulsePerMass * particule[0]->getInverseMass());
+	particule[0]->setVelocity(particule[0]->velocity + impulsePerMass * particule[0]->getInverseMass());
 
 	if (particule[1])
 	{
-		particule[1]->setVelocity(particule[1]->velocity + implulsePerMass * particule[1]->getInverseMass());
+		particule[1]->setVelocity(particule[1]->velocity + impulsePerMass * particule[1]->getInverseMass());
 	}
 }
 

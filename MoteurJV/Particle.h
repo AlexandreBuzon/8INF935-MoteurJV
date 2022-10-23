@@ -14,7 +14,6 @@ plutôt que de proposer un modèle réaliste.
 #pragma once
 
 #include "Vecteur3D.h"
-#include "LinearFieldGenerator.h"
 
 #include <string>
 #include <vector>

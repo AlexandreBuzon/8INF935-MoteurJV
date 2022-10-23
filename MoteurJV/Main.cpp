@@ -1,10 +1,12 @@
 #include"imgui.h"
 #include"imgui_impl_glfw.h"
 #include"imgui_impl_opengl3.h"
-#include "Vecteur3D.h"
+
+#include "LinearFieldGenerator.h"
 #include "Particle.h"
 #include "Fireball.h"
 #include "Environment.h"
+
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>

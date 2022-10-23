@@ -34,7 +34,7 @@ class Vecteur3D
 		Vecteur3D operator -(const Vecteur3D& B);
 
 		//Soustraction.
-		Vecteur3D operator -=(const Vecteur3D& B);
+		void operator -=(const Vecteur3D& B);
 
 		//Multiplication par scalaire.
 		Vecteur3D operator *(const double &b) const;

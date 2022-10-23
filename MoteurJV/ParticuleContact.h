@@ -5,6 +5,8 @@
 
 class ParticuleContact {
 public :
+
+	//Doublet de particule en collision.
 	Particle* particule[2];
 
 	float restitution;
