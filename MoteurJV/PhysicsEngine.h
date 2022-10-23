@@ -6,8 +6,11 @@ Classe gérante de la physique d'un environnement.
 #pragma once
 
 #include "Particle.h"
+
 #include "Fireball.h"
 #include "Ball.h"
+
+#include "ParticleForceGenerator.h"
 
 //Mesure de temps pour la boucle de raffraichissement.
 #include <chrono>
@@ -29,7 +32,7 @@ public:
 	//Les particules à gérer.
 	std::vector<Particle*>* p_particlePopulation;
 
-	//Dictionnaire de forces permanentes.
+	//Dictionnaire de forces universelles, donc subies dans tous l'espace.
 	std::map<std::string,std::unique_ptr<ParticleForceGenerator>>* p_universalForceRegistry;
 
 	//Constructeurs
@@ -57,6 +60,7 @@ public:
 
 private:
 
+	//Sommation des forces et calcul de l'accélération.
 	void accelIntegrate(Particle* p_P, double tick);
 
 	/*

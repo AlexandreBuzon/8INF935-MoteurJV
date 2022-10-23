@@ -14,7 +14,7 @@ public:
     LinearFieldGenerator(Vecteur3D f);
     ~LinearFieldGenerator();
 
-    void updateForce(Particle* p_P, double duration);
+    void updateForce(Particle* p_P);
 
 
 private:

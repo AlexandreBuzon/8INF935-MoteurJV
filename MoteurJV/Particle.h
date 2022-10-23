@@ -41,8 +41,7 @@ public:
 	/*
 	Les noms des forces que subit en général la particule.
 
-	Ainsi, la particule peut ignorer des forces, voire
-	en être complètement isolé.
+	Ainsi, la particule peut ignorer des forces.
 	On laisse alors la liberté au développeur d'associer
 	forces à particules comme bon lui semble.
 
@@ -54,8 +53,6 @@ public:
 	double getInverseMass();
 	void setVelocity(Vecteur3D newVelo);
 	void setPosition(Vecteur3D newPos);
-	//Forces issues de champs délimités spacialement.
-	//std::vector<ParticleForceGenerator*> forceFields;
 
 //Devra être fixé par sous-classe.
 protected:

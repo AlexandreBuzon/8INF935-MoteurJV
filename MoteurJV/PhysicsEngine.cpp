@@ -30,7 +30,7 @@ void PhysicsEngine::accelIntegrate(Particle* p_P, double tick) {
 
 		for (std::string force : p_P->permanentForces) {
 
-			p_universalForceRegistry->at(force)->updateForce(p_P, tick);
+			p_universalForceRegistry->at(force)->updateForce(p_P);
 
 		}
     }
@@ -55,7 +55,7 @@ void PhysicsEngine::integrate(Particle* p_P, double tick)
 
 
 /*
-* Méthode placeholder pour garder la particule dans un cadre fermé.
+* Méthode pour garder la particule dans un cadre fermé.
 * 
 Ricochet de particule par réflexion par rapport à la limite atteinte.
 L'axe définit la dimension où il y a dépassement.
@@ -109,8 +109,7 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 
 /*
 Calcul des trajectoires à l'instant d'après.
-
-Utilisation d'un pointeur pour la population afin de modifier chaque particule.
+D'abord intégration, puis gestion de collisions.
 */
 void PhysicsEngine::nextPosition(Particle* P, double tick, Vecteur3D bounds)
 {

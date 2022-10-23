@@ -1,6 +1,6 @@
 /*
 Projectile utilisé pour la démonstration de la partie 1.
-
+Typiquement Soumis à aucune force universelle.
 */
 
 #pragma once
@@ -11,12 +11,10 @@ class Fireball :
 
 private:
 
-    //Inutile ici, car soumis à aucune force.
+
     const double inverseMass = -1;
 
     const double spawnSpeed = 45.0;
-
-    std::vector<std::string> appliedForce = {};
 
 public:
 

@@ -101,7 +101,7 @@ void Environment::play()
 
 	while (!glfwWindowShouldClose(window)) {
 
-
+		//Boucle physique.
 		engine.physicsLoop(&currentTime, &deltaTime, tick, bounds);
 
 
@@ -110,10 +110,13 @@ void Environment::play()
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		// efface le buffer noir et asigne la nouvelle couleur
 		glClear(GL_COLOR_BUFFER_BIT);
+
 		// Donne à OpenGL quelle Shader Program nous voulons utiliser
 		shaderProgram.Activate();
+
 		// Assigne une valeur à l'uniform; NOTE: Doit toujours être fait après avoir activer le Shader Program
 		glUniform1f(uniID, 0.5f);
+
 		// Assemble le VAO pour que OpenGL puisse l'utiliser
 		VAO1.Bind();
 		
@@ -121,7 +124,7 @@ void Environment::play()
 
 		//Changement de coordonnées par vecteurs.
 		for (size_t j = 0; j < engine.p_particlePopulation->size(); j++)
-		{//1
+		{
 			
 
 			float x = engine.p_particlePopulation->at(j)->position.getX();
@@ -149,13 +152,12 @@ void Environment::play()
 			glfwPollEvents();
 	}
 
-	//Détruit Fireball.
-	//delete& fireB;
-	//Détruit tous les objets que nous avons créés
+	//Nettoyage.
 	VAO1.Delete();
 	VBO1.Delete();
 	EBO1.Delete();
 	shaderProgram.Delete();
+
 	// Détruit la fenêtre avant de fermer le programe
 	glfwDestroyWindow(window);
 	// Termine les actions de GLFW avant la fin du programe

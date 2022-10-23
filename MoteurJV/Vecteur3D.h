@@ -6,14 +6,11 @@
 #pragma once
 class Vecteur3D
 {
-	//Propriétés de la classe 
 	private:
 		double x, y, z;
 	
-	//Listes des Méthodes de la classe Vecteur 3D
 	public:
 
-		//Constructeurs
 		Vecteur3D();
 		Vecteur3D(double x, double y, double z);
 
@@ -42,7 +39,7 @@ class Vecteur3D
 		//Multiplication par scalaire.
 		Vecteur3D operator *(const double &b) const;
 
-		//Produit scalaire pas saturation de l'opérateur *.
+		//Produit scalaire par surcharge de l'opérateur *.
 		double operator *(Vecteur3D &B);
 
 		//Produit vectoriel. Défini en sens direct (règle de la main droite).
@@ -51,7 +48,7 @@ class Vecteur3D
 		//Norme euclidienne.
 		double norm();
 
-		//Produit vectoriel. Défini en sens direct.
+		//Vecteur unitaire de direction égale à celle de l'objet.
 		Vecteur3D normalize();
 };
 

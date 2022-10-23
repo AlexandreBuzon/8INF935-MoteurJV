@@ -14,7 +14,7 @@ LinearFieldGenerator::LinearFieldGenerator(Vecteur3D f) {
 
 LinearFieldGenerator::~LinearFieldGenerator() {}
 
-void LinearFieldGenerator::updateForce(Particle* p_P, double duration) {
+void LinearFieldGenerator::updateForce(Particle* p_P) {
 
 	p_P->acceleration = p_P->acceleration + force;
 

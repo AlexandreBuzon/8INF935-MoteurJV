@@ -59,7 +59,7 @@ void Vecteur3D::display() {
 Vecteur3D Vecteur3D::operator +(const Vecteur3D &B) {
 	Vecteur3D C;
 	
-	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	
 	C.x = x + B.x;
 	C.y = y + B.y;
 	C.z = z + B.z;
@@ -71,7 +71,7 @@ Vecteur3D Vecteur3D::operator +(const Vecteur3D &B) {
 Vecteur3D Vecteur3D::operator -(const Vecteur3D& B) {
 	Vecteur3D C;
 
-	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	
 	C.x = x - B.x;
 	C.y = y - B.y;
 	C.z = z - B.z;
@@ -82,7 +82,7 @@ Vecteur3D Vecteur3D::operator -(const Vecteur3D& B) {
 //Soustraction.
 Vecteur3D Vecteur3D::operator -=(const Vecteur3D& B) {
 
-	//Pas besoin d'accesseurs ni de mutateurs quand c'est défini dans la classe.
+	
 	x = x - B.x;
 	y = y - B.y;
 	z = z - B.z;
