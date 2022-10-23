@@ -1,5 +1,7 @@
 #include "Environment.h"
 
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b)
 {
 	tick = tck;
@@ -48,6 +50,8 @@ void Environment::play()
 	// Crée un objet GLFWwindow de 1000 par 1000 pixels
 	GLFWwindow* window = glfwCreateWindow(1000, 1000, "MoteurJV OpenGL", NULL, NULL);
 
+	//Fonction des inputs
+	glfwSetKeyCallback(window, keyCallback);
 
 	if (window == NULL)
 	{
@@ -127,9 +131,9 @@ void Environment::play()
 		{
 			
 
-			float x = engine.p_particlePopulation->at(j)->position.getX();
-			float y = engine.p_particlePopulation->at(j)->position.getY();
-			float z = engine.p_particlePopulation->at(j)->position.getZ();
+			double x = engine.p_particlePopulation->at(j)->position.getX();
+			double y = engine.p_particlePopulation->at(j)->position.getY();
+			double z = engine.p_particlePopulation->at(j)->position.getZ();
 
 			glm::vec3 translateVector = glm::vec3((x-50)/1000, (y-50)/1000, (z-50)/1000);
 
@@ -162,4 +166,14 @@ void Environment::play()
 	glfwDestroyWindow(window);
 	// Termine les actions de GLFW avant la fin du programe
 	glfwTerminate();
+}
+
+//Callback de la fonction keyInput permetat de gérer les input au clavier
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods){
+	std::cout << key << std::endl;
+
+	if (key == GLFW_KEY_SPACE) {
+		std::cout << "espace" << std::endl;
+		//Ce qu'on veut faire lors du pressage de touche
+	}
 }

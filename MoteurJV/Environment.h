@@ -24,6 +24,9 @@ Définit les particules existantes et les coordonnées limites.
 
 using namespace std::chrono;
 
+
+
+
 #pragma once
 class Environment
 {
