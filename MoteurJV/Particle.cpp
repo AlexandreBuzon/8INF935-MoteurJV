@@ -6,6 +6,9 @@ Particle::Particle() {
 	acceleration =  Vecteur3D();
 	spawnSpeed = 0;
 	inverseMass = -1;
+	initialX = position.getX();
+	initialY = position.getY();
+	initialZ = position.getZ();
 }
 
 Particle::Particle(Vecteur3D position, Vecteur3D velocity, Vecteur3D acceleration) {
@@ -15,6 +18,9 @@ Particle::Particle(Vecteur3D position, Vecteur3D velocity, Vecteur3D acceleratio
 	this->acceleration = acceleration;
 	spawnSpeed = 0;
 	inverseMass = -1;
+	initialX = position.getX();
+	initialY = position.getY();
+	initialZ = position.getZ();
 }
 
 Particle::~Particle()

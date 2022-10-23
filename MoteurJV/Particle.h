@@ -28,6 +28,9 @@ public:
 	Vecteur3D acceleration;
 	double mass;
 	double rayonCollision;
+	double initialX;
+	double initialY;
+	double initialZ;
 
 
 	//Constructeur

@@ -64,9 +64,9 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 {
 	//Vérification de collision avec les limites.
     //Limites selon Ox.
-    if (p_P->position.getX() < 0) {
+    if (p_P->position.getX() < -1000) {
 
-        p_P->position.setX(0);
+        p_P->position.setX(-1000);
         p_P->velocity.setX(-p_P->velocity.getX());
         p_P->acceleration.setX(-p_P->acceleration.getX());
     }
@@ -77,9 +77,9 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
         p_P->acceleration.setX(-p_P->acceleration.getX());
     }
     //Selon Oy.
-    if (p_P->position.getY() < 0) {
+    if (p_P->position.getY() < -1000) {
 
-        p_P->position.setY(0);
+        p_P->position.setY(-1000);
         p_P->velocity.setY(-p_P->velocity.getY());
         p_P->acceleration.setY(-p_P->acceleration.getY());
     }
@@ -92,9 +92,9 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
     }
 
     //Selon Oz.
-    if (p_P->position.getZ() < 0) {
+    if (p_P->position.getZ() < -1000) {
 
-        p_P->position.setZ(0);
+        p_P->position.setZ(-1000);
         p_P->velocity.setZ(-p_P->velocity.getZ());
         p_P->acceleration.setZ(-p_P->acceleration.getZ());
     }

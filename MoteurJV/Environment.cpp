@@ -6,6 +6,8 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+//Temps
 double deltaTime;
 
 Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b)
@@ -13,6 +15,7 @@ Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, do
 	tick = tck;
 	engine = e;
 	bounds = Vecteur3D(x_b,y_b,z_b);
+
 }
 
 Environment::~Environment(){}
@@ -27,12 +30,12 @@ void Environment::play()
 
 	GLfloat vertices[] =
 	{ // sur une ligne : x, y, z, R, V, B
-		-0.1f, -0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
-		-0.1f, 0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.1f, -0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.1f, 0.1f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.05f, -0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.05f, 0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.05f, -0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
+		0.05f, 0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
 	};
-
+	
 	// Indices pour l'ordre des vertices
 	GLuint indices[] =
 	{
@@ -71,8 +74,8 @@ void Environment::play()
 	gladLoadGL();
 
 	// Specifie le viewport de OpenGL dans la fenêtre que nous avons créer
-	// Dans notre cas le viewport vas de x = 0, y = 0, jusqu'à x = 800, y = 800
-	glViewport(0, 0, 800, 800);
+	// Dans notre cas le viewport vas de x = 0, y = 0, jusqu'à x = 1000, y = 1000
+	glViewport(0, 0,1000, 1000);
 
 
 
@@ -135,7 +138,8 @@ void Environment::play()
 		//Camera
 		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 		
-
+		
+		
 		//Changement de coordonnées par vecteurs.
 		for (size_t j = 0; j < engine.p_particlePopulation->size(); j++)
 		{
@@ -144,8 +148,15 @@ void Environment::play()
 			double x = engine.p_particlePopulation->at(j)->position.getX();
 			double y = engine.p_particlePopulation->at(j)->position.getY();
 			double z = engine.p_particlePopulation->at(j)->position.getZ();
+			double initialx = engine.p_particlePopulation->at(j)->initialX;
+			double initialy = engine.p_particlePopulation->at(j)->initialY;
+			double initialz = engine.p_particlePopulation->at(j)->initialZ;
 
-			glm::vec3 translateVector = glm::vec3((x-50)/1000, (y-50)/1000, (z-50)/1000);
+			std::cout << "X :" << x << " Y : " << y << "Z : " << z << std::endl;
+
+			
+
+			glm::vec3 translateVector = glm::vec3((x-initialx)/1000, (y-initialy)/1000, (z-initialz)/1000);
 
 			model = glm::translate(model, translateVector);
 
@@ -157,7 +168,7 @@ void Environment::play()
 			// Dessine des primitives, nombre d'indices, datatype des indices, index des indices
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 			
-			glDrawElements(GL_LINE, 2, GL_UNSIGNED_INT, 0);
+			
 			
 		}
 		// échange les 2 buffer (avant et arrière) afin qu'il s'alterne
@@ -165,6 +176,7 @@ void Environment::play()
 			// Vérifie tous les événement GLFW
 			glfwPollEvents();
 	}
+	
 
 	//Nettoyage.
 	VAO1.Delete();
