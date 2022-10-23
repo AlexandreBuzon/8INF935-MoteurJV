@@ -1,12 +1,11 @@
+#include "BallForces.h"
 
-#include "Ball.h"
 
-
-Ball::Ball() {
+BallForces::BallForces() {
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    std::vector<std::string> permanentForces = { "gravity", "Fluid","StaticSpring"};
+    std::vector<std::string> permanentForces = { "gravity", "Fluid", "ParticuleSpring","ParticuleSpringA","StaticSpring" };
 
     position.setX(0);
     position.setY(0);
@@ -22,14 +21,14 @@ Ball::Ball() {
 
 }
 
-Ball::Ball(double x, double y, double z,
-    double vx, double vy, double vz) {
+BallForces::BallForces(double x, double y, double z,
+    double vx, double vy, double vz,std::string permanentForce) {
 
 
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    permanentForces = { "gravity", "Fluid","StaticSpring"};
+    permanentForces.push_back(permanentForce);
 
     position.setX(x);
     position.setY(y);
@@ -40,11 +39,11 @@ Ball::Ball(double x, double y, double z,
     velocity.setZ(vz);
 
     if (velocity.norm() != 0) velocity = velocity * (spawnSpeed / velocity.norm());
-    
+
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
 
 }
 
-Ball::~Ball(){}
+BallForces::~BallForces() {}

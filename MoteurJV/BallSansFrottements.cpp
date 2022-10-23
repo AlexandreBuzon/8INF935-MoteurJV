@@ -1,12 +1,12 @@
 
-#include "Ball.h"
+#include "BallSansFrottements.h"
 
 
-Ball::Ball() {
+BallSansFrottements::BallSansFrottements() {
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    std::vector<std::string> permanentForces = { "gravity", "Fluid","StaticSpring"};
+    std::vector<std::string> permanentForces = { "gravity"};
 
     position.setX(0);
     position.setY(0);
@@ -22,14 +22,14 @@ Ball::Ball() {
 
 }
 
-Ball::Ball(double x, double y, double z,
+BallSansFrottements::BallSansFrottements(double x, double y, double z,
     double vx, double vy, double vz) {
 
 
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    permanentForces = { "gravity", "Fluid","StaticSpring"};
+    permanentForces = { "gravity"};
 
     position.setX(x);
     position.setY(y);
@@ -40,11 +40,11 @@ Ball::Ball(double x, double y, double z,
     velocity.setZ(vz);
 
     if (velocity.norm() != 0) velocity = velocity * (spawnSpeed / velocity.norm());
-    
+
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
 
 }
 
-Ball::~Ball(){}
+BallSansFrottements::~BallSansFrottements() {}

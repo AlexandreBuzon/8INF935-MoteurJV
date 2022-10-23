@@ -80,9 +80,7 @@ Vecteur3D Vecteur3D::operator -(const Vecteur3D& B) {
 }
 
 //Soustraction.
-void Vecteur3D::operator -=(const Vecteur3D& B) {
-
-	
+void Vecteur3D::operator -=(const Vecteur3D& B) {	
 	x = x - B.x;
 	y = y - B.y;
 	z = z - B.z;
