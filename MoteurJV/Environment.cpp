@@ -2,6 +2,12 @@
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
+// camera
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+double deltaTime;
+
 Environment::Environment(double tck, PhysicsEngine e, double x_b, double y_b, double z_b)
 {
 	tick = tck;
@@ -101,7 +107,7 @@ void Environment::play()
 	Mesure de décalage entre deux itérations.
 	Pour l'instant, rien.
 	*/
-	double deltaTime = 0;
+	 deltaTime = 0;
 
 	while (!glfwWindowShouldClose(window)) {
 
@@ -126,6 +132,10 @@ void Environment::play()
 		
 		glm::mat4 model = glm::mat4(1.0f);
 
+		//Camera
+		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		
+
 		//Changement de coordonnées par vecteurs.
 		for (size_t j = 0; j < engine.p_particlePopulation->size(); j++)
 		{
@@ -147,7 +157,7 @@ void Environment::play()
 			// Dessine des primitives, nombre d'indices, datatype des indices, index des indices
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 			
-			
+			glDrawElements(GL_LINE, 2, GL_UNSIGNED_INT, 0);
 			
 		}
 		// échange les 2 buffer (avant et arrière) afin qu'il s'alterne
@@ -174,6 +184,18 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	if (key == GLFW_KEY_SPACE) {
 		std::cout << "espace" << std::endl;
-		//Ce qu'on veut faire lors du pressage de touche
+		glfwSetWindowShouldClose(window, true);
+
 	}
+
+	//Dans le cas ou il y a de la 3D
+	float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+		cameraPos += cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
