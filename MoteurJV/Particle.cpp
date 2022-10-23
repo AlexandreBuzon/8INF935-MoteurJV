@@ -22,7 +22,7 @@ Particle::~Particle()
 
 double Particle::getInverseMass() 
 {
-	return -mass;
+	return inverseMass;
 }
 
 void Particle::setVelocity(Vecteur3D newVelocity) 
