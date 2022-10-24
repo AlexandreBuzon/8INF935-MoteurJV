@@ -6,7 +6,7 @@ Ball::Ball() {
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    std::vector<std::string> permanentForces = { "gravity" };
+    std::vector<std::string> permanentForces = { "gravity","staticAnchor", "fluid"};
     constraints = {};
 
     position.setX(0);
@@ -24,11 +24,14 @@ Ball::Ball() {
 }
 
 Ball::Ball(double x, double y, double z,
-    double vx, double vy, double vz) {
+    double vx, double vy, double vz, std::string force) {
 
     spawnSpeed = 150;
     inverseMass = 0.04;
-    permanentForces = { "gravity" };
+    if (force == "fluid") {
+        permanentForces.push_back("gravity");
+    }
+    permanentForces.push_back(force);
     constraints = {};
 
     position.setX(x);

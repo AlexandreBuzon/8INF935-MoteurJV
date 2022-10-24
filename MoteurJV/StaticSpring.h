@@ -5,7 +5,7 @@
 class StaticSpring :
     public ParticleForceGenerator
 {
-
+public:
     StaticSpring();
     StaticSpring(Vecteur3D anchor, float k, float l0);
 

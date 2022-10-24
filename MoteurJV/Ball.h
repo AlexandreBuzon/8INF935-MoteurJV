@@ -18,7 +18,7 @@ public:
     Le vecteur est re-normalisé à spawnVelocity.
     */
     Ball(double x, double y, double z,
-        double vx, double vy, double vz);
+        double vx, double vy, double vz, std::string force);
 
 
     ~Ball();

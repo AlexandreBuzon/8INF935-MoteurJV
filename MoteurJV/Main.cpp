@@ -3,6 +3,9 @@
 #include"imgui_impl_opengl3.h"
 
 #include "LinearFieldGenerator.h"
+#include "FluidDrag.h"
+#include "ParticleSpring.h"
+#include "StaticSpring.h"
 #include "Particle.h"
 #include "Fireball.h"
 #include "Environment.h"
@@ -44,6 +47,9 @@ int main()
 		std::cin.clear(); // effacer les bits d'erreurs 
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // supprimer la ligne erronée dans le buffer
 		if (menu) {
+			std::string force[3] = {"gravity","ressort","fluid"};
+			Vecteur3D anchor = Vecteur3D(0, 300, 0);
+			std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
 			std::cout << "Quelle force ?" << std::endl;
 			std::cout << "1 : Gravité " << std::endl;
 			std::cout << "2 : Ressort " << std::endl;
@@ -56,14 +62,18 @@ int main()
 				{
 				case 1:
 					//A faire
+					listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0, -10, 0))));
 					menu2 = false;
 					break;
 				case 2:
 					//A faire
+					listeLF.insert(std::make_pair("ressort", new StaticSpring(anchor,10.0f,10.0f)));
 					menu2 = false;
 					break;
 				case 3:
 					//A faire
+					listeLF.insert(std::make_pair("fluid", new FluidDrag(10.0f,10.0f)));
+					listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0, -10, 0))));
 					menu2 = false;
 					break;
 				case 4:
@@ -76,21 +86,17 @@ int main()
 
 
 
-			Ball fireB = Ball(-300, 0, 0, 0, 0, 0);
+			Ball fireB = Ball(-300, 0, 0, 0, 0, 0, force[choix-1]);
 			std::vector<Particle*> ListePart = std::vector<Particle*>{ &fireB };
 
 
 
 			for (float i = 1; i < nbPart; i++)
 			{
-				Ball fireB = Ball(rand()%500-250, rand() % 500 - 250, 0, 0, 0, 0);
+				Ball fireB = Ball(rand()%500-250, rand() % 500 - 250, 0, 0, 0, 0, force[choix - 1]);
 				ListePart.push_back(&fireB);
 				std::cout << i << std::endl;
 			}
-
-			std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
-
-			listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0, -10, 0))));
 
 			//ListePart.push_back(&fireC);
 
