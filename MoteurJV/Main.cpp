@@ -32,7 +32,7 @@ int main()
 	while (menu) {
 		menu = true;
 		menu2 = true;
-
+		std::cout <<"Générateur de force et contraintes" << std::endl;
 		std::cout << "Combien de particule souhaitez vous afficher ? (entre 1 et 10)  " << std::endl;
 
 
@@ -51,7 +51,7 @@ int main()
 			Vecteur3D anchor = Vecteur3D(0, 300, 0);
 			std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
 			std::cout << "Quelle force ?" << std::endl;
-			std::cout << "1 : Gravité " << std::endl;
+			std::cout << "1 : Gravite " << std::endl;
 			std::cout << "2 : Ressort " << std::endl;
 			std::cout << "3 : Fluide " << std::endl;
 			std::cout << "4 : Quitter" << std::endl;
@@ -106,8 +106,9 @@ int main()
 
 			std::cout << "Pour quitter le programme appuyer sur 'SPACE'  " << std::endl;
 			envi->play();
-
+			listeC.clear();
 		}
+		
 		menu = true;
 	}
 	return 0;
