@@ -8,6 +8,7 @@
 #include "Environment.h"
 
 #include<iostream>
+#include<stdlib.h>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -15,43 +16,92 @@
 #include <glm/gtc/type_ptr.hpp>
 
 int main()
-{	
-	int x_depart = -2000;
+{
+	srand(time(NULL));
+	float largeur = 1500;
+	float longueur = 1500;
+
 	bool menu = true;
-	int nbPart;
+	bool menu2 = true;
+
+	float nbPart;
+	int choix;
 	while (menu) {
+		menu = true;
+		menu2 = true;
+
 		std::cout << "Combien de particule souhaitez vous afficher ? (entre 1 et 10)  " << std::endl;
+
+
+
 		std::cin >> nbPart;
-		if (nbPart < 10 && nbPart>0) {
+
+		if (nbPart > 10 || nbPart < 0 || std::cin.fail()) {
 			menu = false;
+			menu2 = false;
+			
 		}
+		std::cin.clear(); // effacer les bits d'erreurs 
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // supprimer la ligne erronée dans le buffer
+		if (menu) {
+			std::cout << "Quelle force ?" << std::endl;
+			std::cout << "1 : Gravité " << std::endl;
+			std::cout << "2 : Ressort " << std::endl;
+			std::cout << "3 : Fluide " << std::endl;
+			std::cout << "4 : Quitter" << std::endl;
+			while (menu2)
+			{
+				std::cin >> choix;
+				switch (choix)
+				{
+				case 1:
+					//A faire
+					menu2 = false;
+					break;
+				case 2:
+					//A faire
+					menu2 = false;
+					break;
+				case 3:
+					//A faire
+					menu2 = false;
+					break;
+				case 4:
+					return 0;
+				default:
+					std::cout << "Choix Incorrect" << std::endl;
+					break;
+				}
+			}
 
 
 
-		Ball fireB = Ball(0, 0, 0, 0, 0, 0);
-		std::vector<Particle*> ListePart = std::vector<Particle*>{ &fireB };
+			Ball fireB = Ball(-300, 0, 0, 0, 0, 0);
+			std::vector<Particle*> ListePart = std::vector<Particle*>{ &fireB };
 
-		for (int i = 1; i < nbPart; i++)
-		{
-			Ball fireB = Ball((double)(50 * i), 0, 0, 0, 0, 0);
-			ListePart.push_back(&fireB);
+
+
+			for (float i = 1; i < nbPart; i++)
+			{
+				Ball fireB = Ball(rand()%500-250, rand() % 500 - 250, 0, 0, 0, 0);
+				ListePart.push_back(&fireB);
+				std::cout << i << std::endl;
+			}
+
+			std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
+
+			listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0, -10, 0))));
+
+			//ListePart.push_back(&fireC);
+
+			std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>> listeC;
+
+			Environment* envi = new Environment(1.0 / 60.0, PhysicsEngine(&ListePart, &listeLF, &listeC), 1000, 1000, 1000);
+
+			std::cout << "Pour quitter le programme appuyer sur 'SPACE'  " << std::endl;
+			envi->play();
+
 		}
-
-
-
-
-		std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
-
-		listeLF.insert(std::make_pair("gravity", new LinearFieldGenerator(Vecteur3D(0, -10, 0))));
-
-		//ListePart.push_back(&fireC);
-
-		std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>> listeC;
-
-		Environment* envi = new Environment(1.0 / 60.0, PhysicsEngine(&ListePart, &listeLF,&listeC), 1000, 1000, 1000);
-
-		std::cout << "Pour quitter le programme appuyer sur 'SPACE'  " << std::endl;
-		envi->play();
 		menu = true;
 	}
 	return 0;
