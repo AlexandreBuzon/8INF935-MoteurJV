@@ -20,6 +20,7 @@
 
 int main()
 {
+
 	srand(time(NULL));
 	float largeur = 1500;
 	float longueur = 1500;
@@ -107,9 +108,14 @@ int main()
 			std::cout << "Pour quitter le programme appuyer sur 'SPACE'  " << std::endl;
 			envi->play();
 			listeC.clear();
+
+			delete envi;
 		}
-		
+
 		menu = true;
 	}
+
+
+
 	return 0;
 }
