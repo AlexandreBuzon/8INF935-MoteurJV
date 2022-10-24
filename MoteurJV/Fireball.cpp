@@ -13,6 +13,7 @@ Fireball::Fireball() {
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
+    constraints = {};
 }
 
 /*
@@ -38,5 +39,6 @@ Fireball::Fireball(double x, double y, double z,
     acceleration.setX(0);
     acceleration.setY(0);
     acceleration.setZ(0);
+    constraints = {};
 
 }

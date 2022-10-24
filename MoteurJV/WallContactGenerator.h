@@ -1,5 +1,5 @@
 #pragma once
-#include "ParticuleConstraintGenerator.h"
+#include "ParticleConstraintGenerator.h"
 
 #include "Vecteur3D.h"
 

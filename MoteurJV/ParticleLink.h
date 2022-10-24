@@ -1,7 +1,7 @@
 #ifndef PARTICLELINK_H
 #define PARTICLELINK_H
 
-#include "ParticuleConstraintGenerator.h"
+#include "ParticleConstraintGenerator.h"
 
 class ParticleLink :
 	public ParticleConstraintGenerator

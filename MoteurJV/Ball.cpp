@@ -7,6 +7,7 @@ Ball::Ball() {
     spawnSpeed = 150;
     inverseMass = 0.04;
     std::vector<std::string> permanentForces = { "gravity" };
+    constraints = {};
 
     position.setX(0);
     position.setY(0);
@@ -25,11 +26,10 @@ Ball::Ball() {
 Ball::Ball(double x, double y, double z,
     double vx, double vy, double vz) {
 
-
-
     spawnSpeed = 150;
     inverseMass = 0.04;
     permanentForces = { "gravity" };
+    constraints = {};
 
     position.setX(x);
     position.setY(y);

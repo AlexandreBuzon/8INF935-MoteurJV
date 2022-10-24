@@ -11,6 +11,8 @@ Classe gérante de la physique d'un environnement.
 #include "Ball.h"
 
 #include "ParticleForceGenerator.h"
+#include "ParticleConstraintGenerator.h"
+#include "ParticuleContact.h"
 
 //Mesure de temps pour la boucle de raffraichissement.
 #include <chrono>
@@ -26,9 +28,6 @@ class PhysicsEngine
 
 public:
 
-	//Constante d'accélération de la pesanteur.
-	float g;
-
 	//Les particules à gérer.
 	std::vector<Particle*>* p_particlePopulation;
 
@@ -36,12 +35,13 @@ public:
 	std::map<std::string,std::unique_ptr<ParticleForceGenerator>>* p_universalForceRegistry;
 
 	//Dictionnaire de contraintes définies.
-	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_constraints;
+	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints;
 
 	//Constructeurs
 	PhysicsEngine();
 	PhysicsEngine(std::vector<Particle*>* p_pP,
-		std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR);
+		std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
+		std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints);
 
 	//Destructeur
 	~PhysicsEngine();
@@ -51,6 +51,9 @@ public:
 	*/
 	void nextPosition(Particle* P,
 		double tick, Vecteur3D bounds);
+
+	//Méthode de recherche de collision entre particules.
+	std::vector<ParticuleContact> particleCollisionSearch();
 
 	/*
 	Synchronisation de la physique et de la réalité.

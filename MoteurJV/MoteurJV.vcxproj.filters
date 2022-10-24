@@ -185,7 +185,7 @@
     <ClInclude Include="ParticleCable.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="ParticuleConstraintGenerator.h">
+    <ClInclude Include="ParticleConstraintGenerator.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="ParticuleContact.h">

@@ -46,7 +46,9 @@ int main()
 
 		//ListePart.push_back(&fireC);
 
-		Environment* envi = new Environment(1.0 / 60.0, PhysicsEngine(&ListePart, &listeLF), 1000, 1000, 1000);
+		std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>> listeC;
+
+		Environment* envi = new Environment(1.0 / 60.0, PhysicsEngine(&ListePart, &listeLF,&listeC), 1000, 1000, 1000);
 
 		std::cout << "Pour quitter le programme appuyer sur 'SPACE'  " << std::endl;
 		envi->play();

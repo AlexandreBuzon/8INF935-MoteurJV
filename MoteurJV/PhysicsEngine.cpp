@@ -5,12 +5,15 @@
 PhysicsEngine::PhysicsEngine() {
     p_particlePopulation = NULL;
 	p_universalForceRegistry = NULL;
+	p_constraints = NULL;
 }
 
 PhysicsEngine::PhysicsEngine(std::vector<Particle*>* p_pP,
-	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR){
+	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
+	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints){
     p_particlePopulation = p_pP;
 	p_universalForceRegistry = p_uFR;
+	this->p_constraints = p_constraints;
 }
 
 //Destructeur
@@ -107,23 +110,63 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
 Calcul des trajectoires à l'instant d'après.
 D'abord intégration, puis gestion de collisions.
 */
-void PhysicsEngine::nextPosition(Particle* P, double tick, Vecteur3D bounds)
+void PhysicsEngine::nextPosition(Particle* p_P, double tick, Vecteur3D bounds)
 {
-	//Parcours de ce qui est pointé.
-	//for (auto P : *p_particlePopulation) {
 
 		
 		/*
 		D'abord le déplacement, puis la collision.
 		Les particules construites doivent être de toutes façons dans les limites au tout départ.
-
-		Alterner entre objet et adresse fait un peu maladroit, ceci dit.
 		*/
-		integrate(P, tick);
-		boundBounceCheck(P, bounds);
+		integrate(p_P, tick);
+
+		if (!p_P->constraints.empty()) {
+
+			for (std::string c : p_P->constraints) {
+
+				if (p_constraints->at(c)->checkConflict(p_P))
+					p_constraints->at(c)->solve(p_P);
+
+			}
+
+		}
+
+		boundBounceCheck(p_P, bounds);
+
+}
 
 
-	//}
+std::vector<ParticuleContact> PhysicsEngine::particleCollisionSearch() {
+
+	std::vector<ParticuleContact> conflictList = {};
+
+	for (size_t i = 0; i < p_particlePopulation->size(); i++) {
+
+		for (size_t j = i+1; j < p_particlePopulation->size(); j++) {
+
+			double distance =
+				(p_particlePopulation->at(i)->position 
+					- p_particlePopulation->at(j)->position).norm();
+
+			double d1 = p_particlePopulation->at(i)->rayonCollision;
+			double d2 = p_particlePopulation->at(j)->rayonCollision;
+
+			if (distance < d1 + d2) {
+
+				conflictList.push_back(ParticuleContact(1, d1 + d2 - distance,
+					(p_particlePopulation->at(i)->position
+						- p_particlePopulation->at(j)->position).normalize(),
+					p_particlePopulation->at(i),
+					p_particlePopulation->at(j)));
+
+			}
+
+		}
+
+	}
+
+	return conflictList;
+
 }
 
 /*
@@ -155,14 +198,6 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 	/*
 	Itérateur limite pour éviter un cercle vicieux de
 	décalage.
-
-	Avantage : la simulation s'arrêtera eventuellement
-	de ralentir si elle prend de plus en
-	plus de retard sur la réalité.
-
-	Limite : Soit on ne rattrape pas le retard,
-	soit on doit faire face à une accélération de
-	la physique.
 	*/
 	int i = 0;
 
@@ -198,6 +233,16 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
 				nextPosition(p_particlePopulation->at(j), tick, bounds);
 			}
+
+
+			std::vector<ParticuleContact> conflicts = particleCollisionSearch();
+
+			while (!conflicts.empty()) {
+
+				conflicts.back().resolve(tick);
+				conflicts.pop_back();
+			}
+
 
 			*p_deltaTime -= tick;
 			i++;

@@ -8,6 +8,7 @@ class ParticleConstraintGenerator
 {
 public:
 	virtual void solve(Particle* p_P) = 0;
+	virtual bool checkConflict(Particle* p_P) = 0;
 };
 
 #endif
