@@ -6,11 +6,11 @@
 #pragma once
 class Vecteur3D
 {
-	private:
+	/*private:
 		double x, y, z;
-	
+	*/
 	public:
-
+		double x, y, z;
 		Vecteur3D();
 		Vecteur3D(double x, double y, double z);
 
