@@ -37,6 +37,6 @@ void ParticleRod::solve(Particle* p_P) {
 
 bool ParticleRod::checkConflict(Particle* p_P) {
 
-	return (p_P->position - p_anchor->position).norm() == length;
+	return (p_P->position - p_anchor->position).norm() != length;
 
 }
