@@ -1,12 +1,33 @@
 #include "Particle.h"
 #include "ParticuleContact.h"
-#include "ParticuleContactGenerator.h"
+#include "ParticleConstraintGenerator.h"
 #include "ParticleLink.h"
 #include "ParticleCable.h"
 
+
+ParticleCable::ParticleCable() {
+
+	p_anchor = NULL;
+	maxLength = 0;
+	restitution = 0;
+
+}
+
+ParticleCable::ParticleCable(Particle* p_anchor, float maxLength, double restitution) {
+
+	this->p_anchor = p_anchor;
+
+	this->maxLength = maxLength;
+
+	this->restitution = restitution;
+
+}
+
+ParticleCable::~ParticleCable(){}
+
 void ParticleCable::solve(Particle* p_P) {
 
-	Vecteur3D l = p_anchor->position - p_P->position;
+	Vecteur3D l = p_P->position - p_anchor->position;
 	Vecteur3D u = l.normalize();
 
 	//Replace Particule à une position respectant la contrainte.
