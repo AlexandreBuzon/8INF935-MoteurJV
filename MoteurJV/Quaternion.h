@@ -7,8 +7,6 @@ class Quaternion
 	//Var
 private:
 
-	float value[4];
-
 
 	//Constructeur
 	Quaternion();
@@ -21,6 +19,8 @@ private:
 
 	//Méthodes 
 public :
+	float value[4];
+
 	void Normalise();
 
 	Quaternion operator*(const Quaternion& other);

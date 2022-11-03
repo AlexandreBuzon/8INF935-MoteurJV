@@ -1,6 +1,6 @@
 #pragma once
 #include "Vecteur3D.h"
-//#include "Quaternion.h"
+#include "Quaternion.h"
 class Matrix34
 {
 private:
@@ -14,7 +14,7 @@ public:
 
 	Matrix34 Inverse();
 
-	//void setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p);
+	void setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p);
 
 	Vecteur3D TransformPosition(const Vecteur3D& vector);
 

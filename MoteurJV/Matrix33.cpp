@@ -67,3 +67,16 @@ Matrix33 Matrix33::Transpose()
 {	
 	return Matrix33(values[0], values[3], values[6], values[1], values[4], values[7], values[2], values[5], values[8]);
 }
+
+void Matrix33::setOrientation(const Quaternion& q) 
+{
+	values[0] = 1-(2*q.value[1]* q.value[1] + 2*q.value[2]*q.value[2]);
+	values[1] = 2 * q.value[0] * q.value[1] + 2 * q.value[2] * q.value[3];
+	values[2] = 2 * q.value[0] * q.value[2] + 2 * q.value[1] * q.value[3];
+	values[3] = 2 * q.value[0] * q.value[1] + 2 * q.value[2] * q.value[3];
+	values[4] = 1-(2 * q.value[0] * q.value[0] + 2 * q.value[2] * q.value[2]);
+	values[5] = 2 * q.value[1] * q.value[2] + 2 * q.value[0] * q.value[3];
+	values[6] = (2 * q.value[0] * q.value[2] + 2 * q.value[1] * q.value[3]);
+	values[7] = (2 * q.value[1] * q.value[2] + 2 * q.value[0] * q.value[3]);
+	values[8] = 1-(2 * q.value[0] * q.value[0] + 2 * q.value[2] * q.value[2]);
+}

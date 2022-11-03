@@ -103,7 +103,18 @@ Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
 	
 }
 
-/*void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p)
+void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p)
 {
-	
-}*/
+	values[0] = 1 - (2 * q.value[1] * q.value[1] + 2 * q.value[2] * q.value[2]);
+	values[1] = 2 * q.value[0] * q.value[1] + 2 * q.value[2] * q.value[3];
+	values[2] = 2 * q.value[0] * q.value[2] + 2 * q.value[1] * q.value[3];
+	values[3] = p.x;
+	values[4] = 2 * q.value[0] * q.value[1] + 2 * q.value[2] * q.value[3];
+	values[5] =1-(2 * q.value[0] * q.value[0] + 2 * q.value[2] * q.value[2]);
+	values[6] = 2 * q.value[1] * q.value[2] + 2 * q.value[0] * q.value[3];
+	values[7] = p.y;
+	values[8] = 2 * q.value[0] * q.value[2] + 2 * q.value[1] * q.value[3];
+	values[9] = 2 * q.value[1] * q.value[2] + 2 * q.value[0] * q.value[3];
+	values[10] = 1-(2 * q.value[0] * q.value[0] + 2 * q.value[1] * q.value[1]);
+	values[11] = p.z;
+}
