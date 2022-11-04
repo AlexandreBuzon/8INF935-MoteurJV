@@ -3,11 +3,13 @@
 
 class Quaternion
 {
+	private:
 
-	//Var
-private:
+	float value[4];
 
 
+
+public :
 	//Constructeur
 	Quaternion();
 	
@@ -19,11 +21,13 @@ private:
 
 	//Méthodes 
 public :
-	float value[4];
+	
 
 	void Normalise();
 
 	Quaternion operator*(const Quaternion& other);
+
+	Quaternion* InverseQuaternion();
 
 	void RotateByVector(const Vecteur3D& vector);
 
