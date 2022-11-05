@@ -4,14 +4,18 @@
 //Constructeurs
 PhysicsEngine::PhysicsEngine() {
     p_particlePopulation = NULL;
+	p_bodyPopulation = NULL;
 	p_universalForceRegistry = NULL;
 	p_constraints = NULL;
+
 }
 
 PhysicsEngine::PhysicsEngine(std::vector<Particle*>* p_pP,
+	std::vector<RigidBody*>* p_bP,
 	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
 	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints){
     p_particlePopulation = p_pP;
+	p_bodyPopulation = p_bP;
 	p_universalForceRegistry = p_uFR;
 	this->p_constraints = p_constraints;
 }
@@ -50,6 +54,32 @@ void PhysicsEngine::integrate(Particle* p_P, double tick)
 
 	// 3. Calcul de la position à partir de la vélocité :
 	p_P->position = p_P->position+p_P->velocity*tick;
+}
+
+//Equivalent pour corps rigide.
+void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
+
+	//1.1. L'accélération
+
+	//1.2. Vélocité
+	p_B->velocity = p_B->velocity + p_B->acceleration * tick;
+
+	//1.3. Position
+	p_B->position = p_B->position + p_B->velocity * tick;
+
+	//2.1 Accélération angulaire.
+
+	//2.2. Vitesse angulaire
+
+	//2.3 Orientation
+	p_B->orientation = 
+		p_B->orientation.UpdateByAngularVelocity(
+			p_B->angularV,tick);
+
+	//3. Transformation affine
+	p_B->transformMatrix.setOrientationAndPosition(
+	p_B->orientation,p_B->position);
+
 }
 
 
@@ -106,6 +136,39 @@ void PhysicsEngine::boundBounceCheck(Particle* p_P, Vecteur3D bounds)
     }
 }
 
+void PhysicsEngine::boundBounceCheck(RigidBody* p_B, Vecteur3D bounds) {
+
+	Vecteur3D* p_p = &p_B->position;
+
+	//Selon Ox.
+	if ((p_p->x < -bounds.x)||(p_p->x > bounds.x)) {
+
+		if (p_p->x < 0)p_p->x = -bounds.x;
+		else p_p->x = bounds.x;
+		p_B->velocity.x = -p_B->velocity.x;
+		p_B->acceleration.x = -p_B->acceleration.x;
+
+	}
+	//Selon Oy.
+	if ((p_p->y < -bounds.y) || (p_p->y > bounds.y)) {
+
+		if (p_p->y < 0)p_p->y = -bounds.y;
+		else p_p->y = bounds.y;
+		p_B->velocity.y = -p_B->velocity.y;
+		p_B->acceleration.y = -p_B->acceleration.y;
+
+	}
+	//Selon Oz.
+	if ((p_p->z < -bounds.z) || (p_p->z > bounds.z)) {
+
+		if (p_p->z < 0)p_p->z = -bounds.z;
+		else p_p->z = bounds.z;
+		p_B->velocity.z = -p_B->velocity.z;
+		p_B->acceleration.z = -p_B->acceleration.z;
+
+	}
+}
+
 /*
 Calcul des trajectoires à l'instant d'après.
 D'abord intégration, puis gestion de collisions.
@@ -134,6 +197,17 @@ void PhysicsEngine::nextPosition(Particle* p_P, double tick, Vecteur3D bounds)
 		boundBounceCheck(p_P, bounds);
 
 }
+
+void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
+{
+
+	integrate(p_B, tick);
+
+	boundBounceCheck(p_B, bounds);
+
+}
+
+
 
 
 std::vector<ParticuleContact> PhysicsEngine::particleCollisionSearch() {
@@ -231,6 +305,10 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 		if (*p_deltaTime > tick) {
 
 			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
+				nextPosition(p_particlePopulation->at(j), tick, bounds);
+			}
+
+			for (size_t j = 0; j < p_bodyPopulation->size(); j++) {
 				nextPosition(p_particlePopulation->at(j), tick, bounds);
 			}
 

@@ -74,7 +74,7 @@ void Environment::play()
 	//Charge GLAD pour configurer OpenGL
 	gladLoadGL();
 
-	// Specifie le viewport de OpenGL dans la fenêtre que nous avons créer
+	// Specifie le viewport de OpenGL dans la fenêtre que nous avons crée.
 	// Dans notre cas le viewport vas de x = 0, y = 0, jusqu'à x = 1000, y = 1000
 	glViewport(0, 0,1000, 1000);
 
@@ -92,7 +92,7 @@ void Environment::play()
 	// Génère un buffer d'objet Element et les lie aux indices
 	EBO EBO1(indices, sizeof(indices));
 
-	// lie les attributs VBO comme des coordoner et des couleurs à VAO
+	// lie les attributs VBO comme des coordonnées et des couleurs à VAO
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 
@@ -101,7 +101,7 @@ void Environment::play()
 	VBO1.Unbind();
 	EBO1.Unbind();
 
-	// récuppère l'ID uniforme appelé "scale"
+	// récupère l'ID uniforme appelé "scale"
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
 	//Initialisation du temps.
@@ -185,7 +185,7 @@ void Environment::play()
 	EBO1.Delete();
 	shaderProgram.Delete();
 
-	// Détruit la fenêtre avant de fermer le programe
+	// Détruit la fenêtre avant de fermer le programme
 	glfwDestroyWindow(window);
 	// Termine les actions de GLFW avant la fin du programe
 	glfwTerminate();

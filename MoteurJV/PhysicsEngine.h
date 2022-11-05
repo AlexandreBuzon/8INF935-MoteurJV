@@ -7,6 +7,8 @@ Classe gérante de la physique d'un environnement.
 
 #include "Particle.h"
 
+#include "RigidBody.h"
+
 #include "Fireball.h"
 #include "Ball.h"
 
@@ -31,6 +33,9 @@ public:
 	//Les particules à gérer.
 	std::vector<Particle*>* p_particlePopulation;
 
+	//Les corps rigides à gérer.
+	std::vector<RigidBody*>* p_bodyPopulation;
+
 	//Dictionnaire de forces universelles, donc subies dans tous l'espace.
 	std::map<std::string,std::unique_ptr<ParticleForceGenerator>>* p_universalForceRegistry;
 
@@ -40,6 +45,7 @@ public:
 	//Constructeurs
 	PhysicsEngine();
 	PhysicsEngine(std::vector<Particle*>* p_pP,
+		std::vector<RigidBody*>* p_bP,
 		std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
 		std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints);
 
@@ -51,9 +57,13 @@ public:
 	*/
 	void nextPosition(Particle* P,
 		double tick, Vecteur3D bounds);
+	void nextPosition(RigidBody* p_B,
+		double tick,
+		Vecteur3D bounds);
 
 	//Méthode de recherche de collision entre particules.
 	std::vector<ParticuleContact> particleCollisionSearch();
+	
 
 	/*
 	Synchronisation de la physique et de la réalité.
@@ -74,6 +84,8 @@ private:
 	*/
 	void integrate(Particle* p_P, double tick);
 
+	void integrate(RigidBody* p_B, double tick);
+
 	/*
 	Ricochet de particule par réflexion par rapport aux limites atteintes.
 
@@ -81,6 +93,9 @@ private:
 	remplacée ou généralisée lors du travail sur les collisions.
 	*/
 	void boundBounceCheck(Particle* p_P, Vecteur3D bounds);
+
+	//Equivalent corps rigide.
+	void boundBounceCheck(RigidBody* p_B, Vecteur3D bounds);
 
 };
 
