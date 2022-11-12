@@ -5,6 +5,20 @@
 
 #include<glad/glad.h>
 
+struct bodyForce {
+
+	//Clé de la force dans le dictionnaire.
+	std::string idForce;
+
+	//Point d'application.
+	Vecteur3D applicationP;
+
+	//1 ~ dans base locale, 0 ~ globale
+	bool localF;//Force
+	bool localP;//Point d'application
+
+};
+
 #pragma once
 class RigidBody
 {
@@ -13,34 +27,11 @@ friend class PhysicsEngine;
 
 private:
 
-	struct bodyForce {
-	
-		//Clé de la force dans le dictionnaire.
-		std::string idForce;
-
-		//Point d'application.
-		Vecteur3D applicationP;
-
-		//1 ~ dans base locale, 0 ~ globale
-		bool local;
-	
-	};
-
-	//Le centre de masse par rapport au volume. Même base que dimensions.
-	float inverseMass;
-	Vecteur3D centerMass;
-
-
-	//Définis dans la base de l'environnement.
-	Vecteur3D position;//L'origine dans la base du corps rigide.
-	Vecteur3D velocity;
-	Vecteur3D acceleration;
-
 	std::vector<bodyForce> permanentForces;
 
 	std::vector<bodyForce> constraints;
 
-	std::vector<GLfloat> vertices;
+	std::vector<GLfloat> GLvertices;
 	std::vector<GLint> triangles;
 
 	Matrix33 inverseInertia;
@@ -55,12 +46,23 @@ private:
 
 	Quaternion orientation;
 
-	Vecteur3D angularV;
-	Vecteur3D angularA;
-
-
 
 public:
+
+	//Définis dans la base de l'environnement. Apparenté au centre de masse.
+	Vecteur3D position;//L'origine dans la base du corps rigide.
+
+	float inverseMass;
+
+	//En base globale.
+	Vecteur3D acceleration;
+	Vecteur3D velocity;
+
+	//En base locale.
+	Vecteur3D torqueSum;
+	Vecteur3D angularV;
+	
+	
 
 	Matrix34 transformMatrix;
 

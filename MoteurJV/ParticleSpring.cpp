@@ -26,3 +26,24 @@ void ParticleSpring::updateForce(Particle* p_P) {
 		* (-k * ((p_P->position - p_otherAnchor->position).norm()-l0)) * p_P->getInverseMass();
 
 }
+
+void ParticleSpring::updateForce(RigidBody* p_B) {
+
+	p_B->acceleration = p_B->acceleration +
+		(p_B->position - p_otherAnchor->position).normalize()
+		* (-k * ((p_B->position - p_otherAnchor->position).norm() - l0)) * p_B->inverseMass;
+
+}
+
+void ParticleSpring::updateTorque(RigidBody* p_B,
+	const Matrix34& Mb_1,
+	Vecteur3D pApplication) {
+
+	Vecteur3D f = (p_B->position - p_otherAnchor->position).normalize()
+		* (-k * ((p_B->position - p_otherAnchor->position).norm() - l0));
+
+	Vecteur3D torque = (Mb_1 * pApplication) ^ f;
+
+	p_B->torqueSum = p_B->torqueSum + torque;
+
+}

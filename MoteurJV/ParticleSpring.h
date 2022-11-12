@@ -7,9 +7,9 @@ pour simuler l'intéraction complète.
 */
 
 #pragma once
-#include "ParticleForceGenerator.h"
+#include "ForceGenerator.h"
 class ParticleSpring :
-    public ParticleForceGenerator
+    public ForceGenerator
 {
 
 public:
@@ -20,6 +20,11 @@ public:
     ~ParticleSpring();
 
     void updateForce(Particle* p_P);
+
+    void updateForce(RigidBody* p_B);
+    void updateTorque(RigidBody* p_B,
+        const Matrix34& Mb_1,
+        Vecteur3D pApplication);
 
 private:
 

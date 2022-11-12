@@ -26,3 +26,25 @@ void StaticSpring::updateForce(Particle* p_P) {
 		* (-k * ((p_P->position - anchor).norm() - l0))*p_P->getInverseMass();
 
 }
+
+void StaticSpring::updateForce(RigidBody* p_B) {
+
+	Vecteur3D f = (p_B->position - anchor).normalize()
+		* (-k * ((p_B->position - anchor).norm() - l0)) * p_B->inverseMass;
+
+	p_B->acceleration = p_B->acceleration + f;
+
+}
+
+void StaticSpring::updateTorque(RigidBody* p_B,
+	const Matrix34& Mb_1,
+	Vecteur3D pApplication) {
+
+	Vecteur3D f = (p_B->position - anchor).normalize()
+		* (-k * ((p_B->position - anchor).norm() - l0));
+
+	Vecteur3D torque = (Mb_1 * pApplication) ^ f;
+
+	p_B->torqueSum = p_B->torqueSum + torque;
+
+}

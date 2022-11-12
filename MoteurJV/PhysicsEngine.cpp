@@ -12,7 +12,7 @@ PhysicsEngine::PhysicsEngine() {
 
 PhysicsEngine::PhysicsEngine(std::vector<Particle*>* p_pP,
 	std::vector<RigidBody*>* p_bP,
-	std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
+	std::map<std::string, std::unique_ptr<ForceGenerator>>* p_uFR,
 	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints){
     p_particlePopulation = p_pP;
 	p_bodyPopulation = p_bP;
@@ -40,6 +40,60 @@ void PhysicsEngine::accelIntegrate(Particle* p_P, double tick) {
 
 }
 
+//Accélération linéaire du corps rigide.
+void PhysicsEngine::accelIntegrate(RigidBody* p_B,
+	const Matrix34 &Mb_1,
+	double tick) {
+
+	//Initialisation.
+	p_B->acceleration = Vecteur3D(0, 0, 0);
+
+	if (!p_B->permanentForces.empty()) {
+
+		for (bodyForce force : p_B->permanentForces) {
+
+			p_universalForceRegistry->at(force.idForce)->
+				updateForce(p_B);
+
+		}
+	}
+
+}
+
+//Accélération angulaire du corps rigide.
+void PhysicsEngine::angularAccel(RigidBody* p_B,
+	const Matrix34& Mb_1,
+	double tick) {
+
+	//Initialisation.
+	p_B->torqueSum = Vecteur3D(0, 0, 0);
+
+	
+
+	if (!p_B->permanentForces.empty()) {
+
+		for (bodyForce force : p_B->permanentForces) {
+
+			auto index = p_universalForceRegistry->
+				find(force.idForce);
+
+			/*
+			Aucun risque de comportement imprévisible
+			si le générateur est supprimé de la table.
+			*/
+			if (index != p_universalForceRegistry->end()) {
+
+				p_universalForceRegistry->at(force.idForce)
+				->updateTorque(p_B, Mb_1, force.applicationP);
+
+			}
+
+		}
+
+	}
+
+}
+
 
 
 
@@ -59,7 +113,10 @@ void PhysicsEngine::integrate(Particle* p_P, double tick)
 //Equivalent pour corps rigide.
 void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 
+	Matrix34 Mb_1 = p_B->transformMatrix.Inverse();
+
 	//1.1. L'accélération
+	accelIntegrate(p_B, Mb_1, tick);
 
 	//1.2. Vélocité
 	p_B->velocity = p_B->velocity + p_B->acceleration * tick;
@@ -68,8 +125,24 @@ void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 	p_B->position = p_B->position + p_B->velocity * tick;
 
 	//2.1 Accélération angulaire.
+	angularAccel(p_B, Mb_1, tick);
+
+	Matrix33* p_R = new Matrix33();
+	Matrix33* p_Ig_1 = new Matrix33();
+
+	*p_R = p_B->transformMatrix.getM33();
+
+	//Inverse matrice d'inertie en base globale.
+	*p_Ig_1 = *p_R * p_B->inverseInertia * (p_R->Inverse());
+
+	delete p_R;
+	p_R = 0;
 
 	//2.2. Vitesse angulaire
+	p_B->angularV = p_B->angularV + *p_Ig_1 * (p_B->torqueSum * tick);
+
+	delete p_Ig_1;
+	p_Ig_1 = 0;
 
 	//2.3 Orientation
 	p_B->orientation = 

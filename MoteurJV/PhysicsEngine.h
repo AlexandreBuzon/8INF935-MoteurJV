@@ -12,7 +12,7 @@ Classe gérante de la physique d'un environnement.
 #include "Fireball.h"
 #include "Ball.h"
 
-#include "ParticleForceGenerator.h"
+#include "ForceGenerator.h"
 #include "ParticleConstraintGenerator.h"
 #include "ParticuleContact.h"
 
@@ -37,7 +37,7 @@ public:
 	std::vector<RigidBody*>* p_bodyPopulation;
 
 	//Dictionnaire de forces universelles, donc subies dans tous l'espace.
-	std::map<std::string,std::unique_ptr<ParticleForceGenerator>>* p_universalForceRegistry;
+	std::map<std::string,std::unique_ptr<ForceGenerator>>* p_universalForceRegistry;
 
 	//Dictionnaire de contraintes définies.
 	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints;
@@ -46,7 +46,7 @@ public:
 	PhysicsEngine();
 	PhysicsEngine(std::vector<Particle*>* p_pP,
 		std::vector<RigidBody*>* p_bP,
-		std::map<std::string, std::unique_ptr<ParticleForceGenerator>>* p_uFR,
+		std::map<std::string, std::unique_ptr<ForceGenerator>>* p_uFR,
 		std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints);
 
 	//Destructeur
@@ -78,6 +78,14 @@ private:
 
 	//Sommation des forces et calcul de l'accélération.
 	void accelIntegrate(Particle* p_P, double tick);
+
+	void angularAccel(RigidBody* p_B,
+		const Matrix34& Mb_1,
+		double tick);
+
+	void accelIntegrate(RigidBody* p_B,
+		const Matrix34& Mb_1,
+		double tick);
 
 	/*
 	Calcul des nouveaux vecteurs d'une particule par intégration.

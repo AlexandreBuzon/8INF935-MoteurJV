@@ -2,10 +2,10 @@
 
 #pragma once
 
-#include "ParticleForceGenerator.h"
+#include "ForceGenerator.h"
 
 class LinearFieldGenerator :
-    public ParticleForceGenerator
+    public ForceGenerator
 {
 public:
 
@@ -15,9 +15,19 @@ public:
 
     void updateForce(Particle* p_P);
 
+    virtual void updateForce(RigidBody* p_B);
+
+    void updateTorque(RigidBody* p_B,
+        const Matrix34& Mb_1,
+        Vecteur3D pApplication);
+
 
 private:
+
     Vecteur3D force;
+
+    //Pour corps rigides seulement.
+    bool localBase;
 
 };
 

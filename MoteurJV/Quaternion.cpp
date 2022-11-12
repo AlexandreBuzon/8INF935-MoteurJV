@@ -1,7 +1,7 @@
 #include "Quaternion.h"
 #include<iostream>
 
-//Dource https://lucidar.me/fr/quaternions/quaternion-product/
+//Source https://lucidar.me/fr/quaternions/quaternion-product/
 
 using namespace std;
 
@@ -22,6 +22,8 @@ Quaternion::Quaternion(float w_,float i_,float j_,float k_) {
 	this->value[2] = j_;
 	this->value[3] = k_;
 }
+
+Quaternion::~Quaternion() {};
 
 
 
