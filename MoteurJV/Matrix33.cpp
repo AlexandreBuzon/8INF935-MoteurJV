@@ -3,7 +3,7 @@
 
 Matrix33::Matrix33() {
 
-	for (int i; i < 9; i++)values[i] = 0;
+	for (int i=0; i < 9; i++)values[i] = 0;
 
 }
 

@@ -20,8 +20,9 @@
 
 int main()
 {
-
-	srand(time(NULL));
+	/*
+	
+		srand(time(NULL));
 	float largeur = 1500;
 	float longueur = 1500;
 
@@ -43,14 +44,14 @@ int main()
 		if (nbPart > 10 || nbPart < 0 || std::cin.fail()) {
 			menu = false;
 			menu2 = false;
-			
+
 		}
-		std::cin.clear(); // effacer les bits d'erreurs 
+		std::cin.clear(); // effacer les bits d'erreurs
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // supprimer la ligne erronée dans le buffer
 		if (menu) {
 			std::string force[3] = {"gravity","ressort","fluid"};
 			Vecteur3D anchor = Vecteur3D(0, 300, 0);
-			std::map<std::string, std::unique_ptr<ParticleForceGenerator>> listeLF;
+			std::map<std::string, std::unique_ptr<ForceGenerator>> listeLF;
 			std::cout << "Quelle force ?" << std::endl;
 			std::cout << "1 : Gravite " << std::endl;
 			std::cout << "2 : Ressort " << std::endl;
@@ -115,7 +116,37 @@ int main()
 		menu = true;
 	}
 
+	*/
 
+	Cube C = Cube(0.05, 1,
+		Vecteur3D(100,0,0),Vecteur3D(0, 0, 0),
+		Vecteur3D(1,0.7,0.4), Quaternion(1,0,0,0));
+
+	std::vector<Particle*> pP = {};
+	std::vector<RigidBody*> bP = {&C};
+
+	std::map<std::string,
+		std::unique_ptr<ForceGenerator>>
+		lForce = {};
+
+	std::map<std::string,
+		std::unique_ptr<ParticleConstraintGenerator>>
+		lConstraints = {};
+
+	lForce.insert(std::make_pair(
+		"g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
+
+	lForce.insert(std::make_pair(
+		"r1", new StaticSpring(Vecteur3D(), 10, 700)));
+
+	lForce.insert(std::make_pair(
+		"r2", new StaticSpring(Vecteur3D(), 5, 700)));
+
+	Environment E = Environment(1.0 / 60.0,
+		PhysicsEngine(&pP, &bP, &lForce, &lConstraints),
+		1000, 1000, 1000);
+
+	E.play();
 
 	return 0;
 }

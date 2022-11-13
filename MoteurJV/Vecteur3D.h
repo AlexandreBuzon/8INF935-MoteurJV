@@ -1,7 +1,5 @@
-/*
-* Auteur : Caudron Benoît
-* Date de création : 16/09/2022
-*/
+#include <stdexcept>
+#include <exception>
 
 #pragma once
 class Vecteur3D

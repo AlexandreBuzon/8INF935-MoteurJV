@@ -20,6 +20,9 @@ ParticleSpring::~ParticleSpring(){}
 
 void ParticleSpring::updateForce(Particle* p_P) {
 
+	//Garde fou, ne devrait pas arriver du fait des collisions.
+	if ((p_P->position - p_otherAnchor->position).norm() == 0)return;
+
 	//-k(||l||-l0).l_unitaire
 	p_P->acceleration = p_P->acceleration +
 		(p_P->position - p_otherAnchor->position).normalize()
@@ -28,6 +31,9 @@ void ParticleSpring::updateForce(Particle* p_P) {
 }
 
 void ParticleSpring::updateForce(RigidBody* p_B) {
+
+	//Garde fou, ne devrait pas arriver du fait des collisions.
+	if ((p_B->position - p_otherAnchor->position).norm() == 0)return;
 
 	p_B->acceleration = p_B->acceleration +
 		(p_B->position - p_otherAnchor->position).normalize()
@@ -38,6 +44,9 @@ void ParticleSpring::updateForce(RigidBody* p_B) {
 void ParticleSpring::updateTorque(RigidBody* p_B,
 	const Matrix34& Mb_1,
 	Vecteur3D pApplication) {
+
+	//Garde fou, ne devrait pas arriver du fait des collisions.
+	if ((p_B->position - p_otherAnchor->position).norm() == 0)return;
 
 	Vecteur3D f = (p_B->position - p_otherAnchor->position).normalize()
 		* (-k * ((p_B->position - p_otherAnchor->position).norm() - l0));

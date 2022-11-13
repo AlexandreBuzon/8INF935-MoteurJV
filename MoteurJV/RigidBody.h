@@ -3,6 +3,7 @@
 #include "Matrix34.h"
 #include "Matrix33.h"
 
+#include <vector>
 #include<glad/glad.h>
 
 struct bodyForce {
@@ -13,10 +14,6 @@ struct bodyForce {
 	//Point d'application.
 	Vecteur3D applicationP;
 
-	//1 ~ dans base locale, 0 ~ globale
-	bool localF;//Force
-	bool localP;//Point d'application
-
 };
 
 #pragma once
@@ -25,34 +22,29 @@ class RigidBody
 
 friend class PhysicsEngine;
 
-private:
+protected:
 
 	std::vector<bodyForce> permanentForces;
 
 	std::vector<bodyForce> constraints;
 
-	std::vector<GLfloat> GLvertices;
-	std::vector<GLint> triangles;
-
 	Matrix33 inverseInertia;
-
-	/*
-	Le rigid body est un pavé droit.
-	On caractérise ses dimensions par un vecteur dans une base locale au corps.
-	*/
-	Vecteur3D dimensions;
 
 	float restitution;
 
-	Quaternion orientation;
+
+
+	RigidBody();
+
+	~RigidBody();
 
 
 public:
 
+	float inverseMass;
+
 	//Définis dans la base de l'environnement. Apparenté au centre de masse.
 	Vecteur3D position;//L'origine dans la base du corps rigide.
-
-	float inverseMass;
 
 	//En base globale.
 	Vecteur3D acceleration;
@@ -61,10 +53,12 @@ public:
 	//En base locale.
 	Vecteur3D torqueSum;
 	Vecteur3D angularV;
-	
-	
+	Quaternion orientation;
 
 	Matrix34 transformMatrix;
+
+	std::vector<GLfloat> GLvertices;
+	std::vector<GLuint> triangles;
 
 };
 

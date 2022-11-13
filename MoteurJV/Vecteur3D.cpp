@@ -131,6 +131,9 @@ double Vecteur3D::norm() {
 //Vecteur unitaire de direction égale à celle de l'objet.
 Vecteur3D Vecteur3D::normalize() {
 
+	if(this->norm() == 0)
+		std::throw_with_nested(std::invalid_argument("Erreur : Normalisation de vecteur nul.\n"));
+
 	Vecteur3D C;
 
 	double normeInverse= 1/this->norm();

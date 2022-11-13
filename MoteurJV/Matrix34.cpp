@@ -1,5 +1,13 @@
 #include "Matrix34.h"
 
+
+
+Matrix34::Matrix34() {
+
+	for (int i=0; i < 12; i++)values[i] = 0;
+
+}
+
 Matrix34::Matrix34(float indice1, float indice2, float indice3, float indice4, float indice5, float indice6, float indice7, float indice8, float indice9, float indice10, float indice11, float indice12)
 {
 	values[0] = indice1;
@@ -62,7 +70,7 @@ Matrix34 Matrix34::Inverse()
 						+ values[0] * values[5] * values[10]
 						+ values[1] * values[6] * values[8]
 						+ values[2] * values[4] * values[9];
-		
+
 	if (determinant33 != 0.0f)
 	{
 		float det33_1 = 1.0f / determinant33;
@@ -77,7 +85,7 @@ Matrix34 Matrix34::Inverse()
 			+ values[1] * values[10] * values[7]
 			+ values[5] * values[2] * values[11]
 			- values[1] * values[6] * values[11]) * det33_1;*/
-		inver[3] *= -1 ;
+		inver[3] = -values[3];
 
 		inver[4] = (values[8] * values[6] + values[5] * values[10]) * det33_1;
 		inver[5] = (-values[8] * values[2] + values[0] * values[10]) * det33_1;
@@ -89,7 +97,7 @@ Matrix34 Matrix34::Inverse()
 			- values[0] * values[10] * values[7]
 			- values[4] * values[2] * values[11]
 			+ values[0] * values[6] * values[11]) * det33_1;*/
-		inver[7] *= -1;
+		inver[7] = -values[7];
 
 		inver[8] = (-values[8] * values[5] + values[4] * values[9]) * det33_1;
 		inver[9] = (values[8] * values[1] - values[0] * values[9]) * det33_1;
@@ -101,7 +109,7 @@ Matrix34 Matrix34::Inverse()
 			+ values[0] * values[9] * values[7]
 			+ values[4] * values[1] * values[11]
 			- values[0] * values[5] * values[11]) * det33_1;*/
-		inver[11] *= -1;
+		inver[11] = -values[7];
 
 		
 	}
@@ -145,4 +153,18 @@ void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p
 	values[9] = 2 * q.value[2] * q.value[3] - 2 * q.value[1] * q.value[0];
 	values[10] = 1 - (2 * q.value[0] * q.value[0] + 2 * q.value[1] * q.value[1]);
 	values[11] = p.z;
+}
+
+void Matrix34::display() {
+
+	for (int i = 0; i < 12; i++) {
+
+		std::cout << values[i] << " ";
+
+		if (i % 4 == 3)std::cout << std::endl;
+
+	}
+
+	std::cout << std::endl;
+
 }

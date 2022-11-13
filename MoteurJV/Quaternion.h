@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Vecteur3D.h"
 
 class Quaternion
@@ -39,6 +40,8 @@ public :
 	Quaternion UpdateByAngularVelocity(const Vecteur3D& rotation, double duration);
 
 	float* getValue();
+
+	void display();
 		
 
 };

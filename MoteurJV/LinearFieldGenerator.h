@@ -10,7 +10,7 @@ class LinearFieldGenerator :
 public:
 
     LinearFieldGenerator();
-    LinearFieldGenerator(Vecteur3D f);
+    LinearFieldGenerator(Vecteur3D f, bool localBase);
     ~LinearFieldGenerator();
 
     void updateForce(Particle* p_P);

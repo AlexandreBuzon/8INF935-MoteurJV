@@ -1,8 +1,6 @@
 #include "Quaternion.h"
 #include<iostream>
 
-//Source https://lucidar.me/fr/quaternions/quaternion-product/
-
 using namespace std;
 
 float* Quaternion::getValue() {
@@ -10,7 +8,7 @@ float* Quaternion::getValue() {
 }
 
 Quaternion::Quaternion() {
-	this->value[0] = 0;
+	this->value[0] = 1;
 	this->value[1] = 0;
 	this->value[2] = 0;
 	this->value[3] = 0;
@@ -34,6 +32,9 @@ void Quaternion::Normalise() {
 	double c = this->value[2];
 	double d = this->value[3];
 	double norme= sqrt(a*a+b*b+c*c+d*d);
+
+	if(norme == 0)
+		std::throw_with_nested(std::invalid_argument("Erreur : Normalisation de vecteur nul.\n"));
 
 	this->value[0] = a/norme;
 	this->value[1] = b/norme;
@@ -92,6 +93,7 @@ Quaternion Quaternion::InverseQuaternion() {
 }
 
 void Quaternion::RotateByVector(const Vecteur3D& vector) {
+
 	Quaternion q = Quaternion(0, vector.x, vector.y, vector.z);
 	Quaternion p_inv = this->InverseQuaternion();
 	
@@ -106,5 +108,13 @@ Quaternion Quaternion::UpdateByAngularVelocity(const Vecteur3D& rotation, double
 									rotation.z);
 
 	return (*this) + (*this * omega) * (duration / 2);
+
+}
+
+void Quaternion::display() {
+
+	for (int i = 0; i < 4; i++)std::cout << value[i] << " ";
+
+	std::cout << std::endl;
 
 }

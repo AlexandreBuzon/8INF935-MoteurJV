@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 
+#include <iostream>
 
 //Constructeurs
 PhysicsEngine::PhysicsEngine() {
@@ -67,8 +68,6 @@ void PhysicsEngine::angularAccel(RigidBody* p_B,
 
 	//Initialisation.
 	p_B->torqueSum = Vecteur3D(0, 0, 0);
-
-	
 
 	if (!p_B->permanentForces.empty()) {
 
@@ -148,6 +147,9 @@ void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 	p_B->orientation = 
 		p_B->orientation.UpdateByAngularVelocity(
 			p_B->angularV,tick);
+
+	p_B->orientation.Normalise();
+	p_B->orientation.display();
 
 	//3. Transformation affine
 	p_B->transformMatrix.setOrientationAndPosition(
@@ -276,6 +278,15 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 
 	integrate(p_B, tick);
 
+	//p_B->acceleration.display();
+
+	/*
+	std::cout << p_B->orientation.value[0]
+		<< p_B->orientation.value[1]
+		<< p_B->orientation.value[2]
+		<< p_B->orientation.value[3]
+		<< std::endl;*/
+
 	boundBounceCheck(p_B, bounds);
 
 }
@@ -377,14 +388,21 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 		*/
 		if (*p_deltaTime > tick) {
 
-			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
-				nextPosition(p_particlePopulation->at(j), tick, bounds);
+
+			if (!p_particlePopulation->empty()) {
+
+				for (size_t j = 0; j < p_particlePopulation->size(); j++) {
+					nextPosition(p_particlePopulation->at(j), tick, bounds);
+				}
+
 			}
 
-			for (size_t j = 0; j < p_bodyPopulation->size(); j++) {
-				nextPosition(p_particlePopulation->at(j), tick, bounds);
-			}
+			if (!p_bodyPopulation->empty()) {
 
+				for (size_t j = 0; j < p_bodyPopulation->size(); j++) {
+					nextPosition(p_bodyPopulation->at(j), tick, bounds);
+				}
+			}
 
 			std::vector<ParticuleContact> conflicts = particleCollisionSearch();
 
@@ -403,11 +421,30 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 		//Consommation du reste si le compteur i le permet.
 		else {
 
-			for (size_t j = 0; j < p_particlePopulation->size(); j++) {
-				nextPosition(p_particlePopulation->at(j), *p_deltaTime, bounds);
+			if (!p_particlePopulation->empty()) {
+
+				for (size_t j = 0; j < p_particlePopulation->size(); j++) {
+					nextPosition(p_particlePopulation->at(j), tick, bounds);
+				}
+
+			}
+
+			if (!p_bodyPopulation->empty()) {
+
+				for (size_t j = 0; j < p_bodyPopulation->size(); j++) {
+					nextPosition(p_bodyPopulation->at(j), tick, bounds);
+				}
 			}
 
 			*p_deltaTime = 0;
+
+			std::vector<ParticuleContact> conflicts = particleCollisionSearch();
+
+			while (!conflicts.empty()) {
+
+				conflicts.back().resolve(tick);
+				conflicts.pop_back();
+			}
 
 		}
 

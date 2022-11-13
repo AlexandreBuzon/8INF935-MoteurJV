@@ -3,13 +3,14 @@
 LinearFieldGenerator::LinearFieldGenerator() {
 
 	force = Vecteur3D();
-
+	localBase = false;
 }
 
-LinearFieldGenerator::LinearFieldGenerator(Vecteur3D f) {
+LinearFieldGenerator::LinearFieldGenerator(Vecteur3D f,
+	bool localBase) {
 
 	force = f;
-
+	this->localBase = localBase;
 }
 
 LinearFieldGenerator::~LinearFieldGenerator() {}
@@ -34,7 +35,7 @@ void LinearFieldGenerator::updateTorque(RigidBody* p_B,
 
 	Vecteur3D torque;
 
-	if (local)torque = Mb_1 * (pApplication ^ force);
+	if (localBase)torque = Mb_1 *(pApplication ^ force);
 	else torque =  (Mb_1 *pApplication) ^ force;
 
 	p_B->torqueSum = p_B->torqueSum + torque;
