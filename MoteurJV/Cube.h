@@ -1,3 +1,5 @@
+//Classe de corps rigide utilisée dans la démonstration.
+
 #pragma once
 #include "RigidBody.h"
 class Cube :

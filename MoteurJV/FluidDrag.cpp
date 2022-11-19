@@ -8,7 +8,7 @@ FluidDrag::FluidDrag() {
 	kTorque = 0;
 }
 
-FluidDrag::FluidDrag(float k1, float k2, float kTorque) {
+FluidDrag::FluidDrag(double k1, double k2, double kTorque) {
 
 	this->k1 = k1;
 	this->k2 = k2;
@@ -32,7 +32,7 @@ void FluidDrag::updateForce(Particle* p_P){
 
 }
 
-void FluidDrag::updateForce(RigidBody* p_B) {
+void FluidDrag::updateForce(RigidBody* p_B, Vecteur3D pApplication) {
 
 	if (p_B->velocity.norm() != 0) {
 
@@ -48,16 +48,14 @@ void FluidDrag::updateForce(RigidBody* p_B) {
 }
 
 
-void FluidDrag::updateTorque(RigidBody* p_B, const Matrix34& Mb_1,
+void FluidDrag::updateTorque(RigidBody* p_B, 
 	Vecteur3D pApplication) {
 
 	if (p_B->angularV.norm() != 0) {
 
-		//Modèle de trainée quadratique. Toujours en base locale.
-		Vecteur3D f = p_B->angularV.normalize()
-			* ((-kTorque * p_B->angularV.norm() * p_B->angularV.norm()));
-
-		Vecteur3D torque = (Mb_1 * pApplication) ^ f;
+		//Modèle de trainée linéaire (les valeurs sont trop grandes en quadratique). Toujours en base locale.
+		Vecteur3D torque = p_B->angularV
+			* (-kTorque);
 
 		p_B->torqueSum = p_B->torqueSum + torque;
 

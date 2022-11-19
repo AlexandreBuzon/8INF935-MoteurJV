@@ -10,6 +10,7 @@
 class Matrix34
 {
 private:
+
 	float values[12];
 
 public:
@@ -22,6 +23,7 @@ public:
 
 	Matrix34 operator*(const Matrix34& other) const;
 
+	//Extrait la matrice de rotation.
 	Matrix33 getM33();
 
 	Vecteur3D operator*(const Vecteur3D& vector) const;

@@ -11,11 +11,9 @@ class ForceGenerator
 {
 public:
 	virtual void updateForce(Particle* p_P) = 0;
-	virtual void updateForce(RigidBody* p_B) = 0;
+	virtual void updateForce(RigidBody* p_B, Vecteur3D pApplication) = 0;
 
-	virtual void updateTorque(RigidBody* p_B,
-		const Matrix34& Mb_1,
-		Vecteur3D pApplication) = 0;
+	virtual void updateTorque(RigidBody* p_B, Vecteur3D pApplication) = 0;
 };
 
 #endif

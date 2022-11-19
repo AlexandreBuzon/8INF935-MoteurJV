@@ -1,7 +1,7 @@
 #pragma once
 #include "Particle.h"
 #include "ParticuleContact.h"
-#include "ParticleConstraintGenerator.h"
+#include "ConstraintGenerator.h"
 #include "ParticleLink.h"
 
 class ParticleCable : public ParticleLink 

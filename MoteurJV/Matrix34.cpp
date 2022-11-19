@@ -113,7 +113,7 @@ Matrix34 Matrix34::Inverse()
 
 		
 	}
-	else std::throw_with_nested(std::invalid_argument("Erreur : appel de methode inverse sur matrice non inversible.\n"));
+	else std::throw_with_nested(std::invalid_argument("Erreur : appel de methode inverse sur matrice34 non inversible.\n"));
 
 	return Matrix34(inver[0], inver[1], inver[2], inver[3],
 		inver[4], inver[5], inver[6], inver[7],
@@ -151,7 +151,7 @@ void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p
 	values[7] = p.y;
 	values[8] = 2 * q.value[1] * q.value[3] + 2 * q.value[2] * q.value[0];
 	values[9] = 2 * q.value[2] * q.value[3] - 2 * q.value[1] * q.value[0];
-	values[10] = 1 - (2 * q.value[0] * q.value[0] + 2 * q.value[1] * q.value[1]);
+	values[10] = 1 - (2 * q.value[1] * q.value[1] + 2 * q.value[2] * q.value[2]);
 	values[11] = p.z;
 }
 

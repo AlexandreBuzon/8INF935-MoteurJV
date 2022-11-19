@@ -1,10 +1,10 @@
 #pragma once
-#include "ParticleConstraintGenerator.h"
+#include "ConstraintGenerator.h"
 
 #include "Vecteur3D.h"
 
 class WallContactGenerator :
-    public ParticleConstraintGenerator
+    public ConstraintGenerator
 {
 
 public:

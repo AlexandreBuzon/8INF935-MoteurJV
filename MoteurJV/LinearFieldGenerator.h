@@ -15,11 +15,9 @@ public:
 
     void updateForce(Particle* p_P);
 
-    virtual void updateForce(RigidBody* p_B);
+    virtual void updateForce(RigidBody* p_B, Vecteur3D pApplication);
 
-    void updateTorque(RigidBody* p_B,
-        const Matrix34& Mb_1,
-        Vecteur3D pApplication);
+    void updateTorque(RigidBody* p_B, Vecteur3D pApplication);
 
 
 private:

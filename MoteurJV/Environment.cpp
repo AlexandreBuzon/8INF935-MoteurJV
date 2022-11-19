@@ -28,25 +28,6 @@ void Environment::play()
 	  Reprise du programme de Victor Gordan, avec modifications adaptées.
 	*/
 
-	/*
-		GLfloat vertices[] =
-	{ // sur une ligne : x, y, z, R, V, B
-		-0.05f, -0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
-		-0.05f, 0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.05f, -0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
-		0.05f, 0.05f, 0.0f, 1.0f, 0.0f, 0.0f,
-	}
-	*/
-;
-	
-	// Indices pour l'ordre des vertices
-	/*/GLuint indices[] =
-	{
-		0,1,2,
-		3,1,2
-	};*/
-
-
 	std::vector<GLfloat> vertices = engine.p_bodyPopulation
 	->at(0)->GLvertices;
 
@@ -77,7 +58,7 @@ void Environment::play()
 	GLFWwindow* window = glfwCreateWindow(1000, 1000, "MoteurJV OpenGL", NULL, NULL);
 
 	//Fonction des inputs
-	glfwSetKeyCallback(window, keyCallback);
+	engine.setupKeyInputs(window);
 
 	if (window == NULL)
 	{
@@ -165,14 +146,6 @@ void Environment::play()
 			double x = engine.p_bodyPopulation->at(j)->position.getX();
 			double y = engine.p_bodyPopulation->at(j)->position.getY();
 			double z = engine.p_bodyPopulation->at(j)->position.getZ();
-			/*double initialx = engine.p_particlePopulation->at(j)->initialX;
-			double initialy = engine.p_particlePopulation->at(j)->initialY;
-			double initialz = engine.p_particlePopulation->at(j)->initialZ;*/
-			
-
-			//std::cout << "X :" << (x - initialx) / 1000 << " Y : " << (y - initialy) / 1000 << "Z : " << (z - initialz) / 1000 << std::endl;
-
-			
 
 			glm::vec3 translateVector = glm::vec3((x) / bounds.x, (y) / bounds.y , (z) / bounds.z);
 

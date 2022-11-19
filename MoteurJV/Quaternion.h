@@ -10,12 +10,12 @@ class Quaternion
 
 public :
 
-	float value[4];
+	double value[4];
 
 	//Constructeur
 	Quaternion();
 	
-	Quaternion(float w,float i, float j, float k);
+	Quaternion(double w,double i, double j, double k);
 
 	//Destructeur
 	~Quaternion();
@@ -39,7 +39,7 @@ public :
 
 	Quaternion UpdateByAngularVelocity(const Vecteur3D& rotation, double duration);
 
-	float* getValue();
+	double* getValue();
 
 	void display();
 		

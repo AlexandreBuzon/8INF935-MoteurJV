@@ -21,22 +21,30 @@ void LinearFieldGenerator::updateForce(Particle* p_P) {
 
 }
 
-void LinearFieldGenerator::updateForce(RigidBody* p_B) {
+void LinearFieldGenerator::updateForce(RigidBody* p_B, Vecteur3D pApplication) {
 
-	p_B->acceleration = p_B->acceleration + force*p_B->inverseMass;
+	Vecteur3D f;
+	if(localBase)f = p_B->transformMatrix.TransformDirection(force);
+	else f = force;
+
+	p_B->acceleration = p_B->acceleration + f*p_B->inverseMass;
 
 }
 
-void LinearFieldGenerator::updateTorque(RigidBody* p_B,
-	const Matrix34& Mb_1,
-	Vecteur3D pApplication) {
-
-
+void LinearFieldGenerator::updateTorque(RigidBody* p_B, Vecteur3D pApplication) {
 
 	Vecteur3D torque;
 
-	if (localBase)torque = Mb_1 *(pApplication ^ force);
-	else torque =  (Mb_1 *pApplication) ^ force;
+	if (localBase) {
+
+		//Changement seulement de direction, car translation relative à l'objet.
+		Vecteur3D P = p_B->transformMatrix.TransformDirection(pApplication);
+		Vecteur3D f = p_B->transformMatrix.TransformDirection(force);
+
+		torque = P ^ f;
+
+	}
+	else torque =  p_B->transformMatrix.TransformDirection(pApplication) ^ force;
 
 	p_B->torqueSum = p_B->torqueSum + torque;
 

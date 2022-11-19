@@ -11,10 +11,10 @@ Cube::Cube() {
 
     inverseMass = -1;
 
-    inverseInertia = Matrix33(
-        12 * 200 * inverseMass, 0, 0,
-        0, 12 * 200 * inverseMass, 0,
-        0, 0, 12 * 200 * inverseMass);
+    this->inverseInertia = Matrix33(
+        12 * inverseMass / 50, 0, 0,
+        0, 12.0 * inverseMass / 50, 0,
+        0, 0, 12 * inverseMass / 50);
 
     restitution = 0;
 
@@ -52,9 +52,12 @@ Cube::Cube(double inverseMass, float restitution,
     Vecteur3D angularV, Quaternion orientation) {
 
     permanentForces =
-    { //{"g", Vecteur3D(0,0,0)},
-        //{"r1", Vecteur3D(0,0,0)}//,
-        //{"r2", Vecteur3D(-5,6,2)} 
+    { {"g", Vecteur3D(0,0,0)},
+        {"p1", Vecteur3D(50,50,50)},
+        {"p2", Vecteur3D(50,-50,10)},
+        {"p3", Vecteur3D(-50,-50,50)},
+        {"r", Vecteur3D(0,0,0)},
+        {"t", Vecteur3D()}
     };
 
     constraints = {};
@@ -62,9 +65,9 @@ Cube::Cube(double inverseMass, float restitution,
     this->inverseMass = inverseMass;
 
     this->inverseInertia = Matrix33(
-        12 * 200 * inverseMass,0,0,
-        0, 12 * 200 * inverseMass, 0,
-        0, 0, 12 * 200 * inverseMass);
+        12 * inverseMass/50,0,0,
+        0, 12.0 * inverseMass/50, 0,
+        0, 0, 12 * inverseMass/50);
 
     this->restitution = restitution;
 

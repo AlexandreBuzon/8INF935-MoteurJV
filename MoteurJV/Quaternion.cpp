@@ -3,7 +3,7 @@
 
 using namespace std;
 
-float* Quaternion::getValue() {
+double* Quaternion::getValue() {
 	return this->value;
 }
 
@@ -14,7 +14,7 @@ Quaternion::Quaternion() {
 	this->value[3] = 0;
 }
 
-Quaternion::Quaternion(float w_,float i_,float j_,float k_) {
+Quaternion::Quaternion(double w_,double i_,double j_,double k_) {
 	this->value[0] = w_;
 	this->value[1] = i_;
 	this->value[2] = j_;

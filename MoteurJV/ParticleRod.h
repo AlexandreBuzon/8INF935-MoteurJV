@@ -1,10 +1,10 @@
 #pragma once
 #include "Particle.h"
 #include "ParticuleContact.h"
-#include "ParticleConstraintGenerator.h"
+#include "ConstraintGenerator.h"
 #include "ParticleLink.h"
 
-class ParticleRod : public ParticleConstraintGenerator
+class ParticleRod : public ConstraintGenerator
 {
 public:
 	float length;

@@ -30,28 +30,32 @@ void ParticleSpring::updateForce(Particle* p_P) {
 
 }
 
-void ParticleSpring::updateForce(RigidBody* p_B) {
+void ParticleSpring::updateForce(RigidBody* p_B, Vecteur3D pApplication) {
+
+	//Point d'application en global.
+	Vecteur3D P = p_B->transformMatrix * pApplication;
 
 	//Garde fou, ne devrait pas arriver du fait des collisions.
-	if ((p_B->position - p_otherAnchor->position).norm() == 0)return;
+	if ((P - p_otherAnchor->position).norm() == 0)return;
 
 	p_B->acceleration = p_B->acceleration +
-		(p_B->position - p_otherAnchor->position).normalize()
-		* (-k * ((p_B->position - p_otherAnchor->position).norm() - l0)) * p_B->inverseMass;
+		(P - p_otherAnchor->position).normalize()
+		* (-k * ((P - p_otherAnchor->position).norm() - l0)) * p_B->inverseMass;
 
 }
 
-void ParticleSpring::updateTorque(RigidBody* p_B,
-	const Matrix34& Mb_1,
-	Vecteur3D pApplication) {
+void ParticleSpring::updateTorque(RigidBody* p_B, Vecteur3D pApplication) {
+
+	//Point d'application en global.
+	Vecteur3D P = p_B->transformMatrix*pApplication;
 
 	//Garde fou, ne devrait pas arriver du fait des collisions.
-	if ((p_B->position - p_otherAnchor->position).norm() == 0)return;
+	if ((P - p_otherAnchor->position).norm() == 0)return;
 
-	Vecteur3D f = (p_B->position - p_otherAnchor->position).normalize()
-		* (-k * ((p_B->position - p_otherAnchor->position).norm() - l0));
+	Vecteur3D f = (P - p_otherAnchor->position).normalize()
+		* (-k * ((P - p_otherAnchor->position).norm() - l0));
 
-	Vecteur3D torque = (Mb_1 * pApplication) ^ f;
+	Vecteur3D torque = p_B->transformMatrix.TransformDirection(pApplication) ^ f;
 
 	p_B->torqueSum = p_B->torqueSum + torque;
 

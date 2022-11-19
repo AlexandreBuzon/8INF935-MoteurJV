@@ -1,10 +1,10 @@
 #ifndef PARTICLELINK_H
 #define PARTICLELINK_H
 
-#include "ParticleConstraintGenerator.h"
+#include "ConstraintGenerator.h"
 
 class ParticleLink :
-	public ParticleConstraintGenerator
+	public ConstraintGenerator
 {
 
 	virtual void solve(Particle* p_P) = 0;

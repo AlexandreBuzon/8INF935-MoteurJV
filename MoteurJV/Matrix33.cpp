@@ -7,7 +7,19 @@ Matrix33::Matrix33() {
 
 }
 
-Matrix33::Matrix33(float indice1, float indice2, float indice3, float indice4, float indice5, float indice6, float indice7, float indice8, float indice9)
+void Matrix33::display() {
+
+	for (int i = 0; i < 9; i++) {
+
+		std::cout << values[i] << " ";
+
+			if (i % 3 == 2)std::cout << std::endl;
+
+	}
+
+}
+
+Matrix33::Matrix33(double indice1, double indice2, double indice3, double indice4, double indice5, double indice6, double indice7, double indice8, double indice9)
 {
 	values[0] = indice1; values[1] = indice2; values[2] = indice3;
 	values[3] = indice4; values[4] = indice5; values[5] = indice6;
@@ -41,9 +53,9 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
 Matrix33 Matrix33::Inverse() 
 {
 
-	float inver[9];
+	double inver[9];
 
-	float determinant = - values[2] * values[4] * values[6]
+	double determinant = - values[2] * values[4] * values[6]
 						- values[1] * values[3] * values[8]
 						- values[0] * values[5] * values[7]
 						+ values[0] * values[4] * values[8]
@@ -54,22 +66,22 @@ Matrix33 Matrix33::Inverse()
 	if (determinant != 0.0f) 
 	{
 
-		inver[0] = values[4] * values[8] - values[5] * values[7] / determinant;
+		inver[0] = (values[4] * values[8] - values[5] * values[7]) / determinant;
 		inver[1] = -(values[1] * values[8] - values[7] * values[2]) / determinant;
-		inver[2] = values[1] * values[5] - values[4] * values[2] / determinant;
+		inver[2] = (values[1] * values[5] - values[4] * values[2]) / determinant;
 
 		inver[3] = -(values[3] * values[8] - values[5] * values[6]) / determinant;
-		inver[4] = values[0] * values[8] - values[6] * values[2] / determinant;
+		inver[4] = (values[0] * values[8] - values[6] * values[2]) / determinant;
 		inver[5] = -(values[0] * values[5] - values[3] * values[2]) / determinant;
 
-		inver[6] = values[3] * values[7] - values[6] * values[4] / determinant;
+		inver[6] = (values[3] * values[7] - values[6] * values[4]) / determinant;
 		inver[7] = -(values[0] * values[7] - values[6] * values[1]) / determinant;
-		inver[8] = values[0] * values[4] - values[1] * values[3] / determinant;
+		inver[8] = (values[0] * values[4] - values[1] * values[3]) / determinant;
 
 		
 	}
 	else std::throw_with_nested(std::invalid_argument(
-			"Erreur : appel de methode inverse sur matrice non inversible.\n"));
+			"Erreur : appel de methode inverse sur matrice 3x3 non inversible.\n"));
 
 	return Matrix33(inver[0], inver[1], inver[2],
 					inver[3], inver[4], inver[5],

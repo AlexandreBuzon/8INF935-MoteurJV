@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+PhysicsEngine PhysicsEngine::instance = PhysicsEngine();
+
 //Constructeurs
 PhysicsEngine::PhysicsEngine() {
     p_particlePopulation = NULL;
@@ -14,7 +16,7 @@ PhysicsEngine::PhysicsEngine() {
 PhysicsEngine::PhysicsEngine(std::vector<Particle*>* p_pP,
 	std::vector<RigidBody*>* p_bP,
 	std::map<std::string, std::unique_ptr<ForceGenerator>>* p_uFR,
-	std::map<std::string, std::unique_ptr<ParticleConstraintGenerator>>* p_constraints){
+	std::map<std::string, std::unique_ptr<ConstraintGenerator>>* p_constraints){
     p_particlePopulation = p_pP;
 	p_bodyPopulation = p_bP;
 	p_universalForceRegistry = p_uFR;
@@ -25,6 +27,55 @@ PhysicsEngine::PhysicsEngine(std::vector<Particle*>* p_pP,
 PhysicsEngine::~PhysicsEngine(){}
 
 
+//Méthodes d'inputs.
+std::map<std::string, std::unique_ptr<ForceGenerator>>* PhysicsEngine::getForceRegistry() {
+	return p_universalForceRegistry;
+}
+
+void  PhysicsEngine::setupKeyInputs(GLFWwindow* window) {
+	glfwSetKeyCallback(window, PhysicsEngine::callback);
+}
+
+void PhysicsEngine::callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	//Input
+	PhysicsEngine& engine = PhysicsEngine::GetInstance();
+	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+		std::cout << "FIN" << std::endl;
+		glfwSetWindowShouldClose(window, true);
+	}
+	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		std::cout << "GRAVITE" << std::endl;
+		engine.getForceRegistry()->insert(std::make_pair(
+			"g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
+
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		instance.display();
+		std::cout << "CLEAR" << std::endl;
+
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair("r1", new StaticSpring(Vecteur3D(), 10, 700)));
+		std::cout << "R1" << std::endl;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair("r2", new StaticSpring(Vecteur3D(), 5, 700)));
+		std::cout << "R2" << std::endl;
+	}
+
+}
+void PhysicsEngine::display() {
+	for (size_t j = 0; j < p_universalForceRegistry->size(); j++) {
+		std::cout << j << std::endl;
+	}
+}
+
+PhysicsEngine& PhysicsEngine::GetInstance() {
+	return instance;
+}
+
+
+//Accélération de particule sur une frame.
 void PhysicsEngine::accelIntegrate(Particle* p_P, double tick) {
 
     //Initialisation.
@@ -42,9 +93,7 @@ void PhysicsEngine::accelIntegrate(Particle* p_P, double tick) {
 }
 
 //Accélération linéaire du corps rigide.
-void PhysicsEngine::accelIntegrate(RigidBody* p_B,
-	const Matrix34 &Mb_1,
-	double tick) {
+void PhysicsEngine::accelIntegrate(RigidBody* p_B, double tick) {
 
 	//Initialisation.
 	p_B->acceleration = Vecteur3D(0, 0, 0);
@@ -54,7 +103,7 @@ void PhysicsEngine::accelIntegrate(RigidBody* p_B,
 		for (bodyForce force : p_B->permanentForces) {
 
 			p_universalForceRegistry->at(force.idForce)->
-				updateForce(p_B);
+				updateForce(p_B, force.applicationP);
 
 		}
 	}
@@ -63,7 +112,7 @@ void PhysicsEngine::accelIntegrate(RigidBody* p_B,
 
 //Accélération angulaire du corps rigide.
 void PhysicsEngine::angularAccel(RigidBody* p_B,
-	const Matrix34& Mb_1,
+	
 	double tick) {
 
 	//Initialisation.
@@ -83,7 +132,7 @@ void PhysicsEngine::angularAccel(RigidBody* p_B,
 			if (index != p_universalForceRegistry->end()) {
 
 				p_universalForceRegistry->at(force.idForce)
-				->updateTorque(p_B, Mb_1, force.applicationP);
+				->updateTorque(p_B, force.applicationP);
 
 			}
 
@@ -115,7 +164,7 @@ void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 	Matrix34 Mb_1 = p_B->transformMatrix.Inverse();
 
 	//1.1. L'accélération
-	accelIntegrate(p_B, Mb_1, tick);
+	accelIntegrate(p_B, tick);
 
 	//1.2. Vélocité
 	p_B->velocity = p_B->velocity + p_B->acceleration * tick;
@@ -124,21 +173,23 @@ void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 	p_B->position = p_B->position + p_B->velocity * tick;
 
 	//2.1 Accélération angulaire.
-	angularAccel(p_B, Mb_1, tick);
+	angularAccel(p_B, tick);
 
 	Matrix33* p_R = new Matrix33();
 	Matrix33* p_Ig_1 = new Matrix33();
 
 	*p_R = p_B->transformMatrix.getM33();
 
+	
+
 	//Inverse matrice d'inertie en base globale.
-	*p_Ig_1 = *p_R * p_B->inverseInertia * (p_R->Inverse());
+	*p_Ig_1 = *p_R * p_B->inverseInertia * p_R->Inverse();
 
 	delete p_R;
 	p_R = 0;
 
 	//2.2. Vitesse angulaire
-	p_B->angularV = p_B->angularV + *p_Ig_1 * (p_B->torqueSum * tick);
+	p_B->angularV = p_B->angularV + (*p_Ig_1 * p_B->torqueSum) * tick;
 
 	delete p_Ig_1;
 	p_Ig_1 = 0;
@@ -149,7 +200,6 @@ void PhysicsEngine::integrate(RigidBody* p_B, double tick) {
 			p_B->angularV,tick);
 
 	p_B->orientation.Normalise();
-	p_B->orientation.display();
 
 	//3. Transformation affine
 	p_B->transformMatrix.setOrientationAndPosition(
@@ -277,15 +327,6 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 {
 
 	integrate(p_B, tick);
-
-	//p_B->acceleration.display();
-
-	/*
-	std::cout << p_B->orientation.value[0]
-		<< p_B->orientation.value[1]
-		<< p_B->orientation.value[2]
-		<< p_B->orientation.value[3]
-		<< std::endl;*/
 
 	boundBounceCheck(p_B, bounds);
 

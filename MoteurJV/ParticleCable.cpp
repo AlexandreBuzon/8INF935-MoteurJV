@@ -1,6 +1,6 @@
 #include "Particle.h"
 #include "ParticuleContact.h"
-#include "ParticleConstraintGenerator.h"
+#include "ConstraintGenerator.h"
 #include "ParticleLink.h"
 #include "ParticleCable.h"
 
