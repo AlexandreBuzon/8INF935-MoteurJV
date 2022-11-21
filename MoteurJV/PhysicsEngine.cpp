@@ -52,16 +52,6 @@ void PhysicsEngine::callback(GLFWwindow* window, int key, int scancode, int acti
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
 		std::cout << "GRAVITE" << std::endl;
 		engine.getForceRegistry()->insert(std::make_pair("g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
-		engine.getForceRegistry()->insert(std::make_pair(
-			"r", new StaticSpring(Vecteur3D(0, 0, 0), 5, 500)));
-		engine.getForceRegistry()->insert(std::make_pair(
-			"p1", new LinearFieldGenerator(Vecteur3D(1.1, 0, 0), true)));
-		engine.getForceRegistry()->insert(std::make_pair(
-			"p2", new LinearFieldGenerator(Vecteur3D(0, -1, 0), true)));
-		engine.getForceRegistry()->insert(std::make_pair(
-			"p3", new LinearFieldGenerator(Vecteur3D(0, 0, 1.3), true)));
-		engine.getForceRegistry()->insert(std::make_pair(
-			"t", new FluidDrag(0, 0, 25)));
 	}
 	
 	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
@@ -124,9 +114,18 @@ void PhysicsEngine::accelIntegrate(RigidBody* p_B, double tick) {
 
 		for (bodyForce force : p_B->permanentForces) {
 
-			p_universalForceRegistry->at(force.idForce)->
-				updateForce(p_B, force.applicationP);
+			auto index = p_universalForceRegistry->
+				find(force.idForce);
 
+			/*
+			Aucun risque de comportement imprévisible
+			si le générateur est supprimé de la table.
+			*/
+			if (index != p_universalForceRegistry->end()) {
+
+				p_universalForceRegistry->at(force.idForce)->
+					updateForce(p_B, force.applicationP);
+			}
 		}
 	}
 
