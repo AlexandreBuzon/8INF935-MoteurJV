@@ -115,8 +115,9 @@ void Environment::play()
 	while (!glfwWindowShouldClose(window)) {
 
 		//Boucle physique.
-		engine.physicsLoop(&currentTime, &deltaTime, tick, bounds);
-
+		if (engine.getForceRegistry()->size() != 0) {
+			engine.physicsLoop(&currentTime, &deltaTime, tick, bounds);
+		}
 
 		//Mise à jour graphique.
 				// Specifie la couleur du background

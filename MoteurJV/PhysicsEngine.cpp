@@ -39,28 +39,50 @@ void  PhysicsEngine::setupKeyInputs(GLFWwindow* window) {
 void PhysicsEngine::callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	//Input
 	PhysicsEngine& engine = PhysicsEngine::GetInstance();
-	if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		std::cout << "FIN" << std::endl;
 		glfwSetWindowShouldClose(window, true);
 	}
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
-		std::cout << "GRAVITE" << std::endl;
-		engine.getForceRegistry()->insert(std::make_pair(
-			"g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
 
-	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		std::cout << "Nombre de force :" << std::endl;
 		instance.display();
-		std::cout << "CLEAR" << std::endl;
+	}
 
+	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+		std::cout << "GRAVITE" << std::endl;
+		engine.getForceRegistry()->insert(std::make_pair("g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
+		engine.getForceRegistry()->insert(std::make_pair(
+			"r", new StaticSpring(Vecteur3D(0, 0, 0), 5, 500)));
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p1", new LinearFieldGenerator(Vecteur3D(1.1, 0, 0), true)));
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p2", new LinearFieldGenerator(Vecteur3D(0, -1, 0), true)));
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p3", new LinearFieldGenerator(Vecteur3D(0, 0, 1.3), true)));
+		engine.getForceRegistry()->insert(std::make_pair(
+			"t", new FluidDrag(0, 0, 25)));
 	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		engine.getForceRegistry()->insert(std::make_pair("r1", new StaticSpring(Vecteur3D(), 10, 700)));
-		std::cout << "R1" << std::endl;
+	
+	if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p1", new LinearFieldGenerator(Vecteur3D(1.1, 0, 0), true)));
 	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		engine.getForceRegistry()->insert(std::make_pair("r2", new StaticSpring(Vecteur3D(), 5, 700)));
-		std::cout << "R2" << std::endl;
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p2", new LinearFieldGenerator(Vecteur3D(0, -1, 0), true)));
+	}
+	if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair(
+			"p3", new LinearFieldGenerator(Vecteur3D(0, 0, 1.3), true)));
+	}
+	if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair(
+			"r", new StaticSpring(Vecteur3D(0, 0, 0), 5, 500)));
+	}
+	if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) {
+		engine.getForceRegistry()->insert(std::make_pair(
+			"t", new FluidDrag(0, 0, 25)));
 	}
 
 }

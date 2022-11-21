@@ -11,7 +11,7 @@ Classe gérante de la physique d'un environnement.
 
 #include "Fireball.h"
 #include "Ball.h"
-
+#include "FluidDrag.h"
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include "ForceGenerator.h"
