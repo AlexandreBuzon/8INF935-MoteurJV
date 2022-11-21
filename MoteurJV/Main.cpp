@@ -27,9 +27,13 @@ int main()
 		Vecteur3D(100,750,-450),Vecteur3D(-12, 23, 10),
 		Vecteur3D(5,-7,1), Quaternion(1,0,0,0));
 
+	Cube C2 = Cube(1.2, 1,
+		Vecteur3D(300, 350, -450), Vecteur3D(-12, 23, 10),
+		Vecteur3D(5, -7, 1), Quaternion(1, 0, 0, 0));
+
 
 	std::vector<Particle*> pP = {};
-	std::vector<RigidBody*> bP = {&C};
+	std::vector<RigidBody*> bP = {&C,&C2};
 
 	std::map<std::string,
 		std::unique_ptr<ForceGenerator>>
