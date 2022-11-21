@@ -44,23 +44,8 @@ int main()
 	engine.p_constraints = &lConstraints;
 	engine.p_universalForceRegistry = &lForce;
 
-
-	//A PLACER EN INPUT.
-	/*lForce.insert(std::make_pair(
-		"g", new LinearFieldGenerator(Vecteur3D(0, -10, 0), false)));
-	
-	lForce.insert(std::make_pair(
-		"p1", new LinearFieldGenerator(Vecteur3D(1.1, 0, 0), true)));
-
-	lForce.insert(std::make_pair(
-		"p2", new LinearFieldGenerator(Vecteur3D(0, -1, 0), true)));
-
-	lForce.insert(std::make_pair(
-		"p3", new LinearFieldGenerator(Vecteur3D(0, 0, 1.3), true)));
-
-	lForce.insert(std::make_pair(
-		"r", new StaticSpring(Vecteur3D(0, 0, 0), 5, 500)));
-	*/
+	//Seule force inaccessible par input, car nécessaire au bon fonctionnement
+	// de la démonstration.
 	lForce.insert(std::make_pair(
 		"t", new FluidDrag(0, 0, 25)));
 
