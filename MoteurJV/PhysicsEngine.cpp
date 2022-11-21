@@ -39,6 +39,7 @@ void  PhysicsEngine::setupKeyInputs(GLFWwindow* window) {
 void PhysicsEngine::callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	//Input
 	PhysicsEngine& engine = PhysicsEngine::GetInstance();
+	 
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		std::cout << "FIN" << std::endl;
 		glfwSetWindowShouldClose(window, true);
@@ -74,6 +75,13 @@ void PhysicsEngine::callback(GLFWwindow* window, int key, int scancode, int acti
 		engine.getForceRegistry()->insert(std::make_pair(
 			"t", new FluidDrag(0, 0, 25)));
 	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+		engine.getForceRegistry()->clear();
+	}
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+		
+	}
+	
 
 }
 void PhysicsEngine::display() {

@@ -27,6 +27,7 @@ int main()
 		Vecteur3D(100,750,-450),Vecteur3D(-12, 23, 10),
 		Vecteur3D(5,-7,1), Quaternion(1,0,0,0));
 
+
 	std::vector<Particle*> pP = {};
 	std::vector<RigidBody*> bP = {&C};
 
@@ -59,9 +60,9 @@ int main()
 
 	lForce.insert(std::make_pair(
 		"r", new StaticSpring(Vecteur3D(0, 0, 0), 5, 500)));
-
+	*/
 	lForce.insert(std::make_pair(
-		"t", new FluidDrag(0, 0, 25)));*/
+		"t", new FluidDrag(0, 0, 25)));
 
 	Environment E = Environment(1.0 / 60.0,
 		engine,

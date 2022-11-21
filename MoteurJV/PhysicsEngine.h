@@ -17,7 +17,7 @@ Classe gérante de la physique d'un environnement.
 #include "ForceGenerator.h"
 #include "LinearFieldGenerator.h"
 #include "StaticSPring.h"
-
+#include "Cube.h"
 #include "ConstraintGenerator.h"
 #include "ParticuleContact.h"
 
