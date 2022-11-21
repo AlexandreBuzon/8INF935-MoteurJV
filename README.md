@@ -25,3 +25,12 @@ cette fois-ci le dossier lib situés dans libraries et cliquer sur OK
 LANCEMENT DU PROJET 
 -Se placer dans le main
 -Exécuter le programme
+Pour ajouter des forces sur le cube  :
+Appuyer sur :
+1 : Gravité  
+2 : Force de poussée 1
+3 : Force de poussée 2
+4 : Force de poussée 3
+5 : Force de  Ressort 
+
+(La force de trainée étant appliqué de base)
