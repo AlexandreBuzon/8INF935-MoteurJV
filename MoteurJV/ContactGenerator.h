@@ -24,7 +24,7 @@ public:
 	ContactGenerator();
 	~ContactGenerator();
 
-	virtual Contact generateData(const Primitive& P1, const Primitive& P2) = 0;
+	Contact generateData(const Primitive& P1, const Primitive& P2);
 
 	//Sphère-Sphère.
 	Contact generateData(const Sphere& S1, const Sphere& S2);

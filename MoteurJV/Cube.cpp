@@ -62,7 +62,7 @@ Cube::Cube(double inverseMass, float restitution,
 
     constraints = {};
 
-    this->inverseMass = inverseMass;
+    this->inverseMass = (float)inverseMass;
 
     this->inverseInertia = Matrix33(
         12 * inverseMass/50,0,0,

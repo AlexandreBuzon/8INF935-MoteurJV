@@ -21,6 +21,7 @@ class Primitive
 {
 
 	friend class ContactGenerator;
+	friend class RigidBody;
 
 private:
 	RigidBody* body;
