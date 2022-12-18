@@ -1,5 +1,18 @@
 #include "ContactGenerator.h"
 
+ContactGenerator::ContactGenerator()
+{
+}
+
+ContactGenerator::~ContactGenerator()
+{
+}
+
+Contact ContactGenerator::generateData(const Primitive& P1, const Primitive& P2)
+{
+	return Contact();
+}
+
 Contact ContactGenerator::generateData(const Sphere& S1, const Sphere& S2) {
 
 	CollisionData c = CollisionData();

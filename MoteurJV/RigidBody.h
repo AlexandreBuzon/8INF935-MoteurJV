@@ -15,20 +15,7 @@ struct bodyForce {
 	Vecteur3D applicationP;
 
 };
-
-//Pour les collisions.
-class Primitive
-{
-
-	friend class ContactGenerator;
-	friend class RigidBody;
-
-private:
-	RigidBody* body;
-	Matrix34 offset;
-
-};
-
+class  Primitive;
 #pragma once
 class RigidBody
 {
@@ -81,3 +68,15 @@ public:
 	std::vector<Primitive> primitiveList;
 };
 
+//Pour les collisions.
+class Primitive
+{
+
+	friend class ContactGenerator;
+	//friend class RigidBody;
+
+private:
+	RigidBody* body;
+	Matrix34 offset;
+
+};

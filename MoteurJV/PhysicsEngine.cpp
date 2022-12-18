@@ -358,8 +358,8 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 	integrate(p_B, tick);
 
 	//BROAD PHASE
-	TreeNode** tree;
-
+	TreeNode** tree{};{};
+	
 	//Méthode à compléter.
 	topDownBVTree(tree, *p_bodyPopulation);
 

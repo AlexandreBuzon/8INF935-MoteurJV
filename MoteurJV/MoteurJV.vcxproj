@@ -185,6 +185,7 @@
     <ClCompile Include="shaderClass.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="StaticSpring.cpp" />
+    <ClCompile Include="TreeNode.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
