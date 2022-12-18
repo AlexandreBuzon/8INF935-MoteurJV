@@ -142,7 +142,7 @@ void Environment::play()
 		//Changement de coordonnées par vecteurs.
 		for (size_t j = 0; j < engine.p_bodyPopulation->size(); j++)
 		{
-			
+			glm::mat4 model = glm::mat4(1.0f);
 
 			double x = engine.p_bodyPopulation->at(j)->position.getX();
 			double y = engine.p_bodyPopulation->at(j)->position.getY();
