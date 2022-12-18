@@ -34,6 +34,7 @@ class RigidBody
 
 friend class PhysicsEngine;
 friend class ContactGenerator;
+friend class TreeNode;
 
 protected:
 
@@ -45,7 +46,8 @@ protected:
 
 	float restitution;
 
-
+	//Volume englobant en phase large.
+	double broadRadius;
 
 	RigidBody();
 

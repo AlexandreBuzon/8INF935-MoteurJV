@@ -358,19 +358,16 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 	integrate(p_B, tick);
 
 	//BROAD PHASE
+	TreeNode** tree;
+
+	//Méthode à compléter.
+	topDownBVTree(tree, *p_bodyPopulation);
 
 	//NARROW PHASE
-	/*
-	for (noeud père de feuille){
-	
-		RigidBody& B1 = noeud gauche;
-		RigidBody& B2 = noeud droit;
+	search(tree);
 
-		narrowPhase(B1,B2);
-	
-	}
-	
-	*/
+	//Plus besoin de l'arbre.
+	delete tree;
 
 	boundBounceCheck(p_B, bounds);
 

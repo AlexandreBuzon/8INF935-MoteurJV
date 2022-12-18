@@ -7,7 +7,8 @@ Classe gérante de la physique d'un environnement.
 
 #include "Particle.h"
 
-#include "RigidBody.h"
+#include "TreeNode.h"
+#include "ContactGenerator.h"
 
 #include "Fireball.h"
 #include "Ball.h"
@@ -82,6 +83,105 @@ public:
 	//Méthode de recherche de collision entre particules.
 	std::vector<ParticuleContact> particleCollisionSearch();
 	
+	//Construction top-down d'un arbre de volumes englobants (inspiré par Ericson).
+	void topDownBVTree(TreeNode** tree, std::vector<RigidBody*> elements) {
+
+		TreeNode* p_Node = new TreeNode();
+
+		*tree = p_Node;
+
+		//A FAIRE. VOIR ERICSON OU JSP SUR COMMENT FAIRE UN VOLUME SPHERIQUE ENGLOBANT.
+		//*p_Node->buildBV(elements);
+
+		if (elements.size() <= 1) {
+		
+			p_Node->nodeType = LEAF;
+			p_Node->VolumeElements = elements;
+
+		
+		}
+		else {
+			p_Node->nodeType = NODE;
+
+			std::vector<std::vector<RigidBody*>> subsets = partition(elements, p_Node->BVposition.normalize());
+
+			topDownBVTree(&p_Node->left, subsets.at(0));
+			topDownBVTree(&p_Node->right, subsets.at(1));
+
+		}
+
+	}
+
+
+	//A REVOIR
+	void search(TreeNode** tree) {
+
+		ContactGenerator cG = ContactGenerator();
+
+		if ((*tree)->left != 0 && (*tree)->right != 0) {
+
+			if ((*tree)->left->nodeType == LEAF && (*tree)->right->nodeType == LEAF) {
+
+				TreeNode*& l = (*tree)->left;
+				TreeNode*& r = (*tree)->right;
+
+				double radiusSum = l->BVradius + r->BVradius;
+
+				double distance = (l->BVposition - r->BVposition).norm();
+
+				if (radiusSum >= distance) {
+
+					for (RigidBody* p_rbL : l->VolumeElements) {
+
+						for (RigidBody* p_rbR : r->VolumeElements) {
+
+							cG.narrowPhase(*p_rbL, *p_rbR);
+
+						}
+
+					}
+
+				}
+
+			}
+			else {
+
+				search(&(*tree)->left);
+				search(&(*tree)->right);
+			}
+
+
+		}
+	
+	};
+
+	//Algorithme de partitionnement.
+	std::vector<std::vector<RigidBody*>> partition(std::vector<RigidBody*> elements, Vecteur3D axis) {
+	
+		std::vector<std::vector<RigidBody*>> subsets = { {},{} };
+		
+		double mean = 0;
+
+		//Calcul de la moyenne.
+		for (RigidBody* p_rb : elements) {
+
+			mean += p_rb->position * axis;
+
+		}
+
+		mean = mean / elements.size();
+
+		//Tri selon la moyenne.
+		for (RigidBody* p_rb : elements) {
+
+			if (p_rb->position * axis <= mean)subsets.at(0).push_back(p_rb);
+			else subsets.at(1).push_back(p_rb);
+
+		}
+
+		return subsets;
+
+	};
 
 	/*
 	Synchronisation de la physique et de la réalité.
