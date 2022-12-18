@@ -9,11 +9,20 @@ des méthodes.
 #pragma once
 
 #include "RigidBody.h"
-#include "CollisionData.h"
 #include "Plane.h"
 
 //DBL_MAX.
 #include<float.h>
+
+struct Contact {
+
+	//Coordonnées globales
+	Vecteur3D normal;
+	Vecteur3D pointContact;
+
+	double penetration;
+
+};
 
 class ContactGenerator
 {

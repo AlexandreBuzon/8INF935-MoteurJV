@@ -3,9 +3,15 @@
 ContactGenerator::ContactGenerator() {}
 ContactGenerator::~ContactGenerator(){}
 
+Contact ContactGenerator::generateData(const Primitive& S1, const Primitive& S2) {
+
+	std::cout << "pas la bonne surcharge\n";
+
+	return { Vecteur3D(), Vecteur3D(), -1 };
+}
+
 Contact ContactGenerator::generateData(const Sphere& S1, const Sphere& S2) {
 
-	CollisionData c = CollisionData();
 
 	double radiusSum = S1.radius + S2.radius;
 

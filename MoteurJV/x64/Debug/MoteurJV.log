@@ -1,8 +1,46 @@
-﻿  PhysicsEngine.cpp
+﻿  ContactGenerator.cpp
+  Environment.cpp
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(160,51): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(160,48): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(160,45): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(160,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(167,96): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\Environment.cpp(37,9): warning C4101: 'objectBufferId': unreferenced local variable
+  Main.cpp
+  PhysicsEngine.cpp
 h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(396,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(493,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\PhysicsEngine.cpp(527,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  WallContactGenerator.cpp
   Generating Code...
-ContactGenerator.obj : error LNK2019: unresolved external symbol "public: struct Contact __cdecl ContactGenerator::generateData(class Primitive const &,class Primitive const &)" (?generateData@ContactGenerator@@QEAA?AUContact@@AEBVPrimitive@@0@Z) referenced in function "public: void __cdecl ContactGenerator::narrowPhase(class RigidBody &,class RigidBody &)" (?narrowPhase@ContactGenerator@@QEAAXAEAVRigidBody@@0@Z)
-h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\MoteurJV.exe : fatal error LNK1120: 1 unresolved externals
+glfw3.lib(context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(context.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(init.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(input.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(vulkan.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(vulkan.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(window.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_joystick.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_thread.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_thread.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(egl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(egl_context.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(osmesa_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(osmesa_context.obj)' or at 'h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\glfw3.pdb'; linking object as if no debug info
+  MoteurJV.vcxproj -> h:\Documents\GitHub\8INF935-MoteurJV\MoteurJV\x64\Debug\MoteurJV.exe
