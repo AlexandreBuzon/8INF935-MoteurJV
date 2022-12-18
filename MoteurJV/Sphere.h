@@ -2,7 +2,7 @@
 Primitive sphérique.
 */
 
-#include "Primitive.h"
+#include "RigidBody.h"
 
 #pragma once
 class Sphere : Primitive

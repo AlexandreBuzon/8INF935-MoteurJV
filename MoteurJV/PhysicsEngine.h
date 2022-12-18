@@ -7,8 +7,7 @@ Classe gérante de la physique d'un environnement.
 
 #include "Particle.h"
 
-#include "TreeNode.h"
-#include "ContactGenerator.h"
+
 
 #include "Fireball.h"
 #include "Ball.h"
@@ -21,6 +20,9 @@ Classe gérante de la physique d'un environnement.
 #include "Cube.h"
 #include "ConstraintGenerator.h"
 #include "ParticuleContact.h"
+
+#include "TreeNode.h"
+#include "ContactGenerator.h"
 
 //Mesure de temps pour la boucle de raffraichissement.
 #include <chrono>
@@ -90,8 +92,7 @@ public:
 
 		*tree = p_Node;
 
-		//A FAIRE. VOIR ERICSON OU JSP SUR COMMENT FAIRE UN VOLUME SPHERIQUE ENGLOBANT.
-		//*p_Node->buildBV(elements);
+		p_Node->buildBV(elements);
 
 		if (elements.size() <= 1) {
 		

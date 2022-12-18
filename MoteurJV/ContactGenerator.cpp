@@ -1,5 +1,8 @@
 #include "ContactGenerator.h"
 
+ContactGenerator::ContactGenerator() {}
+ContactGenerator::~ContactGenerator(){}
+
 Contact ContactGenerator::generateData(const Sphere& S1, const Sphere& S2) {
 
 	CollisionData c = CollisionData();
@@ -148,9 +151,9 @@ Contact ContactGenerator::generateData(Box& B, const Sphere& S) {
 
 void ContactGenerator::narrowPhase(RigidBody& B1, RigidBody& B2) {
 
-	for (Primitive& P1 : B1.primitiveList) {
+	for (Primitive P1 : B1.primitiveList) {
 
-		for (Primitive& P2 : B2.primitiveList) {
+		for (Primitive P2 : B2.primitiveList) {
 
 			resolveContact(B1, B2, generateData(P1, P2));
 

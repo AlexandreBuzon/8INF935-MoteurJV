@@ -8,9 +8,8 @@ des méthodes.
 
 #pragma once
 
+#include "RigidBody.h"
 #include "CollisionData.h"
-#include "Box.h"
-#include "Sphere.h"
 #include "Plane.h"
 
 //DBL_MAX.
@@ -42,6 +41,8 @@ public:
 	Contact generateData(Box& B, const Sphere& S);
 
 	//Boîte-Boîte. (Separating Axis Test, Millington)
+
+	//Fonction intermédiaire pour un axe.
 	double penetrationOnAxis(Box& B1, Box& B2,
 		Vecteur3D& axis, Vecteur3D& toCenter) {
 
@@ -82,6 +83,8 @@ public:
 		return (ptOnEdge1 + axis1 * (m1 / 2)) + (ptOnEdge2 + axis2 * (m2 / 2));
 	
 	};
+
+	//Méthode finale.
 	Contact generateData(Box& B1, Box& B2) {
 
 		Vecteur3D axes[15];

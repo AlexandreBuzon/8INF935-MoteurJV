@@ -1,4 +1,4 @@
-#include "Primitive.h"
+#include "RigidBody.h"
 #pragma once
 class Box : Primitive
 {

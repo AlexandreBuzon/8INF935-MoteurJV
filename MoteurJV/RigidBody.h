@@ -23,9 +23,31 @@ class Primitive
 	friend class ContactGenerator;
 	friend class RigidBody;
 
-private:
+public:
+	Primitive() { body = 0; offset = Matrix34(); };
+	~Primitive() {};
+
+protected:
 	RigidBody* body;
 	Matrix34 offset;
+
+};
+
+class Box : public Primitive
+{
+
+	friend class ContactGenerator;
+
+public:
+	Vecteur3D halfsize;
+};
+
+class Sphere : public Primitive
+{
+	friend class ContactGenerator;
+
+public:
+	double radius;
 
 };
 
