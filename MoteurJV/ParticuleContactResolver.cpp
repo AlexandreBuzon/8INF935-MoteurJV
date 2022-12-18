@@ -8,7 +8,7 @@ void ParticuleContactResolver::resolveContacts(ParticuleContact* contactArray, u
 	iterationUsed = 0;
 	while (iterationUsed < iteration) 
 	{
-		float max;
+		float max = 80000;
 		unsigned maxIndex = numContacts;
 		for (i = 0; i < numContacts; i++) 
 		{

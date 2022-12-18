@@ -16,11 +16,24 @@ struct bodyForce {
 
 };
 
+//Pour les collisions.
+class Primitive
+{
+
+	friend class ContactGenerator;
+
+private:
+	RigidBody* body;
+	Matrix34 offset;
+
+};
+
 #pragma once
 class RigidBody
 {
 
 friend class PhysicsEngine;
+friend class ContactGenerator;
 
 protected:
 
@@ -57,8 +70,11 @@ public:
 
 	Matrix34 transformMatrix;
 
+	//Graphique.
 	std::vector<GLfloat> GLvertices;
 	std::vector<GLuint> triangles;
 
+	//Primitives
+	std::vector<Primitive> primitiveList;
 };
 

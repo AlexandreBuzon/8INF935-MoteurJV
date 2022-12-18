@@ -39,10 +39,10 @@ class Vecteur3D
 		Vecteur3D operator *(const double &b) const;
 
 		//Produit scalaire par surcharge de l'opérateur *.
-		double operator *(Vecteur3D &B);
+		double operator *(const Vecteur3D &B);
 
 		//Produit vectoriel. Défini en sens direct (règle de la main droite).
-		Vecteur3D operator ^(Vecteur3D &B);
+		Vecteur3D operator ^(const Vecteur3D &B);
 
 		//Norme euclidienne.
 		double norm();

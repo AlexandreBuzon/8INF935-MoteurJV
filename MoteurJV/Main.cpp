@@ -20,8 +20,9 @@
 
 int main()
 {
-
-	PhysicsEngine& engine = PhysicsEngine::GetInstance();
+	/*
+	
+		PhysicsEngine& engine = PhysicsEngine::GetInstance();
 
 	Cube C = Cube(1.2, 1,
 		Vecteur3D(100,750,-450),Vecteur3D(-12, 23, 10),
@@ -58,6 +59,10 @@ int main()
 		1000, 1000, 1000);
 
 	E.play();
+	
+	*/
+
+
 
 	return 0;
 }

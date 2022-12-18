@@ -101,7 +101,7 @@ Vecteur3D Vecteur3D::operator *(const double& b) const {
 }
 
 //Produit scalaire pas saturation de l'opérateur *.
-double Vecteur3D::operator *(Vecteur3D &B) {
+double Vecteur3D::operator *(const Vecteur3D &B) {
 
 	double result = x * B.x + y * B.y + z * B.z;
 
@@ -109,7 +109,7 @@ double Vecteur3D::operator *(Vecteur3D &B) {
 }
 
 //Produit vectoriel. Défini en sens direct.
-Vecteur3D Vecteur3D::operator ^(Vecteur3D &B) {
+Vecteur3D Vecteur3D::operator ^(const Vecteur3D &B) {
 
 	Vecteur3D C;
 	C.x = y * B.z - z * B.y;

@@ -357,6 +357,21 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 
 	integrate(p_B, tick);
 
+	//BROAD PHASE
+
+	//NARROW PHASE
+	/*
+	for (noeud père de feuille){
+	
+		RigidBody& B1 = noeud gauche;
+		RigidBody& B2 = noeud droit;
+
+		narrowPhase(B1,B2);
+	
+	}
+	
+	*/
+
 	boundBounceCheck(p_B, bounds);
 
 }

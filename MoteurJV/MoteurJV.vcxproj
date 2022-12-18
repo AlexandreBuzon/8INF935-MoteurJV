@@ -148,6 +148,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="ContactGenerator.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CollisionData.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Fireball.cpp" />
@@ -162,14 +166,24 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="LinearFieldGenerator.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Matrix33.cpp" />
+    <ClCompile Include="Matrix34.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleCable.cpp" />
     <ClCompile Include="ParticleLink.cpp" />
     <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="ParticuleContact.cpp" />
+    <ClCompile Include="ParticuleContactGenerator.cpp" />
+    <ClCompile Include="ParticuleContactResolver.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RodEnd.cpp" />
     <ClCompile Include="shaderClass.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="StaticSpring.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
@@ -178,10 +192,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="ConstraintGenerator.h" />
+    <ClInclude Include="ContactGenerator.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="CollisionData.h" />
     <ClInclude Include="EBO.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="FluidDrag.h" />
+    <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
@@ -192,16 +212,22 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="LinearFieldGenerator.h" />
+    <ClInclude Include="Matrix33.h" />
+    <ClInclude Include="Matrix34.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleCable.h" />
-    <ClInclude Include="ParticleForceGenerator.h" />
     <ClInclude Include="ParticleLink.h" />
     <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="ParticuleConstraintGenerator.h" />
     <ClInclude Include="ParticuleContact.h" />
     <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="Plane.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="RodEnd.h" />
     <ClInclude Include="shaderClass.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="StaticSpring.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
