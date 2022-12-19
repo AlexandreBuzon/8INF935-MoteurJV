@@ -357,22 +357,36 @@ void PhysicsEngine::nextPosition(RigidBody* p_B, double tick, Vecteur3D bounds)
 
 	integrate(p_B, tick);
 
-	//BROAD PHASE
-	TreeNode** tree = 0;
-
-	//Méthode à compléter.
-	topDownBVTree(tree, *p_bodyPopulation);
-
-	//NARROW PHASE
-	search(tree);
-
-	//Plus besoin de l'arbre.
-	delete tree;
-
 	boundBounceCheck(p_B, bounds);
 
 }
+//Construction top-down d'un arbre de volumes englobants (inspiré par Ericson).
+void PhysicsEngine::topDownBVTree(TreeNode* tree, std::vector<RigidBody*> elements) {
 
+	TreeNode* p_Node = new TreeNode();
+
+	tree = p_Node;
+
+	p_Node->buildBV(elements);
+
+	if (elements.size() <= 1) {
+
+		p_Node->nodeType = LEAF;
+		p_Node->VolumeElements = elements;
+
+
+	}
+	else {
+		p_Node->nodeType = NODE;
+
+		std::vector<std::vector<RigidBody*>> subsets = partition(elements, p_Node->BVposition.normalize());
+
+		topDownBVTree(p_Node->left, subsets.at(0));
+		topDownBVTree(p_Node->right, subsets.at(1));
+
+	}
+
+}
 
 
 
@@ -493,7 +507,17 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 				conflicts.back().resolve(tick);
 				conflicts.pop_back();
 			}
+			//BROAD PHASE
+			TreeNode* tree = new TreeNode();
 
+			//Méthode à compléter.
+			topDownBVTree(tree, *p_bodyPopulation);
+
+			//NARROW PHASE
+			search(tree);
+
+			//Plus besoin de l'arbre.
+			delete tree;
 
 			*p_deltaTime -= tick;
 			i++;
@@ -527,7 +551,17 @@ void PhysicsEngine::physicsLoop(high_resolution_clock::time_point* p_currentTime
 				conflicts.back().resolve(tick);
 				conflicts.pop_back();
 			}
+			//BROAD PHASE
+			TreeNode* tree = new TreeNode();
 
+			//Méthode à compléter.
+			topDownBVTree(tree, *p_bodyPopulation);
+
+			//NARROW PHASE
+			search(tree);
+
+			//Plus besoin de l'arbre.
+			delete tree;
 		}
 
 	}

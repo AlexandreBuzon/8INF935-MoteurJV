@@ -26,6 +26,7 @@ private:
 	double BVradius;
 
 	TreeNode();
+	TreeNode(const TreeNode& tree);
 
 	void _delete();
 

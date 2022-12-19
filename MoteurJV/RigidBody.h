@@ -15,7 +15,6 @@ struct bodyForce {
 	Vecteur3D applicationP;
 
 };
-
 //Pour les collisions.
 class Primitive
 {
@@ -40,6 +39,11 @@ class Box : public Primitive
 
 public:
 	Vecteur3D halfsize;
+	Box(RigidBody* rig, Matrix34 off, Vecteur3D size) {
+		halfsize = size;
+		body = rig;
+		offset = off;
+	};
 };
 
 class Sphere : public Primitive

@@ -221,6 +221,7 @@
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RodEnd.h" />
     <ClInclude Include="shaderClass.h" />
     <ClInclude Include="StaticSpring.h" />

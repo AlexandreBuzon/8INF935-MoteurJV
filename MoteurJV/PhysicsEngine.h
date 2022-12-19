@@ -52,6 +52,7 @@ public:
 
 	//Dictionnaire de contraintes définies.
 	std::map<std::string, std::unique_ptr<ConstraintGenerator>>* p_constraints;
+	void topDownBVTree(TreeNode* tree, std::vector<RigidBody*> elements);
 
 	//Constructeurs
 	PhysicsEngine();
@@ -84,47 +85,18 @@ public:
 
 	//Méthode de recherche de collision entre particules.
 	std::vector<ParticuleContact> particleCollisionSearch();
-	
-	//Construction top-down d'un arbre de volumes englobants (inspiré par Ericson).
-	void topDownBVTree(TreeNode** tree, std::vector<RigidBody*> elements) {
-
-		TreeNode* p_Node = new TreeNode();
-
-		*tree = p_Node;
-
-		p_Node->buildBV(elements);
-
-		if (elements.size() <= 1) {
-		
-			p_Node->nodeType = LEAF;
-			p_Node->VolumeElements = elements;
-
-		
-		}
-		else {
-			p_Node->nodeType = NODE;
-
-			std::vector<std::vector<RigidBody*>> subsets = partition(elements, p_Node->BVposition.normalize());
-
-			topDownBVTree(&p_Node->left, subsets.at(0));
-			topDownBVTree(&p_Node->right, subsets.at(1));
-
-		}
-
-	}
-
 
 	//A REVOIR
-	void search(TreeNode** tree) {
+	void search(TreeNode* tree) {
 
 		ContactGenerator cG = ContactGenerator();
 
-		if ((*tree)->left != 0 && (*tree)->right != 0) {
+		if ((tree)->left != 0 && (tree)->right != 0) {
 
-			if ((*tree)->left->nodeType == LEAF && (*tree)->right->nodeType == LEAF) {
+			if ((tree)->left->nodeType == LEAF && (tree)->right->nodeType == LEAF) {
 
-				TreeNode*& l = (*tree)->left;
-				TreeNode*& r = (*tree)->right;
+				TreeNode*& l = (tree)->left;
+				TreeNode*& r = (tree)->right;
 
 				double radiusSum = l->BVradius + r->BVradius;
 
@@ -147,8 +119,8 @@ public:
 			}
 			else {
 
-				search(&(*tree)->left);
-				search(&(*tree)->right);
+				search((tree)->left);
+				search((tree)->right);
 			}
 
 

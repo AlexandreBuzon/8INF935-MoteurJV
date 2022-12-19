@@ -333,46 +333,7 @@ public:
 	//Résolution de contact.
 	void resolveContact(RigidBody& B1,
 		RigidBody& B2,
-		Contact data) {
-
-		Matrix33 M_t = orthonormalBasis(data.normal).Transpose();
-	
-		Vecteur3D qRel1 = data.pointContact - B1.position;
-		Vecteur3D u1 = qRel1 ^ data.normal;
-		Vecteur3D theta1 = B1.inverseInertia * u1;
-		Vecteur3D q_p1 = theta1 ^ qRel1;
-
-		Vecteur3D qRel2 = data.pointContact - B2.position;
-		Vecteur3D u2 = (qRel2 ^ data.normal) * -1;
-		Vecteur3D theta2 = B2.inverseInertia * u2;
-		Vecteur3D q_p2 = theta2 ^ qRel2;
-
-		Vecteur3D velocity = q_p1 + B1.velocity + q_p2 + B2.velocity;
-
-		velocity = M_t * velocity;
-		
-		double desiredVelocity = -2 * velocity.x;
-
-		Vecteur3D impulse = M_t * Vecteur3D(desiredVelocity, 0, 0);
-
-		B1.velocity = B1.velocity + (impulse * B1.inverseMass);
-		B1.angularV = B1.angularV + B1.inverseInertia * (qRel1 ^ impulse);
-
-		B2.velocity = B2.velocity - (impulse * B2.inverseMass);
-		B2.angularV = B2.angularV - B2.inverseInertia * (qRel2 ^ impulse);
-
-		//Résolution de l'interpénétration.
-		double inverseInertia = 1 / (B1.inverseMass + B2.inverseMass);
-
-		Vecteur3D penetration = data.normal * data.penetration;
-
-		Vecteur3D linearMove1 = penetration * (B1.inverseMass * inverseInertia);
-		Vecteur3D linearMove2 = penetration * -(B2.inverseMass * inverseInertia);
-
-		B1.position = B1.position + linearMove1;
-		B2.position = B2.position + linearMove2;
-	
-	};
+		Contact data);
 
 	//Méthode générale comparant les primitives de deux corps rigides.
 	void narrowPhase(RigidBody& B1, RigidBody& B2);

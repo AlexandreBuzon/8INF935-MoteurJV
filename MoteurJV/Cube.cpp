@@ -26,6 +26,8 @@ Cube::Cube() {
     angularV = Vecteur3D();
     torqueSum = Vecteur3D();
 
+    primitiveList = {};
+
     transformMatrix.setOrientationAndPosition(
         orientation, position);
 

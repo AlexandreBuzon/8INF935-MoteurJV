@@ -32,8 +32,18 @@ TreeNode::~TreeNode() {
 TreeNode::TreeNode() {
 
 	nodeType = LEAF;
+	BVradius = 0;
 
 	left = 0;
 	right = 0;
 
+}
+
+TreeNode::TreeNode(const TreeNode& tree) {
+	
+	nodeType = tree.nodeType;
+	BVradius = tree.BVradius;
+
+	left = tree.left;
+	right = tree.right;
 }
