@@ -29,6 +29,9 @@ Cube::Cube() {
     transformMatrix.setOrientationAndPosition(
         orientation, position);
 
+    RigidBody* pointerRigi = this;
+    primitiveList = { Box(pointerRigi, Matrix34(),Vecteur3D(25,25,25))};
+
     GLvertices = { 0.05f,  0.05f,  0.05f,  1.0f,  0.0f,  0.0f,
                     0.05f,  0.05f,  -0.05f,  1.0f,  1.0f,  0.0f,
                     0.05f,  -0.05f,  -0.05f,  1.0f,  1.0f,  1.0f,

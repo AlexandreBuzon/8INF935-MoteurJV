@@ -15,6 +15,7 @@ struct bodyForce {
 	Vecteur3D applicationP;
 
 };
+class RigidBody;
 
 //Pour les collisions.
 class Primitive
@@ -25,10 +26,11 @@ class Primitive
 
 public:
 	Primitive() { body = 0; offset = Matrix34(); };
+	Primitive(const Primitive& prim) { body.reset(prim.body.get()); offset = prim.offset; };
 	~Primitive() {};
 
 protected:
-	RigidBody* body;
+	std::unique_ptr<RigidBody> body;
 	Matrix34 offset;
 
 };
@@ -40,6 +42,18 @@ class Box : public Primitive
 
 public:
 	Vecteur3D halfsize;
+	Box(RigidBody *newBody, Matrix34 newOffset, Vecteur3D size) {
+		body = std::unique_ptr<RigidBody>(newBody);
+		offset = newOffset;
+		halfsize = size;
+	};
+	Box() {
+		body = 0;
+		offset = Matrix34();
+	};
+	~Box() {
+	
+	};
 };
 
 class Sphere : public Primitive
@@ -48,7 +62,19 @@ class Sphere : public Primitive
 
 public:
 	double radius;
-
+	Sphere(RigidBody *newBody, Matrix34 newOffset, double newRad) {
+		body = std::unique_ptr<RigidBody>(newBody);
+		offset = newOffset;
+		radius = newRad;
+	};
+	Sphere() {
+		body = 0;
+		offset = Matrix34();
+		radius = 0;
+	};
+	~Sphere() {
+		
+	};
 };
 
 #pragma once
@@ -73,8 +99,6 @@ protected:
 	double broadRadius;
 
 	RigidBody();
-
-	~RigidBody();
 
 
 public:
@@ -101,5 +125,6 @@ public:
 
 	//Primitives
 	std::vector<Primitive> primitiveList;
+	~RigidBody();
 };
 
